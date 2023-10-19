@@ -1,5 +1,4 @@
 import {getLocal, getLocalExpire, removeLocal, setLocal} from '@/utils'
-import api from '@/api'
 
 const TOKEN_CODE = 'access_token'
 /** token过期时间：6小时 */
@@ -24,8 +23,8 @@ export async function refreshAccessToken() {
   if (!expire || expire - new Date().getTime() > 1000 * 60 * 30) return
 
   try {
-    const res: any = await api.refreshToken()
-    if (res.code === 0) setToken(res.data.token)
+    /*const res: any = await api.refreshToken()
+    if (res.code === 0) setToken(res.data.token)*/
   } catch {
     // 无感刷新，有异常也不提示
   }
