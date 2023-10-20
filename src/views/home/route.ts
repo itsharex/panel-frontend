@@ -6,17 +6,17 @@ export default {
   name: 'Dashboard',
   path: '/',
   component: Layout,
-  redirect: '/workbench',
+  redirect: '/home',
   meta: {
     order: 0
   },
   children: [
     {
-      name: 'Workbench',
-      path: 'workbench',
+      name: 'Home',
+      path: 'home',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '工作台',
+        title: '首页',
         icon: 'mdi:home'
       }
     }
