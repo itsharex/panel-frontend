@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {shuffle} from 'lodash-es'
+import { shuffle } from 'lodash-es'
 
 interface NumItem {
   id: number
@@ -7,7 +7,7 @@ interface NumItem {
 }
 
 const numList = ref<NumItem[]>(
-    new Array(81).fill(undefined).map((item, index) => ({id: index, num: (index % 9) + 1}))
+  new Array(81).fill(undefined).map((item, index) => ({ id: index, num: (index % 9) + 1 }))
 )
 </script>
 
@@ -15,28 +15,28 @@ const numList = ref<NumItem[]>(
   <CommonPage :show-footer="true">
     <n-button type="primary" @click="numList = shuffle(numList)"> 打乱</n-button>
     <transition-group
-        bg-white
-        dark:bg-dark
-        f-c-c
-        flex-wrap
-        move-class="transition-500"
-        mt-15
-        p-30
-        rounded-15
-        tag="ul"
-        w-510
+      move-class="transition-500"
+      tag="ul"
+      mt-15
+      w-510
+      f-c-c
+      flex-wrap
+      rounded-15
+      bg-white
+      p-30
+      dark:bg-dark
     >
       <li
-          v-for="item in numList"
-          :key="item.id"
-          bc-ccc
-          border-1
-          color-primary
-          f-c-c
-          h-40
-          m-5
-          rounded-full
-          w-40
+        v-for="item in numList"
+        :key="item.id"
+        m-5
+        h-40
+        w-40
+        f-c-c
+        border-1
+        rounded-full
+        color-primary
+        bc-ccc
       >
         {{ item.num }}
       </li>

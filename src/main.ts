@@ -2,11 +2,12 @@ import '@/styles/reset.css'
 import '@/styles/index.scss'
 import 'uno.css'
 
-import {createApp} from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
-import {setupStore} from './store'
-import {setupRouter} from './router'
-import {setupNaiveDiscreteApi} from './utils'
+import { setupStore } from './store'
+import { setupRouter } from './router'
+import { setupNaiveDiscreteApi } from './utils'
+import info from '@/api/panel/info'
 
 async function setupApp() {
   const app = createApp(App)
@@ -16,4 +17,23 @@ async function setupApp() {
   app.mount('#app')
 }
 
+const title = ref('')
+
+function setupTitle() {
+  if (title.value !== '') {
+    return
+  }
+  info
+    .name()
+    .then((res) => {
+      title.value = res.data.name || import.meta.env.VITE_APP_TITLE
+    })
+    .catch((err) => {
+      console.error(err)
+    })
+}
+
 setupApp()
+setupTitle()
+
+export { title }

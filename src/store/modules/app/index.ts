@@ -1,4 +1,4 @@
-import {defineStore} from 'pinia'
+import { defineStore } from 'pinia'
 
 export const useAppStore = defineStore('app', {
   state() {
@@ -14,7 +14,7 @@ export const useAppStore = defineStore('app', {
       this.reloadFlag = true
 
       setTimeout(() => {
-        document.documentElement.scrollTo({left: 0, top: 0})
+        document.documentElement.scrollTo({ left: 0, top: 0 })
         window.$loadingBar?.finish()
       }, 100)
     }

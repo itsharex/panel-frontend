@@ -1,7 +1,7 @@
-import {createHtmlPlugin} from 'vite-plugin-html'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 export function setupHtmlPlugin(viteEnv: ViteEnv) {
-  const {VITE_APP_TITLE} = viteEnv
+  const { VITE_APP_TITLE } = viteEnv
 
   const htmlPlugin = createHtmlPlugin({
     minify: true,

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {useAppStore, useTabStore} from '@/store'
-import {renderIcon} from '@/utils'
+import { useAppStore, useTabStore } from '@/store'
+import { renderIcon } from '@/utils'
 
 interface Props {
   show?: boolean
@@ -24,33 +24,33 @@ const options = computed(() => [
     label: '重新加载',
     key: 'reload',
     disabled: props.currentPath !== tabStore.activeTab,
-    icon: renderIcon('mdi:refresh', {size: 14})
+    icon: renderIcon('mdi:refresh', { size: 14 })
   },
   {
     label: '关闭',
     key: 'close',
     disabled: tabStore.tabs.length <= 1,
-    icon: renderIcon('mdi:close', {size: 14})
+    icon: renderIcon('mdi:close', { size: 14 })
   },
   {
     label: '关闭其他',
     key: 'close-other',
     disabled: tabStore.tabs.length <= 1,
-    icon: renderIcon('mdi:arrow-expand-horizontal', {size: 14})
+    icon: renderIcon('mdi:arrow-expand-horizontal', { size: 14 })
   },
   {
     label: '关闭左侧',
     key: 'close-left',
     disabled: tabStore.tabs.length <= 1 || props.currentPath === tabStore.tabs[0].path,
-    icon: renderIcon('mdi:arrow-expand-left', {size: 14})
+    icon: renderIcon('mdi:arrow-expand-left', { size: 14 })
   },
   {
     label: '关闭右侧',
     key: 'close-right',
     disabled:
-        tabStore.tabs.length <= 1 ||
-        props.currentPath === tabStore.tabs[tabStore.tabs.length - 1].path,
-    icon: renderIcon('mdi:arrow-expand-right', {size: 14})
+      tabStore.tabs.length <= 1 ||
+      props.currentPath === tabStore.tabs[tabStore.tabs.length - 1].path,
+    icon: renderIcon('mdi:arrow-expand-right', { size: 14 })
   }
 ])
 
@@ -109,12 +109,12 @@ function handleSelect(key: string) {
 
 <template>
   <n-dropdown
-      :options="options"
-      :show="dropdownShow"
-      :x="x"
-      :y="y"
-      placement="bottom-start"
-      @clickoutside="handleHideDropdown"
-      @select="handleSelect"
+    :options="options"
+    :show="dropdownShow"
+    :x="x"
+    :y="y"
+    placement="bottom-start"
+    @clickoutside="handleHideDropdown"
+    @select="handleSelect"
   />
 </template>

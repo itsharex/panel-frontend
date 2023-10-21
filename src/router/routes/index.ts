@@ -1,6 +1,4 @@
-import type {RouteModule, RoutesType, RouteType} from '~/types/router'
-
-const Layout = () => import('@/layout/IndexView.vue')
+import type { RouteModule, RoutesType, RouteType } from '~/types/router'
 
 export const basicRoutes: RoutesType = [
   {
@@ -18,39 +16,6 @@ export const basicRoutes: RoutesType = [
     meta: {
       title: '登录页'
     }
-  },
-
-  {
-    name: 'ExternalLink',
-    path: '/external-link',
-    component: Layout,
-    meta: {
-      title: '外部链接',
-      icon: 'mdi:link-variant',
-      order: 3
-    },
-    children: [
-      {
-        name: 'github',
-        path: 'https://github.com/haozi-team',
-        component: () => {
-        },
-        meta: {
-          title: 'GitHub',
-          icon: 'mdi:github'
-        }
-      },
-      {
-        name: 'weavatar',
-        path: 'https://weavatar.com',
-        component: () => {
-        },
-        meta: {
-          title: 'WeAvatar',
-          icon: 'simple-icons:gravatar'
-        }
-      }
-    ]
   }
 ]
 
@@ -64,8 +29,7 @@ export const NOT_FOUND_ROUTE: RouteType = {
 export const EMPTY_ROUTE: RouteType = {
   name: 'Empty',
   path: '/:pathMatch(.*)*',
-  component: () => {
-  }
+  component: () => {}
 }
 
 const modules = import.meta.glob('@/views/**/route.ts', {
@@ -76,4 +40,4 @@ Object.keys(modules).forEach((key) => {
   asyncRoutes.push(modules[key].default)
 })
 
-export {asyncRoutes}
+export { asyncRoutes }

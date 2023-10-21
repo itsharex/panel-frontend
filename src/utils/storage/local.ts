@@ -1,4 +1,4 @@
-import {decrypto, encrypto} from '@/utils'
+import { decrypto, encrypto } from '@/utils'
 
 interface StorageData {
   value: unknown
@@ -23,7 +23,7 @@ export function getLocal<T>(key: string) {
     let storageData: StorageData | null = null
     storageData = decrypto(json)
     if (storageData) {
-      const {value, expire} = storageData
+      const { value, expire } = storageData
       // 没有过期时间或者在有效期内则直接返回
       if (expire === null || expire >= Date.now()) return value as T
     }

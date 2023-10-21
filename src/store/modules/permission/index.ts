@@ -1,7 +1,7 @@
-import {defineStore} from 'pinia'
-import {filterAsyncRoutes} from './helpers'
-import {asyncRoutes, basicRoutes} from '@/router/routes'
-import type {RoutesType} from '~/types/router'
+import { defineStore } from 'pinia'
+import { filterAsyncRoutes } from './helpers'
+import { asyncRoutes, basicRoutes } from '@/router/routes'
+import type { RoutesType } from '~/types/router'
 
 export const usePermissionStore = defineStore('permission', {
   state() {

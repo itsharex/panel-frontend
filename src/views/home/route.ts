@@ -1,9 +1,9 @@
-import type {RouteType} from '~/types/router'
+import type { RouteType } from '~/types/router'
 
 const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
-  name: 'Dashboard',
+  name: 'home-index',
   path: '/',
   component: Layout,
   redirect: '/home',
@@ -12,12 +12,14 @@ export default {
   },
   children: [
     {
-      name: 'Home',
+      name: '首页',
       path: 'home',
       component: () => import('./IndexView.vue'),
       meta: {
         title: '首页',
-        icon: 'mdi:home'
+        icon: 'mdi:home',
+        role: ['admin'],
+        requireAuth: true
       }
     }
   ]

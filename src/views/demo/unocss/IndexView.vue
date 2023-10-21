@@ -2,8 +2,8 @@
   <CommonPage :show-footer="true">
     <p>
       文档：<a c-blue hover-decoration-underline href="https://uno.antfu.me/" target="_blank"
-    >https://uno.antfu.me/</a
-    >
+        >https://uno.antfu.me/</a
+      >
     </p>
     <p>
       playground：
@@ -12,57 +12,57 @@
       </a>
     </p>
 
-    <div f-c-c flex-col mt-20 w-350>
-      <div b-1 bc-ccc flex flex-wrap justify-around p-10 rounded-10>
-        <div b-1 f-c-c h-50 m-20 p-10 rounded-5 w-50>
-          <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+    <div mt-20 w-350 f-c-c flex-col>
+      <div flex flex-wrap justify-around b-1 rounded-10 p-10 bc-ccc>
+        <div m-20 h-50 w-50 f-c-c b-1 rounded-5 p-10>
+          <span h-6 w-6 rounded-3 bg-black dark:bg-white />
         </div>
-        <div b-1 flex h-50 justify-between m-20 p-10 rounded-5 w-50>
-          <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-          <span bg-black dark:bg-white h-6 rounded-3 self-end w-6/>
+        <div m-20 h-50 w-50 flex justify-between b-1 rounded-5 p-10>
+          <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+          <span h-6 w-6 self-end rounded-3 bg-black dark:bg-white />
         </div>
-        <div b-1 flex h-50 justify-between m-20 p-10 rounded-5 w-50>
-          <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-          <span bg-black dark:bg-white h-6 rounded-3 self-center w-6/>
-          <span bg-black dark:bg-white h-6 rounded-3 self-end w-6/>
+        <div m-20 h-50 w-50 flex justify-between b-1 rounded-5 p-10>
+          <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+          <span h-6 w-6 self-center rounded-3 bg-black dark:bg-white />
+          <span h-6 w-6 self-end rounded-3 bg-black dark:bg-white />
         </div>
-        <div b-1 flex h-50 justify-between m-20 p-10 rounded-5 w-50>
+        <div m-20 h-50 w-50 flex justify-between b-1 rounded-5 p-10>
           <div flex-col justify-between>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
           <div flex-col justify-between>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
         </div>
-        <div b-1 flex-col h-50 items-center justify-between m-20 p-10 rounded-5 w-50>
-          <div flex justify-between w-full>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+        <div m-20 h-50 w-50 flex-col items-center justify-between b-1 rounded-5 p-10>
+          <div w-full flex justify-between>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
-          <div bg-black dark:bg-white h-6 rounded-3 w-6/>
-          <div flex justify-between w-full>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+          <div h-6 w-6 rounded-3 bg-black dark:bg-white />
+          <div w-full flex justify-between>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
         </div>
-        <div b-1 flex-col h-50 justify-between m-20 p-10 rounded-5 w-50>
-          <div flex justify-between w-full>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+        <div m-20 h-50 w-50 flex-col justify-between b-1 rounded-5 p-10>
+          <div w-full flex justify-between>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
-          <div flex justify-between w-full>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+          <div w-full flex justify-between>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
-          <div flex justify-between w-full>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
-            <span bg-black dark:bg-white h-6 rounded-3 w-6/>
+          <div w-full flex justify-between>
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
+            <span h-6 w-6 rounded-3 bg-black dark:bg-white />
           </div>
         </div>
       </div>
-      <h2 color-gray font-normal mt-10 text-14>Flex 骰子</h2>
+      <h2 mt-10 text-14 font-normal color-gray>Flex 骰子</h2>
     </div>
   </CommonPage>
 </template>

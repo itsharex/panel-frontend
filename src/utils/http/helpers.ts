@@ -1,5 +1,5 @@
-import type {ErrorResolveResponse} from '~/types/axios'
-import {useUserStore} from '@/store'
+import type { ErrorResolveResponse } from '~/types/axios'
+import { useUserStore } from '@/store'
 
 /** 自定义错误 */
 export class AxiosRejectError extends Error {
@@ -7,7 +7,7 @@ export class AxiosRejectError extends Error {
   data?: any
 
   constructor(rejectData: ErrorResolveResponse, options?: ErrorOptions) {
-    const {code, message, data} = rejectData
+    const { code, message, data } = rejectData
     super(message, options)
     this.code = code
     this.data = data

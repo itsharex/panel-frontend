@@ -33,10 +33,11 @@ build:
     - sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
     - apk add --no-cache zip
   script:
+    - cp .env.production .env
+    - cp settings/proxy-config.ts.example settings/proxy-config.ts
     - pnpm dev &
     - sleep 10
     - kill %1
-    - cp .env.production .env
     - pnpm build
     - zip -r dist.zip dist
   artifacts:

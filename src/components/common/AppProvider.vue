@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import {kebabCase} from 'lodash-es'
-import {useCssVar} from '@vueuse/core'
-import type {GlobalThemeOverrides} from 'naive-ui'
-import {useThemeStore} from '@/store'
+import { kebabCase } from 'lodash-es'
+import { useCssVar } from '@vueuse/core'
+import { zhCN, dateZhCN } from 'naive-ui'
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { useThemeStore } from '@/store'
 
 type ThemeVars = Exclude<GlobalThemeOverrides['common'], undefined>
 type ThemeVarsKeys = keyof ThemeVars
@@ -10,27 +11,27 @@ type ThemeVarsKeys = keyof ThemeVars
 const themeStore = useThemeStore()
 
 watch(
-    () => themeStore.naiveThemeOverrides.common,
-    (common) => {
-      for (const key in common) {
-        useCssVar(`--${kebabCase(key)}`, document.documentElement).value =
-            common[key as ThemeVarsKeys] || ''
-        if (key === 'primaryColor')
-          window.localStorage.setItem('__THEME_COLOR__', common[key as ThemeVarsKeys] || '')
-      }
-    },
-    {immediate: true}
+  () => themeStore.naiveThemeOverrides.common,
+  (common) => {
+    for (const key in common) {
+      useCssVar(`--${kebabCase(key)}`, document.documentElement).value =
+        common[key as ThemeVarsKeys] || ''
+      if (key === 'primaryColor')
+        window.localStorage.setItem('__THEME_COLOR__', common[key as ThemeVarsKeys] || '')
+    }
+  },
+  { immediate: true }
 )
 
 watch(
-    () => themeStore.darkMode,
-    (newValue) => {
-      if (newValue) document.documentElement.classList.add('dark')
-      else document.documentElement.classList.remove('dark')
-    },
-    {
-      immediate: true
-    }
+  () => themeStore.darkMode,
+  (newValue) => {
+    if (newValue) document.documentElement.classList.add('dark')
+    else document.documentElement.classList.remove('dark')
+  },
+  {
+    immediate: true
+  }
 )
 
 function handleWindowResize() {
@@ -48,10 +49,12 @@ onBeforeUnmount(() => {
 
 <template>
   <n-config-provider
-      :theme="themeStore.naiveTheme"
-      :theme-overrides="themeStore.naiveThemeOverrides"
-      wh-full
+    :theme="themeStore.naiveTheme"
+    :theme-overrides="themeStore.naiveThemeOverrides"
+    :locale="zhCN"
+    :date-locale="dateZhCN"
+    wh-full
   >
-    <slot/>
+    <slot />
   </n-config-provider>
 </template>

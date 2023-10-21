@@ -1,4 +1,4 @@
-import type {RouteType} from '~/types/router'
+import type { RouteType } from '~/types/router'
 
 const Layout = () => import('@/layout/IndexView.vue')
 
@@ -33,17 +33,6 @@ export default {
       meta: {
         title: 'animation',
         icon: 'clarity:animation-line',
-        role: ['admin'],
-        requireAuth: true
-      }
-    },
-    {
-      name: 'Table',
-      path: 'table',
-      component: () => import('@/views/demo/table/IndexView.vue'),
-      meta: {
-        title: '表格',
-        icon: 'mdi:table',
         role: ['admin'],
         requireAuth: true
       }

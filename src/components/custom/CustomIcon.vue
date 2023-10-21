@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {renderCustomIcon} from '@/utils'
+import { renderCustomIcon } from '@/utils'
 
 interface Props {
   /** 图标名称(图片的文件名) */
@@ -16,5 +16,5 @@ const iconCom = computed(() => renderCustomIcon(props.icon, props))
 </script>
 
 <template>
-  <component :is="iconCom"/>
+  <component :is="iconCom" />
 </template>

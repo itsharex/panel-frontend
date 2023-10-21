@@ -1,8 +1,8 @@
-import {resolve} from 'node:path'
+import { resolve } from 'node:path'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
-import {NaiveUiResolver} from 'unplugin-vue-components/resolvers'
-import {FileSystemIconLoader} from 'unplugin-icons/loaders'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import { FileSystemIconLoader } from 'unplugin-icons/loaders'
 
 /**
  * * unplugin-icons插件，自动引入iconify图标
@@ -12,7 +12,7 @@ import {FileSystemIconLoader} from 'unplugin-icons/loaders'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
 
-import {getSrcPath} from '../utils'
+import { getSrcPath } from '../utils'
 
 const customIconPath = resolve(getSrcPath(), 'assets/svg')
 export default [
@@ -34,7 +34,7 @@ export default [
   Components({
     resolvers: [
       NaiveUiResolver(),
-      IconsResolver({customCollections: ['custom'], componentPrefix: 'icon'})
+      IconsResolver({ customCollections: ['custom'], componentPrefix: 'icon' })
     ],
     dts: 'types/components.d.ts'
   })

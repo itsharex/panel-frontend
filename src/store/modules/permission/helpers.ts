@@ -1,4 +1,4 @@
-import type {RoutesType, RouteType} from '~/types/router'
+import type { RoutesType, RouteType } from '~/types/router'
 
 function hasPermission(route: RouteType, role: string[]) {
   // * 不需要权限直接返回true

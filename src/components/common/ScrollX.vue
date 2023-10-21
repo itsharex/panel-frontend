@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {useDebounceFn} from '@vueuse/core'
+import { useDebounceFn } from '@vueuse/core'
 
 interface Props {
   showArrow?: boolean
@@ -29,7 +29,7 @@ const refreshIsOverflow = useDebounceFn(() => {
 }, 200)
 
 function handleMouseWheel(e: { wheelDelta: number }) {
-  const {wheelDelta} = e
+  const { wheelDelta } = e
   const wrapperWidth = wrapper.value?.offsetWidth || 0
   const contentWidth = content.value?.offsetWidth || 0
   /**
@@ -54,7 +54,7 @@ onMounted(() => {
 
   window.addEventListener('resize', refreshIsOverflow)
   // 监听内容宽度刷新是否超出
-  observer.observe(content.value!, {childList: true})
+  observer.observe(content.value!, { childList: true })
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', refreshIsOverflow)
@@ -66,22 +66,22 @@ onBeforeUnmount(() => {
   <div ref="wrapper" class="wrapper" @mousewheel.prevent="handleMouseWheel">
     <template v-if="showArrow && isOverflow">
       <div class="left" @click="handleMouseWheel({ wheelDelta: 120 })">
-        <icon-ic:baseline-keyboard-arrow-left/>
+        <icon-ic:baseline-keyboard-arrow-left />
       </div>
       <div class="right" @click="handleMouseWheel({ wheelDelta: -120 })">
-        <icon-ic:baseline-keyboard-arrow-right/>
+        <icon-ic:baseline-keyboard-arrow-right />
       </div>
     </template>
 
     <div
-        ref="content"
-        :class="{ overflow: isOverflow && showArrow }"
-        :style="{
+      ref="content"
+      :class="{ overflow: isOverflow && showArrow }"
+      :style="{
         transform: `translateX(${translateX}px)`
       }"
-        class="content"
+      class="content"
     >
-      <slot/>
+      <slot />
     </div>
   </div>
 </template>

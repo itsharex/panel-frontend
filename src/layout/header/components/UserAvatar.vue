@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import {useUserStore} from '@/store'
-import {renderIcon} from '@/utils'
+import { useUserStore } from '@/store'
+import { renderIcon } from '@/utils'
 
 const userStore = useUserStore()
 
@@ -8,7 +8,7 @@ const options = [
   {
     label: '退出登录',
     key: 'logout',
-    icon: renderIcon('mdi:exit-to-app', {size: 14})
+    icon: renderIcon('mdi:exit-to-app', { size: 14 })
   }
 ]
 
@@ -30,8 +30,8 @@ function handleSelect(key: string) {
 
 <template>
   <n-dropdown :options="options" @select="handleSelect">
-    <div cursor-pointer flex items-center>
-      <n-image :src="userStore.avatar" h-35 mr10 preview-disabled rounded-full w-35/>
+    <div flex cursor-pointer items-center>
+      <n-image :src="userStore.avatar" preview-disabled mr10 h-35 w-35 rounded-full />
       <span hidden sm:block>{{ userStore.name }}</span>
     </div>
   </n-dropdown>

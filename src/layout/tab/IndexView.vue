@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import ContextMenu from './components/ContextMenu.vue'
-import type {TabItem} from '@/store'
-import {useTabStore, useThemeStore} from '@/store'
+import type { TabItem } from '@/store'
+import { useTabStore, useThemeStore } from '@/store'
 import ScrollX from '@/components/common/ScrollX.vue'
 
 const route = useRoute()
@@ -24,13 +24,13 @@ const contextMenuOption = reactive<ContextMenuOption>({
 })
 
 watch(
-    () => route.path,
-    () => {
-      const {name, fullPath: path} = route
-      const title = (route.meta?.title as string) || ''
-      tabStore.addTab({name: name as string, path, title})
-    },
-    {immediate: true}
+  () => route.path,
+  () => {
+    const { name, fullPath: path } = route
+    const title = (route.meta?.title as string) || ''
+    tabStore.addTab({ name: name as string, path, title })
+  },
+  { immediate: true }
 )
 
 function handleTagClick(path: string) {
@@ -47,12 +47,12 @@ function hideContextMenu() {
 }
 
 function setContextMenu(x: number, y: number, currentPath: string) {
-  Object.assign(contextMenuOption, {x, y, currentPath})
+  Object.assign(contextMenuOption, { x, y, currentPath })
 }
 
 // 右击菜单
 async function handleContextMenu(e: MouseEvent, tabItem: TabItem) {
-  const {clientX, clientY} = e
+  const { clientX, clientY } = e
   hideContextMenu()
   setContextMenu(clientX, clientY, tabItem.path)
   await nextTick()
@@ -63,27 +63,27 @@ async function handleContextMenu(e: MouseEvent, tabItem: TabItem) {
 <template>
   <ScrollX :style="{ height: `${useTheme.tab.height}px` }" bg-white dark:bg-dark>
     <n-tag
-        v-for="tab in tabStore.tabs"
-        :key="tab.path"
-        :closable="tabStore.tabs.length > 1"
-        :type="tabStore.activeTab === tab.path ? 'primary' : 'default'"
-        cursor-pointer
-        mx-5
-        px-15
-        rounded-4
-        @click="handleTagClick(tab.path)"
-        @close.stop="tabStore.removeTab(tab.path)"
-        @contextmenu.prevent="handleContextMenu($event, tab)"
+      v-for="tab in tabStore.tabs"
+      :key="tab.path"
+      :closable="tabStore.tabs.length > 1"
+      :type="tabStore.activeTab === tab.path ? 'primary' : 'default'"
+      mx-5
+      cursor-pointer
+      rounded-4
+      px-15
+      @click="handleTagClick(tab.path)"
+      @close.stop="tabStore.removeTab(tab.path)"
+      @contextmenu.prevent="handleContextMenu($event, tab)"
     >
       {{ tab.title }}
     </n-tag>
   </ScrollX>
 
   <ContextMenu
-      v-model:show="contextMenuOption.show"
-      :current-path="contextMenuOption.currentPath"
-      :x="contextMenuOption.x"
-      :y="contextMenuOption.y"
+    v-model:show="contextMenuOption.show"
+    :current-path="contextMenuOption.currentPath"
+    :x="contextMenuOption.x"
+    :y="contextMenuOption.y"
   />
 </template>
 

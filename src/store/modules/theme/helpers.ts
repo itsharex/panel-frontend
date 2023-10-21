@@ -1,6 +1,6 @@
-import type {GlobalThemeOverrides} from 'naive-ui'
+import type { GlobalThemeOverrides } from 'naive-ui'
 import themeSetting from '~/settings/theme.json'
-import {addColorAlpha, getColorPalette} from '@/utils'
+import { addColorAlpha, getColorPalette } from '@/utils'
 
 type ColorType = 'primary' | 'info' | 'success' | 'warning' | 'error'
 type ColorScene = '' | 'Suppl' | 'Hover' | 'Pressed' | 'Active'
@@ -21,8 +21,8 @@ export function initThemeSettings(): Theme.Setting {
     collapsedWidth: 64,
     collapsed: false
   }
-  const header = themeSetting.header || {visible: true, height: 60}
-  const tab = themeSetting.tab || {visible: true, height: 50}
+  const header = themeSetting.header || { visible: true, height: 60 }
+  const tab = themeSetting.tab || { visible: true, height: 50 }
   const primaryColor = themeSetting.primaryColor || '#316C72'
   const otherColor = themeSetting.otherColor || {
     info: '#0099ad',
@@ -30,12 +30,12 @@ export function initThemeSettings(): Theme.Setting {
     warning: '#faad14',
     error: '#f5222d'
   }
-  return {isMobile, darkMode, sider, header, tab, primaryColor, otherColor}
+  return { isMobile, darkMode, sider, header, tab, primaryColor, otherColor }
 }
 
 /** 获取naive的主题颜色 */
 export function getNaiveThemeOverrides(colors: Record<ColorType, string>): GlobalThemeOverrides {
-  const {primary, info, success, warning, error} = colors
+  const { primary, info, success, warning, error } = colors
 
   const themeColors = getThemeColors([
     ['primary', primary],
@@ -60,11 +60,11 @@ export function getNaiveThemeOverrides(colors: Record<ColorType, string>): Globa
 /** 获取主题颜色的各种场景对应的颜色 */
 function getThemeColors(colors: [ColorType, string][]) {
   const colorActions: ColorAction[] = [
-    {scene: '', handler: (color) => color},
-    {scene: 'Suppl', handler: (color) => color},
-    {scene: 'Hover', handler: (color) => getColorPalette(color, 5)},
-    {scene: 'Pressed', handler: (color) => getColorPalette(color, 7)},
-    {scene: 'Active', handler: (color) => addColorAlpha(color, 0.1)}
+    { scene: '', handler: (color) => color },
+    { scene: 'Suppl', handler: (color) => color },
+    { scene: 'Hover', handler: (color) => getColorPalette(color, 5) },
+    { scene: 'Pressed', handler: (color) => getColorPalette(color, 7) },
+    { scene: 'Active', handler: (color) => addColorAlpha(color, 0.1) }
   ]
 
   const themeColor: ThemeColor = {}

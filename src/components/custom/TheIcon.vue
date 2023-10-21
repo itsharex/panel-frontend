@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import {renderCustomIcon, renderIcon} from '@/utils'
+import { renderCustomIcon, renderIcon } from '@/utils'
 
 const props = withDefaults(defineProps<Props>(), {
   size: 14,
@@ -16,12 +16,12 @@ interface Props {
 }
 
 const iconCom = computed(() =>
-    props.type === 'iconify'
-        ? renderIcon(props.icon, {size: props.size, color: props.color})
-        : renderCustomIcon(props.icon, {size: props.size, color: props.color})
+  props.type === 'iconify'
+    ? renderIcon(props.icon, { size: props.size, color: props.color })
+    : renderCustomIcon(props.icon, { size: props.size, color: props.color })
 )
 </script>
 
 <template>
-  <component :is="iconCom"/>
+  <component :is="iconCom" />
 </template>

@@ -1,9 +1,9 @@
-import {request} from '@/utils'
-import type {RequestConfig} from '~/types/axios'
+import { request } from '@/utils'
+import type { RequestConfig } from '~/types/axios'
 
 export default {
   // 面板名称
-  name: () => request.get('/panel/info/name', {noNeedToken: true} as RequestConfig),
+  name: () => request.get('/panel/info/name', { noNeedToken: true } as RequestConfig),
   // 面板菜单
   menu: () => request.get('/panel/info/menu'),
   // 首页插件

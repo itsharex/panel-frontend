@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import type {MenuInst, MenuOption} from 'naive-ui'
-import type {Meta, RouteType} from '~/types/router'
-import {useAppStore, usePermissionStore, useThemeStore} from '@/store'
-import {isUrl, renderCustomIcon, renderIcon} from '@/utils'
+import type { MenuInst, MenuOption } from 'naive-ui'
+import type { Meta, RouteType } from '~/types/router'
+import { useAppStore, usePermissionStore, useThemeStore } from '@/store'
+import { isUrl, renderCustomIcon, renderIcon } from '@/utils'
 
 const router = useRouter()
 const currentRoute = useRoute()
@@ -23,9 +23,9 @@ const menuOptions = computed(() => {
 function resolvePath(basePath: string, path: string) {
   if (isUrl(path)) return path
   return `/${[basePath, path]
-      .filter((path) => !!path && path !== '/')
-      .map((path) => path.replace(/(^\/)|(\/$)/g, ''))
-      .join('/')}`
+    .filter((path) => !!path && path !== '/')
+    .map((path) => path.replace(/(^\/)|(\/$)/g, ''))
+    .join('/')}`
 }
 
 type MenuItem = MenuOption & {
@@ -46,8 +46,8 @@ function getMenuItem(route: RouteType, basePath = ''): MenuItem {
   }
 
   const visibleChildren = route.children
-      ? route.children.filter((item: RouteType) => item.name && !item.isHidden)
-      : []
+    ? route.children.filter((item: RouteType) => item.name && !item.isHidden)
+    : []
 
   if (!visibleChildren.length) return menuItem
 
@@ -62,26 +62,26 @@ function getMenuItem(route: RouteType, basePath = ''): MenuItem {
       order: menuItem.order
     }
     const visibleItems = singleRoute.children
-        ? singleRoute.children.filter((item: RouteType) => item.name && !item.isHidden)
-        : []
+      ? singleRoute.children.filter((item: RouteType) => item.name && !item.isHidden)
+      : []
 
     if (visibleItems.length === 1) menuItem = getMenuItem(visibleItems[0], menuItem.path)
     else if (visibleItems.length > 1)
       menuItem.children = visibleItems
-          .map((item) => getMenuItem(item, menuItem.path))
-          .sort((a, b) => a.order - b.order)
-  } else {
-    menuItem.children = visibleChildren
         .map((item) => getMenuItem(item, menuItem.path))
         .sort((a, b) => a.order - b.order)
+  } else {
+    menuItem.children = visibleChildren
+      .map((item) => getMenuItem(item, menuItem.path))
+      .sort((a, b) => a.order - b.order)
   }
 
   return menuItem
 }
 
 function getIcon(meta?: Meta): (() => import('vue').VNodeChild) | undefined {
-  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, {size: 18})
-  if (meta?.icon) return renderIcon(meta.icon, {size: 18})
+  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, { size: 18 })
+  if (meta?.icon) return renderIcon(meta.icon, { size: 18 })
   return undefined
 }
 
@@ -101,15 +101,15 @@ function handleMenuSelect(key: string, item: MenuOption) {
 
 <template>
   <n-menu
-      ref="menu"
-      :collapsed-icon-size="22"
-      :collapsed-width="64"
-      :indent="18"
-      :options="menuOptions"
-      :value="currentRoute.name as string"
-      accordion
-      class="side-menu"
-      @update:value="handleMenuSelect"
+    ref="menu"
+    :collapsed-icon-size="22"
+    :collapsed-width="64"
+    :indent="18"
+    :options="menuOptions"
+    :value="currentRoute.name as string"
+    accordion
+    class="side-menu"
+    @update:value="handleMenuSelect"
   />
 </template>
 

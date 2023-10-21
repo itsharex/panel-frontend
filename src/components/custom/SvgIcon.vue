@@ -12,13 +12,13 @@ const props = withDefaults(defineProps<Props>(), {
   color: 'currentColor'
 })
 
-defineOptions({name: 'SvgIcon'})
+defineOptions({ name: 'SvgIcon' })
 
 const symbolId = computed(() => `#${props.prefix}-${props.icon}`)
 </script>
 
 <template>
   <svg aria-hidden="true" height="1em" width="1em">
-    <use :fill="color" :xlink:href="symbolId"/>
+    <use :fill="color" :xlink:href="symbolId" />
   </svg>
 </template>

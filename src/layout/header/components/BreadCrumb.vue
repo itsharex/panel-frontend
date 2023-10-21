@@ -1,6 +1,6 @@
-<script lang='ts' setup>
-import {renderCustomIcon, renderIcon} from '@/utils'
-import type {Meta} from '~/types/router'
+<script lang="ts" setup>
+import { renderCustomIcon, renderIcon } from '@/utils'
+import type { Meta } from '~/types/router'
 
 const router = useRouter()
 const route = useRoute()
@@ -32,37 +32,29 @@ function handleBreadClick(path: string) {
 }
 
 function getIcon(meta?: Meta, size = 16) {
-  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, {size})
-  if (meta?.icon) return renderIcon(meta.icon, {size})
-  return ""
+  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, { size })
+  if (meta?.icon) return renderIcon(meta.icon, { size })
+  return ''
 }
 </script>
 
 <template>
   <n-breadcrumb>
-    <template
-        v-for='routeItem in breadcrumbList'
-        :key="routeItem.name"
-    >
-      <n-breadcrumb-item v-if='routeItem.meta.title'>
+    <template v-for="routeItem in breadcrumbList" :key="routeItem.name">
+      <n-breadcrumb-item v-if="routeItem.meta.title">
         <n-dropdown
-            v-if='routeItem.children.length'
-            :options='routeItem.children'
-            @select='handleBreadClick'
+          v-if="routeItem.children.length"
+          :options="routeItem.children"
+          @select="handleBreadClick"
         >
-              <span class='link-text'>
-                <component
-                    :is='routeItem.icon'
-                    v-if='routeItem.icon'
-                />
-                {{ routeItem.meta.title }}
-              </span>
+          <span class="link-text">
+            <component :is="routeItem.icon" v-if="routeItem.icon" />
+            {{ routeItem.meta.title }}
+          </span>
         </n-dropdown>
-        <span v-else class='link-text'>
-              <component :is='routeItem.icon'
-                         v-if='routeItem.icon'
-              />
-              {{ routeItem.meta.title }}
+        <span v-else class="link-text">
+          <component :is="routeItem.icon" v-if="routeItem.icon" />
+          {{ routeItem.meta.title }}
         </span>
       </n-breadcrumb-item>
     </template>

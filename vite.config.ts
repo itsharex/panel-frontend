@@ -1,9 +1,9 @@
-import type {ConfigEnv} from 'vite'
-import {defineConfig, loadEnv} from 'vite'
+import type { ConfigEnv } from 'vite'
+import { defineConfig, loadEnv } from 'vite'
 
-import {convertEnv, getRootPath, getSrcPath} from './build/utils'
-import {createViteProxy, viteDefine} from './build/config'
-import {setupVitePlugins} from './build/plugins'
+import { convertEnv, getRootPath, getSrcPath } from './build/utils'
+import { createViteProxy, viteDefine } from './build/config'
+import { setupVitePlugins } from './build/plugins'
 
 export default defineConfig((configEnv: ConfigEnv) => {
   const srcPath = getSrcPath()
@@ -12,7 +12,7 @@ export default defineConfig((configEnv: ConfigEnv) => {
 
   const viteEnv = convertEnv(loadEnv(configEnv.mode, process.cwd()))
 
-  const {VITE_PORT, VITE_PUBLIC_PATH, VITE_USE_PROXY, VITE_PROXY_TYPE} = viteEnv
+  const { VITE_PORT, VITE_PUBLIC_PATH, VITE_USE_PROXY, VITE_PROXY_TYPE } = viteEnv
   return {
     base: VITE_PUBLIC_PATH,
     resolve: {

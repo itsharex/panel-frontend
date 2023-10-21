@@ -1,8 +1,8 @@
-import type {GlobalThemeOverrides} from 'naive-ui'
-import {darkTheme} from 'naive-ui'
-import type {BuiltInGlobalTheme} from 'naive-ui/es/themes/interface'
-import {defineStore} from 'pinia'
-import {getNaiveThemeOverrides, initThemeSettings} from './helpers'
+import type { GlobalThemeOverrides } from 'naive-ui'
+import { darkTheme } from 'naive-ui'
+import type { BuiltInGlobalTheme } from 'naive-ui/es/themes/interface'
+import { defineStore } from 'pinia'
+import { getNaiveThemeOverrides, initThemeSettings } from './helpers'
 
 type ThemeState = Theme.Setting
 

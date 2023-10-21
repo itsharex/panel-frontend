@@ -1,5 +1,5 @@
-import type {UserConfig} from 'unocss'
-import {defineConfig, presetAttributify, presetUno} from 'unocss'
+import type { UserConfig } from 'unocss'
+import { defineConfig, presetAttributify, presetUno } from 'unocss'
 
 const config: UserConfig = {
   content: {
@@ -17,7 +17,7 @@ const config: UserConfig = {
       ]
     }
   },
-  presets: [presetUno({dark: 'class'}), presetAttributify()],
+  presets: [presetUno({ dark: 'class' }), presetAttributify()],
   shortcuts: [
     ['wh-full', 'w-full h-full'],
     ['f-c-c', 'flex justify-center items-center'],
@@ -30,10 +30,10 @@ const config: UserConfig = {
     ['text-ellipsis', 'truncate']
   ],
   rules: [
-    [/^bc-(.+)$/, ([, color]) => ({'border-color': `#${color}`})],
+    [/^bc-(.+)$/, ([, color]) => ({ 'border-color': `#${color}` })],
     [
       'card-shadow',
-      {'box-shadow': '0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017'}
+      { 'box-shadow': '0 1px 2px -2px #00000029, 0 3px 6px #0000001f, 0 5px 12px 4px #00000017' }
     ]
   ],
   theme: {

@@ -1,7 +1,7 @@
-import type {AxiosError, AxiosResponse} from 'axios'
-import {AxiosRejectError, resolveResError} from './helpers'
-import {getToken} from '~/src/utils/auth/token'
-import type {RequestConfig} from '~/types/axios'
+import type { AxiosError, AxiosResponse } from 'axios'
+import { AxiosRejectError, resolveResError } from './helpers'
+import { getToken } from '~/src/utils/auth/token'
+import type { RequestConfig } from '~/types/axios'
 
 /** 请求拦截 */
 export function reqResolve(config: RequestConfig) {
@@ -10,7 +10,7 @@ export function reqResolve(config: RequestConfig) {
 
   const token = getToken()
   if (!token)
-    return Promise.reject(new AxiosRejectError({code: 401, message: '登录已过期，请重新登录！'}))
+    return Promise.reject(new AxiosRejectError({ code: 401, message: '登录已过期，请重新登录！' }))
 
   // 设置请求头
   config.headers['Authorization'] = config.headers?.Authorization || `Bearer ${token}`
@@ -26,15 +26,15 @@ export function reqReject(error: AxiosError) {
 /** 响应拦截 */
 export function resResolve(response: AxiosResponse) {
   // TODO: 处理不同的 response.headers
-  const {data, status, config, statusText} = response
+  const { data, status, config, statusText } = response
   if (data?.code !== 0) {
     const code = data?.code ?? status
 
     /** 根据code处理对应的操作，并返回处理后的message */
     const message = resolveResError(code, data?.message ?? statusText)
-    const {noNeedTip} = config as RequestConfig
+    const { noNeedTip } = config as RequestConfig
     !noNeedTip && window.$message.error(message)
-    return Promise.reject(new AxiosRejectError({code, message, data: data || response}))
+    return Promise.reject(new AxiosRejectError({ code, message, data: data || response }))
   }
   return Promise.resolve(data)
 }
@@ -46,22 +46,22 @@ export function resReject(error: AxiosError) {
     /** 根据code处理对应的操作，并返回处理后的message */
     const message = resolveResError(code, error.message)
     window.$message.error(message)
-    return Promise.reject(new AxiosRejectError({code, message, data: error}))
+    return Promise.reject(new AxiosRejectError({ code, message, data: error }))
   }
-  const {data, status, config} = error.response
-  let {code, message} = data as AxiosRejectError
+  const { data, status, config } = error.response
+  let { code, message } = data as AxiosRejectError
   code = code ?? status
   message = message ?? error.message
   message = resolveResError(code, message)
   /** 需要错误提醒 */
-  const {noNeedTip} = config as RequestConfig
+  const { noNeedTip } = config as RequestConfig
 
   !noNeedTip && window.$message.error(message)
   return Promise.reject(
-      new AxiosRejectError({
-        code,
-        message,
-        data: error.response?.data || error.response
-      })
+    new AxiosRejectError({
+      code,
+      message,
+      data: error.response?.data || error.response
+    })
   )
 }

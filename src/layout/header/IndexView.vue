@@ -8,12 +8,12 @@ import ThemeMode from './components/ThemeMode.vue'
 
 <template>
   <div flex items-center>
-    <MenuCollapse/>
-    <BreadCrumb hidden ml-15 sm:block/>
+    <MenuCollapse />
+    <BreadCrumb ml-15 hidden sm:block />
   </div>
-  <div flex items-center ml-auto>
-    <ThemeMode/>
-    <FullScreen/>
-    <UserAvatar/>
+  <div ml-auto flex items-center>
+    <ThemeMode />
+    <FullScreen />
+    <UserAvatar />
   </div>
 </template>

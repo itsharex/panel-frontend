@@ -1,16 +1,16 @@
-import type {App} from 'vue'
-import {createRouter, createWebHashHistory, createWebHistory} from 'vue-router'
-import {setupRouterGuard} from './guard'
-import {basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE} from './routes'
-import {getToken, isNullOrWhitespace} from '@/utils'
-import {usePermissionStore, useUserStore} from '@/store'
-import type {RoutesType, RouteType} from '~/types/router'
+import type { App } from 'vue'
+import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
+import { setupRouterGuard } from './guard'
+import { basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE } from './routes'
+import { getToken, isNullOrWhitespace } from '@/utils'
+import { usePermissionStore, useUserStore } from '@/store'
+import type { RoutesType, RouteType } from '~/types/router'
 
 const isHash = import.meta.env.VITE_USE_HASH === 'true'
 export const router = createRouter({
   history: isHash ? createWebHashHistory('/') : createWebHistory('/'),
   routes: basicRoutes,
-  scrollBehavior: () => ({left: 0, top: 0})
+  scrollBehavior: () => ({ left: 0, top: 0 })
 })
 
 export async function setupRouter(app: App) {
