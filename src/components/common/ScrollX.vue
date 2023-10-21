@@ -54,7 +54,7 @@ onMounted(() => {
 
   window.addEventListener('resize', refreshIsOverflow)
   // 监听内容宽度刷新是否超出
-  observer.observe(content.value!, { childList: true })
+  observer.observe(content.value as Node, { childList: true })
 })
 onBeforeUnmount(() => {
   window.removeEventListener('resize', refreshIsOverflow)
