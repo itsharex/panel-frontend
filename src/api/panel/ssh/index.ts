@@ -4,5 +4,6 @@ export default {
   // 获取信息
   info: () => request.get('/panel/ssh/info'),
   // 保存信息
-  saveInfo: (info: any) => request.post('/panel/ssh/info', { info })
+  saveInfo: (host: string, port: number, user: string, password: string) =>
+    request.post('/panel/ssh/info', { host, port, user, password })
 }
