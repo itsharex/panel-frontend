@@ -206,6 +206,11 @@ const onPageChange = (page: number) => {
   })
 }
 
+const onPageSizeChange = (pageSize: number) => {
+  pagination.pageSize = pageSize
+  onPageChange(1)
+}
+
 const handleRemark = (row: any) => {
   website.updateRemark(row.id, row.remark).then(() => {
     window.$message.success('修改成功')
@@ -366,6 +371,7 @@ onMounted(() => {
       :pagination="pagination"
       @update:checked-row-keys="onChecked"
       @update:page="onPageChange"
+      @update:page-size="onPageSizeChange"
     />
 
     <n-modal v-model:show="addModal" title="新建网站">

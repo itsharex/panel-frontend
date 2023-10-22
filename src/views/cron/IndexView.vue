@@ -194,6 +194,20 @@ const getPhpAndDb = async () => {
   installedDbAndPhp.value = data
 }
 
+const onPageChange = (page: number) => {
+  pagination.page = page
+  getTaskList(page, pagination.pageSize).then((res) => {
+    data.value = res.items
+    pagination.itemCount = res.total
+    pagination.pageCount = res.total / pagination.pageSize + 1
+  })
+}
+
+const onPageSizeChange = (pageSize: number) => {
+  pagination.pageSize = pageSize
+  onPageChange(1)
+}
+
 const handleAdd = async () => {
   cron.add(addModel.value).then(() => {
     window.$message.success('添加成功')
@@ -367,6 +381,8 @@ onMounted(() => {
           :pagination="pagination"
           :bordered="false"
           :loading="false"
+          @update:page="onPageChange"
+          @update:page-size="onPageSizeChange"
         />
       </n-card>
     </n-space>

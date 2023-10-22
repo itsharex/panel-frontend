@@ -183,6 +183,11 @@ const onPageChange = (page: number) => {
   })
 }
 
+const onPageSizeChange = (pageSize: number) => {
+  pagination.pageSize = pageSize
+  onPageChange(1)
+}
+
 onMounted(() => {
   getSetting()
   getFirewallRules(pagination.page, pagination.pageSize).then((res) => {
@@ -259,6 +264,7 @@ onMounted(() => {
         :pagination="pagination"
         @update:checked-row-keys="onChecked"
         @update:page="onPageChange"
+        @update:page-size="onPageSizeChange"
       />
     </n-space>
   </CommonPage>
