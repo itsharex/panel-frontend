@@ -3,7 +3,7 @@ import type { RouteType } from '~/types/router'
 const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
-  name: 'home-index',
+  name: 'home',
   path: '/',
   component: Layout,
   redirect: '/home',
@@ -12,7 +12,7 @@ export default {
   },
   children: [
     {
-      name: '仪表盘',
+      name: 'home-index',
       path: 'home',
       component: () => import('./IndexView.vue'),
       meta: {

@@ -3,20 +3,20 @@ import type { RouteType } from '~/types/router'
 const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
-  name: 'monitor',
-  path: '/monitor',
+  name: 'ssh',
+  path: '/ssh',
   component: Layout,
   meta: {
-    order: 3
+    order: 7
   },
   children: [
     {
-      name: 'monitor-index',
+      name: 'ssh-index',
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '资源监控',
-        icon: 'mdi:monitor',
+        title: 'SSH终端',
+        icon: 'mdi:ssh',
         role: ['admin'],
         requireAuth: true
       }

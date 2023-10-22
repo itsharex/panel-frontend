@@ -1,6 +1,4 @@
 import { request } from '@/utils'
-import type { RequestConfig } from '~/types/axios'
-import type { UnwrapRef } from 'vue'
 
 export default {
   // 开关

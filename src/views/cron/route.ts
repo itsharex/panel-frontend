@@ -3,20 +3,20 @@ import type { RouteType } from '~/types/router'
 const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
-  name: 'monitor',
-  path: '/monitor',
+  name: 'cron',
+  path: '/cron',
   component: Layout,
   meta: {
-    order: 3
+    order: 5
   },
   children: [
     {
-      name: 'monitor-index',
+      name: 'cron-index',
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '资源监控',
-        icon: 'mdi:monitor',
+        title: '计划任务',
+        icon: 'mdi:clock-outline',
         role: ['admin'],
         requireAuth: true
       }

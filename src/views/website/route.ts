@@ -4,7 +4,7 @@ const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
   name: 'website',
-  path: '/',
+  path: '/website',
   component: Layout,
   meta: {
     order: 1
@@ -12,7 +12,7 @@ export default {
   children: [
     {
       name: 'website-index',
-      path: 'website',
+      path: '',
       component: () => import('./IndexView.vue'),
       meta: {
         title: '网站管理',
@@ -23,7 +23,7 @@ export default {
     },
     {
       name: 'website-edit',
-      path: 'website/edit/:id',
+      path: 'edit/:id',
       component: () => import('./EditView.vue'),
       isHidden: true,
       meta: {
