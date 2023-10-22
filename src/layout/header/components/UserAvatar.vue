@@ -1,4 +1,4 @@
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
 import { router } from '@/router'
@@ -38,7 +38,7 @@ function handleSelect(key: string) {
 </script>
 
 <template>
-  <n-dropdown :options='options' @select='handleSelect'>
+  <n-dropdown :options="options" @select="handleSelect">
     <div flex cursor-pointer items-center>
       <span hidden sm:block>{{ userStore.username }}</span>
     </div>

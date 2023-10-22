@@ -5,12 +5,10 @@ import bgImg from '@/assets/images/login_bg.webp'
 import { addDynamicRoutes } from '@/router'
 import user from '@/api/panel/user'
 import { title } from '@/main'
-import { useUserStore } from '@/store'
 
 const router = useRouter()
 const route = useRoute()
 const query = route.query
-const userStore = useUserStore()
 
 interface LoginInfo {
   username: string

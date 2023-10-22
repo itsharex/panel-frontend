@@ -6,11 +6,14 @@ export default {
   // 设置防火墙状态
   setFirewallStatus: (status: boolean) => request.post('/panel/safe/firewallStatus', { status }),
   // 获取防火墙规则
-  firewallRules: () => request.get('/panel/safe/firewallRules'),
+  firewallRules: (page: number, limit: number) =>
+    request.get('/panel/safe/firewallRules', { params: { page, limit } }),
   // 添加防火墙规则
-  addFirewallRule: (rule: any) => request.post('/panel/safe/firewallRules', rule),
+  addFirewallRule: (port: string, protocol: string) =>
+    request.post('/panel/safe/firewallRules', { port, protocol }),
   // 删除防火墙规则
-  deleteFirewallRule: (rule: any) => request.delete('/panel/safe/firewallRules', { data: rule }),
+  deleteFirewallRule: (port: string, protocol: string) =>
+    request.delete('/panel/safe/firewallRules', { data: { port, protocol } }),
   // 获取SSH状态
   sshStatus: () => request.get('/panel/safe/sshStatus'),
   // 设置SSH状态

@@ -198,7 +198,12 @@ const getWebsiteList = async (page: number, limit: number) => {
 }
 
 const onPageChange = (page: number) => {
-  console.log('page', page)
+  pagination.page = page
+  getWebsiteList(page, pagination.pageSize).then((res) => {
+    data.value = res.items
+    pagination.itemCount = res.total
+    pagination.pageCount = res.total / pagination.pageSize + 1
+  })
 }
 
 const handleRemark = (row: any) => {
