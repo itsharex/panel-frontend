@@ -18,11 +18,8 @@ ace.config.setModuleUrl('ace/mode/nginx', modeNginxUrl)
 import modeYamlUrl from 'ace-builds/src-noconflict/mode-yaml?url'
 ace.config.setModuleUrl('ace/mode/yaml', modeYamlUrl)
 
-import themeGithubUrl from 'ace-builds/src-noconflict/theme-github?url'
-ace.config.setModuleUrl('ace/theme/github', themeGithubUrl)
-
-import themeChromeUrl from 'ace-builds/src-noconflict/theme-chrome?url'
-ace.config.setModuleUrl('ace/theme/chrome', themeChromeUrl)
+import modeShUrl from 'ace-builds/src-noconflict/mode-sh?url'
+ace.config.setModuleUrl('ace/mode/sh', modeShUrl)
 
 import themeMonokaiUrl from 'ace-builds/src-noconflict/theme-monokai?url'
 ace.config.setModuleUrl('ace/theme/monokai', themeMonokaiUrl)
@@ -62,6 +59,9 @@ ace.config.setModuleUrl('ace/snippets/php', snippetsPhpUrl)
 
 import snippetsNginxUrl from 'ace-builds/src-noconflict/snippets/nginx?url'
 ace.config.setModuleUrl('ace/snippets/nginx', snippetsNginxUrl)
+
+import snippetsShUrl from 'ace-builds/src-noconflict/snippets/sh?url'
+ace.config.setModuleUrl('ace/snippets/sh', snippetsShUrl)
 
 import 'ace-builds/src-noconflict/ext-language_tools'
 ace.require('ace/ext/language_tools')

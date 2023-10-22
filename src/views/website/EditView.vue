@@ -208,7 +208,6 @@ onMounted(() => {
           <VAceEditor
             v-if="setting"
             v-model:value="setting.rewrite"
-            class="vue-ace-editor"
             lang="nginx"
             theme="monokai"
             style="height: 60vh"
@@ -245,7 +244,6 @@ onMounted(() => {
           <VAceEditor
             v-if="setting"
             v-model:value="setting.raw"
-            class="vue-ace-editor"
             lang="nginx"
             theme="monokai"
             style="height: 60vh"
@@ -278,7 +276,6 @@ onMounted(() => {
             v-if="setting"
             v-model:value="setting.log"
             readonly
-            class="vue-ace-editor"
             lang="nginx"
             theme="monokai"
             style="height: 60vh"
