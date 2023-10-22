@@ -7,7 +7,7 @@ export default {
   path: '/',
   component: Layout,
   meta: {
-    order: 0
+    order: 1
   },
   children: [
     {
@@ -15,7 +15,7 @@ export default {
       path: 'website',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '网站',
+        title: '网站管理',
         icon: 'mdi:web',
         role: ['admin'],
         requireAuth: true
