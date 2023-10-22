@@ -8,7 +8,8 @@ export default {
   // 清空监控记录
   clear: () => request.post('/panel/monitor/clear'),
   // 监控记录
-  list: (start: number, end: number) => request.get('/panel/monitor/list', { params: { start, end } }),
+  list: (start: number, end: number) =>
+    request.get('/panel/monitor/list', { params: { start, end } }),
   // 开关和天数
   switchAndDays: () => request.get('/panel/monitor/switchAndDays')
 }

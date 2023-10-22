@@ -1,13 +1,7 @@
-<script setup lang='ts'>
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
-<CommonPage show-footer>
-
-</CommonPage>
+  <CommonPage show-footer> </CommonPage>
 </template>
 
-<style scoped lang='scss'>
-
-</style>
+<style scoped lang="scss"></style>

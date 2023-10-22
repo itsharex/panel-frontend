@@ -1,10 +1,16 @@
-<script lang="ts" setup>
+<script lang='ts' setup>
 import { useUserStore } from '@/store'
 import { renderIcon } from '@/utils'
+import { router } from '@/router'
 
 const userStore = useUserStore()
 
 const options = [
+  {
+    label: '修改密码',
+    key: 'changePassword',
+    icon: renderIcon('mdi:key', { size: 14 })
+  },
   {
     label: '退出登录',
     key: 'logout',
@@ -25,14 +31,16 @@ function handleSelect(key: string) {
       }
     })
   }
+  if (key === 'changePassword') {
+    router.push({ name: 'setting-index' })
+  }
 }
 </script>
 
 <template>
-  <n-dropdown :options="options" @select="handleSelect">
+  <n-dropdown :options='options' @select='handleSelect'>
     <div flex cursor-pointer items-center>
-      <n-image :src="userStore.avatar" preview-disabled mr10 h-35 w-35 rounded-full />
-      <span hidden sm:block>{{ userStore.name }}</span>
+      <span hidden sm:block>{{ userStore.username }}</span>
     </div>
   </n-dropdown>
 </template>

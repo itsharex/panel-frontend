@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import VChart from 'vue-echarts'
 import { use } from 'echarts/core'
 import { CanvasRenderer } from 'echarts/renderers'
@@ -74,63 +74,78 @@ const load = ref({
     data: ['1分钟', '5分钟', '15分钟']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
-  yAxis: [{
-    type: 'value'
-  }],
+  yAxis: [
+    {
+      type: 'value'
+    }
+  ],
   dataZoom: {
     show: true,
     realtime: true,
     start: 0,
     end: 100
   },
-  series: [{
-    name: '1分钟',
-    type: 'line',
-    smooth: true,
-    data: data.value.load.load1,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: '5分钟',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+  series: [
+    {
+      name: '1分钟',
+      type: 'line',
+      smooth: true,
+      data: data.value.load.load1,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.load.load5,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: '15分钟',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    {
+      name: '5分钟',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.load.load5,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.load.load15,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
+    {
+      name: '15分钟',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.load.load15,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
+      }
     }
-  }]
+  ]
 })
 
 const cpu = ref({
@@ -145,40 +160,47 @@ const cpu = ref({
     trigger: 'axis'
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
-  yAxis: [{
-    name: '单位 %',
-    min: 0,
-    max: 100,
-    type: 'value',
-    axisLabel: {
-      formatter: '{value} %'
+  yAxis: [
+    {
+      name: '单位 %',
+      min: 0,
+      max: 100,
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} %'
+      }
     }
-  }],
+  ],
   dataZoom: {
     show: true,
     realtime: true,
     start: 0,
     end: 100
   },
-  series: [{
-    name: '使用率',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+  series: [
+    {
+      name: '使用率',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.cpu.percent,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
-    },
-    data: data.value.cpu.percent,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
     }
-  }]
+  ]
 })
 
 const mem = ref({
@@ -197,58 +219,69 @@ const mem = ref({
     data: ['内存', 'Swap']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
-  yAxis: [{
-    name: '单位 MB',
-    min: 0,
-    max: data.value.mem.total,
-    type: 'value',
-    axisLabel: {
-      formatter: '{value} M'
+  yAxis: [
+    {
+      name: '单位 MB',
+      min: 0,
+      max: data.value.mem.total,
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} M'
+      }
     }
-  }],
+  ],
   dataZoom: {
     show: true,
     realtime: true,
     start: 0,
     end: 100
   },
-  series: [{
-    name: '内存',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+  series: [
+    {
+      name: '内存',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.mem.used,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.mem.used,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: 'Swap',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    {
+      name: 'Swap',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.swap.used,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
-    },
-    data: data.value.swap.used,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
     }
-  }]
+  ]
 })
 
 const net = ref({
@@ -267,102 +300,121 @@ const net = ref({
     data: ['总计出', '总计入', '每秒出', '每秒入']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
-  yAxis: [{
-    name: '单位 Mb',
-    type: 'value',
-    axisLabel: {
-      formatter: '{value} Mb'
+  yAxis: [
+    {
+      name: '单位 Mb',
+      type: 'value',
+      axisLabel: {
+        formatter: '{value} Mb'
+      }
     }
-  }],
+  ],
   dataZoom: {
     show: true,
     realtime: true,
     start: 0,
     end: 100
   },
-  series: [{
-    name: '总计出',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+  series: [
+    {
+      name: '总计出',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.net.sent,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.net.sent,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: '总计入',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    {
+      name: '总计入',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.net.recv,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.net.recv,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: '每秒出',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    {
+      name: '每秒出',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.net.tx,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
     },
-    data: data.value.net.tx,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
-    }
-  }, {
-    name: '每秒入',
-    type: 'line',
-    smooth: true,
-    emphasis: {
-      itemStyle: {
-        shadowBlur: 10,
-        shadowOffsetX: 0,
-        shadowColor: 'rgba(0, 0, 0, 0.5)'
+    {
+      name: '每秒入',
+      type: 'line',
+      smooth: true,
+      emphasis: {
+        itemStyle: {
+          shadowBlur: 10,
+          shadowOffsetX: 0,
+          shadowColor: 'rgba(0, 0, 0, 0.5)'
+        }
+      },
+      data: data.value.net.rx,
+      markPoint: {
+        data: [
+          { type: 'max', name: '最大值' },
+          { type: 'min', name: '最小值' }
+        ]
+      },
+      markLine: {
+        data: [{ type: 'average', name: '平均值' }]
       }
-    },
-    data: data.value.net.rx,
-    markPoint: {
-      data: [{ type: 'max', name: '最大值' }, { type: 'min', name: '最小值' }]
-    },
-    markLine: {
-      data: [{ type: 'average', name: '平均值' }]
     }
-  }]
+  ]
 })
 
 const getData = async () => {
-  monitor.list(start.value, end.value).then(res => {
+  monitor.list(start.value, end.value).then((res) => {
     data.value = res.data
   })
 }
 
 const getSwitchAndDays = async () => {
-  monitor.switchAndDays().then(res => {
+  monitor.switchAndDays().then((res) => {
     monitorSwitch.value = res.data.switch
     saveDay.value = res.data.days
   })
@@ -423,41 +475,35 @@ onMounted(() => {
 
 <template>
   <CommonPage show-footer>
-    <n-card :segmented='true' rounded-10 size='small' flex items-center>
+    <n-card :segmented="true" size="small" flex items-center rounded-10>
       <n-form
         inline
-        label-placement='left'
-        label-width='auto'
-        require-mark-placement='right-hanging'
+        label-placement="left"
+        label-width="auto"
+        require-mark-placement="right-hanging"
       >
-        <n-grid
-          cols='1 s:1 m:1 l:24 xl:24 2xl:24'
-          item-responsive
-          responsive='screen'
-        >
-          <n-form-item-gi :span='3' label='开启监控'>
-            <n-switch v-model:value='monitorSwitch' @update-value='handleSwitch' />
+        <n-grid cols="1 s:1 m:1 l:24 xl:24 2xl:24" item-responsive responsive="screen">
+          <n-form-item-gi :span="3" label="开启监控">
+            <n-switch v-model:value="monitorSwitch" @update-value="handleSwitch" />
           </n-form-item-gi>
-          <n-form-item-gi :span='6' label='保存天数'>
-            <n-input-number v-model:value='saveDay'>
-              <template #suffix>
-                天
-              </template>
+          <n-form-item-gi :span="6" label="保存天数">
+            <n-input-number v-model:value="saveDay">
+              <template #suffix> 天 </template>
             </n-input-number>
           </n-form-item-gi>
-          <n-form-item-gi :span='2'>
-            <n-button type='primary' @click='handleDays'>确定</n-button>
+          <n-form-item-gi :span="2">
+            <n-button type="primary" @click="handleDays">确定</n-button>
           </n-form-item-gi>
-          <n-form-item-gi :span='9' label='时间选择'>
-            <n-date-picker v-model:value='start' type='datetime' />
+          <n-form-item-gi :span="9" label="时间选择">
+            <n-date-picker v-model:value="start" type="datetime" />
             -
-            <n-date-picker v-model:value='end' type='datetime' />
+            <n-date-picker v-model:value="end" type="datetime" />
           </n-form-item-gi>
-          <n-form-item-gi :span='4' label='操作'>
-            <n-popconfirm @positive-click='handleClear'>
+          <n-form-item-gi :span="4" label="操作">
+            <n-popconfirm @positive-click="handleClear">
               <template #trigger>
-                <n-button type='error'>
-                  <TheIcon :size='18' class='mr-5' icon='material-symbols:delete-outline' />
+                <n-button type="error">
+                  <TheIcon :size="18" class="mr-5" icon="material-symbols:delete-outline" />
                   清除监控记录
                 </n-button>
               </template>
@@ -467,36 +513,29 @@ onMounted(() => {
         </n-grid>
       </n-form>
     </n-card>
-    <n-grid
-      cols='1 s:1 m:1 l:2 xl:2 2xl:2'
-      item-responsive
-      responsive='screen'
-      pt-20
-    >
+    <n-grid cols="1 s:1 m:1 l:2 xl:2 2xl:2" item-responsive responsive="screen" pt-20>
       <n-gi m-10>
-        <n-card :segmented='true' rounded-10 style='height: 40vh'>
-          <v-chart class='chart' :option='load' autoresize />
+        <n-card :segmented="true" rounded-10 style="height: 40vh">
+          <v-chart class="chart" :option="load" autoresize />
         </n-card>
       </n-gi>
       <n-gi m-10>
-        <n-card :segmented='true' rounded-10 style='height: 40vh'>
-          <v-chart class='chart' :option='cpu' autoresize />
+        <n-card :segmented="true" rounded-10 style="height: 40vh">
+          <v-chart class="chart" :option="cpu" autoresize />
         </n-card>
       </n-gi>
       <n-gi m-10>
-        <n-card :segmented='true' rounded-10 style='height: 40vh'>
-          <v-chart class='chart' :option='mem' autoresize />
+        <n-card :segmented="true" rounded-10 style="height: 40vh">
+          <v-chart class="chart" :option="mem" autoresize />
         </n-card>
       </n-gi>
       <n-gi m-10>
-        <n-card :segmented='true' rounded-10 style='height: 40vh'>
-          <v-chart class='chart' :option='net' autoresize />
+        <n-card :segmented="true" rounded-10 style="height: 40vh">
+          <v-chart class="chart" :option="net" autoresize />
         </n-card>
       </n-gi>
     </n-grid>
   </CommonPage>
 </template>
 
-<style scoped lang='scss'>
-
-</style>
+<style scoped lang="scss"></style>
