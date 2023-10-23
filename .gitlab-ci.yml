@@ -44,7 +44,7 @@ build:
     name: "dist"
     paths:
       - dist.zip
-    expire_in: 1 week
+    expire_in: 3 days
 
 upload:
   stage: release
