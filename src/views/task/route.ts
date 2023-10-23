@@ -3,20 +3,20 @@ import type { RouteType } from '~/types/router'
 const Layout = () => import('@/layout/IndexView.vue')
 
 export default {
-  name: 'setting',
-  path: '/setting',
+  name: 'task',
+  path: '/task',
   component: Layout,
   meta: {
-    order: 10
+    order: 9
   },
   children: [
     {
-      name: 'setting-index',
+      name: 'task-index',
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '面板设置',
-        icon: 'mdi:settings-outline',
+        title: '任务中心',
+        icon: 'mdi:archive-sync-outline',
         role: ['admin'],
         requireAuth: true
       }
