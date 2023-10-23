@@ -25,7 +25,6 @@ coverage
 *.sw?
 
 .env
-pnpm-lock.yaml
 
 stats.html
 
