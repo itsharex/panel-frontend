@@ -21,6 +21,18 @@ export default {
         role: ['admin'],
         requireAuth: true
       }
+    },
+    {
+      name: 'home-update',
+      path: 'update',
+      component: () => import('./UpdateView.vue'),
+      isHidden: true,
+      meta: {
+        title: '更新',
+        icon: 'mdi:archive-arrow-up-outline',
+        role: ['admin'],
+        requireAuth: true
+      }
     }
   ]
 } as RouteType

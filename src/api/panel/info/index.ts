@@ -12,6 +12,8 @@ export default {
   nowMonitor: () => request.get('/panel/info/nowMonitor'),
   // 系统信息
   systemInfo: () => request.get('/panel/info/systemInfo'),
+  // 统计信息
+  countInfo: () => request.get('/panel/info/countInfo'),
   // 已安装的数据库和PHP
   installedDbAndPhp: () => request.get('/panel/info/installedDbAndPhp'),
   // 检查更新
@@ -19,5 +21,5 @@ export default {
   // 更新面板
   update: () => request.post('/panel/info/update'),
   // 重启面板
-  restart: () => request.get('/panel/info/restart')
+  restart: () => request.post('/panel/info/restart')
 }

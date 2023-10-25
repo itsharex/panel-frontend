@@ -1,9 +1,12 @@
 <script lang="ts" setup>
 import info from '@/api/panel/info'
-import type { HomePlugin, NowMonitor, SystemInfo } from './types'
+import type { CountInfo, HomePlugin, NowMonitor, SystemInfo } from './types'
+import { router } from '@/router'
+import { NButton, NPopconfirm } from 'naive-ui'
 
 const nowMonitor = ref<NowMonitor | null>(null)
 const systemInfo = ref<SystemInfo | null>(null)
+const countInfo = ref<CountInfo | null>(null)
 const homePlugins = ref<HomePlugin[] | null>(null)
 
 const cores = ref(0)
@@ -65,10 +68,37 @@ const getSystemInfo = async () => {
     systemInfo.value = res.data
   })
 }
+const getCountInfo = async () => {
+  info.countInfo().then((res) => {
+    countInfo.value = res.data
+  })
+}
 
 const getHomePlugins = async () => {
   info.homePlugins().then((res) => {
     homePlugins.value = res.data
+  })
+}
+
+const handleRestartPanel = () => {
+  clearInterval(homeInterval)
+  window.$message.loading('面板重启中...')
+  info.restart().then(() => {
+    window.$message.success('面板重启成功')
+    setTimeout(() => {
+      window.location.reload()
+    }, 3000)
+  })
+}
+
+const handleUpdate = () => {
+  window.$message.loading('检查更新中...')
+  info.checkUpdate().then((res) => {
+    if (res.data.update) {
+      router.push({ name: 'home-update' })
+    } else {
+      window.$message.success('当前已是最新版本')
+    }
   })
 }
 
@@ -95,6 +125,8 @@ const getEgg = () => {
   eggCount++
   if (eggCount > 10) {
     return '你干嘛，哎呦！'
+  } else if (eggCount > 4) {
+    return '厉不厉害你坤哥'
   } else {
     return '在多一眼看一眼就会爆炸'
   }
@@ -109,6 +141,7 @@ let homeInterval: any = null
 onMounted(() => {
   getNowMonitor()
   getSystemInfo()
+  getCountInfo()
   getHomePlugins()
   homeInterval = setInterval(() => {
     getNowMonitor()
@@ -129,19 +162,19 @@ onUnmounted(() => {
             <n-page-header :subtitle="systemInfo?.panel_version">
               <n-grid :cols="4">
                 <n-gi>
-                  <n-statistic label="网站" value="? 个" />
+                  <n-statistic label="网站" :value="countInfo?.website + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="数据库" value="? 个" />
+                  <n-statistic label="数据库" :value="countInfo?.database + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="FTP" value="? 个" />
+                  <n-statistic label="FTP" :value="countInfo?.ftp + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="计划任务" value="? 个" />
+                  <n-statistic label="计划任务" :value="countInfo?.cron + ' 个'" />
                 </n-gi>
               </n-grid>
-              <template #title> 耗子 Linux 面板 </template>
+              <template #title> 耗子 Linux 面板</template>
               <template #extra>
                 <n-space>
                   <n-button @click="toJiHu">开源地址</n-button>
@@ -168,7 +201,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> CPU </template>
+                  <template #header> CPU</template>
                   <template #description>
                     <n-progress
                       type="line"
@@ -187,7 +220,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 内存 </template>
+                  <template #header> 内存</template>
                   <template #description>
                     <n-progress
                       type="line"
@@ -224,7 +257,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 近 1 分钟 </template>
+                  <template #header> 近 1 分钟</template>
                   <n-popover trigger="hover" placement="top-end">
                     <template #trigger>
                       <n-progress
@@ -233,9 +266,9 @@ onUnmounted(() => {
                         :indicator-placement="'inside'"
                       />
                     </template>
-                    <span
-                      >1 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load1 }}</n-tag></span
-                    >
+                    <span>
+                      1 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load1 }}</n-tag>
+                    </span>
                   </n-popover>
                 </n-thing>
                 <n-thing>
@@ -247,7 +280,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 近 5 分钟 </template>
+                  <template #header> 近 5 分钟</template>
                   <n-popover trigger="hover" placement="top-end">
                     <template #trigger>
                       <n-progress
@@ -256,9 +289,9 @@ onUnmounted(() => {
                         :indicator-placement="'inside'"
                       />
                     </template>
-                    <span
-                      >5 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load5 }}</n-tag></span
-                    >
+                    <span>
+                      5 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load5 }}</n-tag>
+                    </span>
                   </n-popover>
                 </n-thing>
                 <n-thing>
@@ -269,7 +302,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 近 15 分钟 </template>
+                  <template #header> 近 15 分钟</template>
                   <n-popover trigger="hover" placement="top-end">
                     <template #trigger>
                       <n-progress
@@ -278,9 +311,9 @@ onUnmounted(() => {
                         :indicator-placement="'inside'"
                       />
                     </template>
-                    <span
-                      >15 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load15 }}</n-tag></span
-                    >
+                    <span>
+                      15 分钟负载 <n-tag type="primary">{{ nowMonitor.load.load15 }}</n-tag>
+                    </span>
                   </n-popover>
                 </n-thing>
               </n-space>
@@ -298,7 +331,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 网络 </template>
+                  <template #header> 网络</template>
                   <p>
                     实时上行 {{ formatBytes(netCurrentSent) }}/s / 实时下行
                     {{ formatBytes(netCurrentRecv) }}/s
@@ -316,7 +349,7 @@ onUnmounted(() => {
                       </n-icon>
                     </n-avatar>
                   </template>
-                  <template #header> 磁盘 </template>
+                  <template #header> 磁盘</template>
                   <p>
                     实时读取 {{ formatBytes(diskCurrentRead) }}/s / 实时写入
                     {{ formatBytes(diskCurrentWrite) }}/s
@@ -405,17 +438,22 @@ onUnmounted(() => {
                     <th>操作</th>
                     <td>
                       <n-space>
-                        <n-button type="warning">
-                          <n-icon size="20">
-                            <icon-mdi:restart />
-                          </n-icon>
-                          重启
-                        </n-button>
-                        <n-button type="success">
+                        <n-popconfirm @positive-click="handleRestartPanel">
+                          <template #trigger>
+                            <n-button type="warning">
+                              <n-icon size="20">
+                                <icon-mdi:restart />
+                              </n-icon>
+                              重启面板
+                            </n-button>
+                          </template>
+                          确定要重启面板吗？
+                        </n-popconfirm>
+                        <n-button type="success" @click="handleUpdate">
                           <n-icon size="20">
                             <icon-mdi:arrow-up-bold-circle-outline />
                           </n-icon>
-                          升级
+                          检查更新
                         </n-button>
                       </n-space>
                     </td>

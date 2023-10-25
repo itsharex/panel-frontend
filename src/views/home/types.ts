@@ -157,6 +157,13 @@ export interface SystemInfo {
   panel_version: string
 }
 
+export interface CountInfo {
+  website: number
+  database: number
+  ftp: number
+  cron: number
+}
+
 export interface HomePlugin {
   id: number
   slug: string
