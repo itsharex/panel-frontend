@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NPopconfirm, NSpace } from 'naive-ui'
-import { renderIcon } from '@/utils'
 import type { FirewallRule } from '@/views/safe/types'
 import safe from '@/api/panel/safe'
 

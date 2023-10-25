@@ -486,7 +486,12 @@ onUnmounted(() => {
                   responsive="screen"
                 >
                   <n-gi v-for="item in homePlugins" :key="item.name">
-                    <n-card :segmented="true" rounded-10 size="small">
+                    <n-card
+                      :segmented="true"
+                      rounded-10
+                      size="small"
+                      style="background-color: #f5f5f5"
+                    >
                       <n-space>
                         <n-thing>
                           <template #avatar>

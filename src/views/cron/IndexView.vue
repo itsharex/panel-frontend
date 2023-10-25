@@ -5,8 +5,8 @@ import info from '@/api/panel/info'
 import website from '@/api/panel/website'
 import cron from '@/api/panel/cron'
 import { NButton, NDataTable, NInput, NPopconfirm, NSwitch } from 'naive-ui'
-import { renderIcon } from '@/utils'
 import type { CronTask } from '@/views/cron/types'
+import { renderIcon } from '@/utils'
 
 const addModel = ref({
   name: '',
@@ -88,7 +88,7 @@ const columns: any = [
   {
     title: '操作',
     key: 'actions',
-    width: 300,
+    width: 280,
     align: 'center',
     fixed: 'right',
     hideInExcel: true,

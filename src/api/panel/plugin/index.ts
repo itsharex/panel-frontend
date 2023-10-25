@@ -2,13 +2,15 @@ import { request } from '@/utils'
 
 export default {
   // 获取插件列表
-  list: () => request.get('/panel/plugin/list'),
+  list: (page: number, limit: number) =>
+    request.get('/panel/plugin/list', { params: { page, limit } }),
   // 安装插件
-  install: (plugin: any) => request.post('/panel/plugin/install', { plugin }),
+  install: (slug: string) => request.post('/panel/plugin/install', { slug }),
   // 卸载插件
-  uninstall: (plugin: any) => request.post('/panel/plugin/uninstall', { plugin }),
+  uninstall: (slug: string) => request.post('/panel/plugin/uninstall', { slug }),
   // 更新插件
-  update: (plugin: any) => request.post('/panel/plugin/update', { plugin }),
+  update: (slug: string) => request.post('/panel/plugin/update', { slug }),
   // 设置首页显示
-  updateShow: (plugin: any) => request.post('/panel/plugin/updateShow', { plugin })
+  updateShow: (slug: string, show: boolean) =>
+    request.post('/panel/plugin/updateShow', { slug, show })
 }
