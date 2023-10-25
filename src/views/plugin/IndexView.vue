@@ -163,7 +163,7 @@ const handleUninstall = (slug: string) => {
 }
 
 const handleManage = (slug: string) => {
-  window.open(`/admin/plugin/${slug}`)
+  router.push({ name: 'plugins-' + slug + '-index' })
 }
 
 const getPluginList = async (page: number, limit: number) => {

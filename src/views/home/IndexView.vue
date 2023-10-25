@@ -140,6 +140,10 @@ const toJiHu = () => {
   window.open('https://jihulab.com/haozi-team/panel')
 }
 
+const handleManagePlugin = (slug: string) => {
+  router.push({ name: 'plugins-' + slug + '-index' })
+}
+
 let homeInterval: any = null
 
 onMounted(() => {
@@ -491,6 +495,7 @@ onUnmounted(() => {
                       rounded-10
                       size="small"
                       style="background-color: #f5f5f5"
+                      @click="handleManagePlugin(item.slug)"
                     >
                       <n-space>
                         <n-thing>

@@ -2,9 +2,9 @@
 import type { Task } from '@/views/task/types'
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { renderIcon } from '@/utils'
-import { router } from '@/router'
 import task from '@/api/panel/task'
 import { VAceEditor } from 'vue3-ace-editor'
+import '@/utils/common/ace-config'
 
 const taskLogModal = ref(false)
 const taskLog = ref('')
@@ -154,20 +154,18 @@ onMounted(() => {
 
 <template>
   <CommonPage show-footer>
-    <n-space vertical>
-      <n-data-table
-        striped
-        remote
-        :loading="false"
-        :columns="columns"
-        :data="tasks"
-        :row-key="(row) => row.id"
-        :pagination="pagination"
-        @update:checked-row-keys="onChecked"
-        @update:page="onPageChange"
-        @update:page-size="onPageSizeChange"
-      />
-    </n-space>
+    <n-data-table
+      striped
+      remote
+      :loading="false"
+      :columns="columns"
+      :data="tasks"
+      :row-key="(row) => row.id"
+      :pagination="pagination"
+      @update:checked-row-keys="onChecked"
+      @update:page="onPageChange"
+      @update:page-size="onPageSizeChange"
+    />
   </CommonPage>
   <n-modal
     v-model:show="taskLogModal"
