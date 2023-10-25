@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Task } from '@/views/task/types'
-import { NButton, NDataTable, NPopconfirm, NSwitch } from 'naive-ui'
+import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import { router } from '@/router'
 import task from '@/api/panel/task'
@@ -141,10 +141,6 @@ const onPageChange = (page: number) => {
 const onPageSizeChange = (pageSize: number) => {
   pagination.pageSize = pageSize
   onPageChange(1)
-}
-
-const toTask = () => {
-  router.push({ name: 'task-index' })
 }
 
 onMounted(() => {
