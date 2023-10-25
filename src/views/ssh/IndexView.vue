@@ -48,10 +48,8 @@ const openSession = () => {
   term.loadAddon(fitAddon)
 
   const token = String(getToken())
-  let host = import.meta.env.VITE_BASE_API
-  host = host.replace('https', 'wss')
-  host = host.replace('http', 'ws')
-  const ws = new WebSocket(`${host}/panel/ssh/session`, [token])
+  const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
+  const ws = new WebSocket(`${protocol}://${window.location.host}/api/panel/ssh/session`, [token])
   ws.binaryType = 'arraybuffer'
 
   const enc = new TextDecoder('utf-8')
