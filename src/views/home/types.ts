@@ -174,3 +174,14 @@ export interface HomePlugin {
   created_at: string
   updated_at: string
 }
+
+export interface PanelInfo {
+  name: string
+  version: string
+  download_name: string
+  download_url: string
+  body: string
+  date: string
+  checksums: string
+  checksums_url: string
+}

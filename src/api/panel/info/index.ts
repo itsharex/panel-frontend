@@ -18,6 +18,8 @@ export default {
   installedDbAndPhp: () => request.get('/panel/info/installedDbAndPhp'),
   // 检查更新
   checkUpdate: () => request.get('/panel/info/checkUpdate'),
+  // 更新日志
+  updateInfo: () => request.get('/panel/info/updateInfo'),
   // 更新面板
   update: () => request.post('/panel/info/update'),
   // 重启面板

@@ -6,8 +6,13 @@ import { NButton, NPopconfirm } from 'naive-ui'
 
 const nowMonitor = ref<NowMonitor | null>(null)
 const systemInfo = ref<SystemInfo | null>(null)
-const countInfo = ref<CountInfo | null>(null)
 const homePlugins = ref<HomePlugin[] | null>(null)
+const countInfo = ref<CountInfo>({
+  website: 0,
+  database: 0,
+  ftp: 0,
+  cron: 0
+})
 
 const cores = ref(0)
 const netTotalSent = ref(0)
@@ -92,7 +97,6 @@ const handleRestartPanel = () => {
 }
 
 const handleUpdate = () => {
-  window.$message.loading('检查更新中...')
   info.checkUpdate().then((res) => {
     if (res.data.update) {
       router.push({ name: 'home-update' })
@@ -162,16 +166,16 @@ onUnmounted(() => {
             <n-page-header :subtitle="systemInfo?.panel_version">
               <n-grid :cols="4">
                 <n-gi>
-                  <n-statistic label="网站" :value="countInfo?.website + ' 个'" />
+                  <n-statistic label="网站" :value="countInfo.website + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="数据库" :value="countInfo?.database + ' 个'" />
+                  <n-statistic label="数据库" :value="countInfo.database + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="FTP" :value="countInfo?.ftp + ' 个'" />
+                  <n-statistic label="FTP" :value="countInfo.ftp + ' 个'" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="计划任务" :value="countInfo?.cron + ' 个'" />
+                  <n-statistic label="计划任务" :value="countInfo.cron + ' 个'" />
                 </n-gi>
               </n-grid>
               <template #title> 耗子 Linux 面板</template>

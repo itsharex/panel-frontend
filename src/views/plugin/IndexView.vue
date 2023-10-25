@@ -6,7 +6,7 @@ import { NButton } from 'naive-ui'
   <CommonPage show-footer>
     <template #action>
       <div>
-        <n-button class="ml-16" type="primary" @click="">
+        <n-button class="ml-16" type="primary">
           <TheIcon :size="18" class="mr-5" icon="mdi:archive-sync-outline" />
           任务中心
         </n-button>
