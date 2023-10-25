@@ -2,6 +2,7 @@
 import { NButton, NDataTable, NPopconfirm, NSpace } from 'naive-ui'
 import type { FirewallRule } from '@/views/safe/types'
 import safe from '@/api/panel/safe'
+import { renderIcon } from '@/utils'
 
 const model = ref({
   firewallStatus: false,
