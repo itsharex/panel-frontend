@@ -123,10 +123,7 @@ const columns: any = [
         h(
           NPopconfirm,
           {
-            onPositiveClick: () => handleDelete(row.id),
-            onNegativeClick: () => {
-              window.$message.info('取消删除')
-            }
+            onPositiveClick: () => handleDelete(row.id)
           },
           {
             default: () => {
@@ -208,17 +205,6 @@ const onPageSizeChange = (pageSize: number) => {
   onPageChange(1)
 }
 
-const handleAdd = async () => {
-  cron.add(addModel.value).then(() => {
-    window.$message.success('添加成功')
-  })
-  getTaskList(pagination.page, pagination.pageSize).then((res) => {
-    data.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
-}
-
 const handleStatusChange = async (row: any) => {
   cron.status(row.id, !row.status).then(() => {
     row.status = !row.status
@@ -231,6 +217,13 @@ const handleShowLog = async (row: any) => {
     taskLog.value = res.data
     taskLogModal.value = true
   })
+}
+
+const handleAdd = async () => {
+  cron.add(addModel.value).then(() => {
+    window.$message.success('添加成功')
+  })
+  onPageChange(pagination.page)
 }
 
 const handleEdit = async (row: any) => {
@@ -247,11 +240,7 @@ const handleDelete = async (id: number) => {
   cron.delete(id).then(() => {
     window.$message.success('删除成功')
   })
-  getTaskList(pagination.page, pagination.pageSize).then((res) => {
-    data.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
 }
 
 const saveTaskEdit = async () => {
@@ -274,11 +263,7 @@ const handleCronSelectUpdate = (value: string) => {
 onMounted(() => {
   getPhpAndDb()
   getWebsiteList(1, 10000)
-  getTaskList(pagination.page, pagination.pageSize).then((res) => {
-    data.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
 })
 </script>
 

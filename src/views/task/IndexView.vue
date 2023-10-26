@@ -105,11 +105,7 @@ const pagination = reactive({
 const handleDelete = (id: number) => {
   task.delete(id).then(() => {
     window.$message.success('任务已删除')
-    getTaskList(pagination.page, pagination.pageSize).then((res) => {
-      tasks.value = res.items
-      pagination.itemCount = res.total
-      pagination.pageCount = res.total / pagination.pageSize + 1
-    })
+    onPageChange(pagination.page)
   })
 }
 
@@ -144,11 +140,7 @@ const onPageSizeChange = (pageSize: number) => {
 }
 
 onMounted(() => {
-  getTaskList(pagination.page, pagination.pageSize).then((res) => {
-    tasks.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
 })
 </script>
 

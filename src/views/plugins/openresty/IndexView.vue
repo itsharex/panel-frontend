@@ -179,7 +179,7 @@ onMounted(() => {
           :loading="false"
           :columns="columns"
           :data="load"
-          :row-key="(row) => row.id"
+          :row-key="(row) => row.key"
         />
       </n-tab-pane>
       <n-tab-pane name="error-log" tab="错误日志">

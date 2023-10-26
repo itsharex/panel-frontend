@@ -194,11 +194,7 @@ const toTask = () => {
 }
 
 onMounted(() => {
-  getPluginList(pagination.page, pagination.pageSize).then((res) => {
-    plugins.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
 })
 </script>
 

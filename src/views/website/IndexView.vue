@@ -229,11 +229,7 @@ const handleEdit = (row: any) => {
 const handleDelete = (id: number) => {
   website.delete(id).then(() => {
     window.$message.success('删除成功')
-    getWebsiteList(pagination.page, pagination.pageSize).then((res) => {
-      data.value = res.items
-      pagination.itemCount = res.total
-      pagination.pageCount = res.total / pagination.pageSize + 1
-    })
+    onPageChange(pagination.page)
   })
 }
 
@@ -292,19 +288,11 @@ const batchDelete = async () => {
     })
   }
 
-  getWebsiteList(pagination.page, pagination.pageSize).then((res) => {
-    data.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
 }
 
 onMounted(() => {
-  getWebsiteList(pagination.page, pagination.pageSize).then((res) => {
-    data.value = res.items
-    pagination.itemCount = res.total
-    pagination.pageCount = res.total / pagination.pageSize + 1
-  })
+  onPageChange(pagination.page)
   getPhpAndDb()
 })
 </script>
