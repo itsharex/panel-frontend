@@ -52,6 +52,9 @@ const handleSaveConfig = async () => {
 
 const handleClearErrorLog = async () => {
   await openresty.clearErrorLog()
+  getErrorLog().then((res) => {
+    errorLog.value = res
+  })
   window.$message.success('清空成功')
 }
 
@@ -173,14 +176,7 @@ onMounted(() => {
         </n-space>
       </n-tab-pane>
       <n-tab-pane name="load" tab="负载状态">
-        <n-data-table
-          striped
-          remote
-          :loading="false"
-          :columns="columns"
-          :data="load"
-          :row-key="(row) => row.key"
-        />
+        <n-data-table striped remote :loading="false" :columns="columns" :data="load" />
       </n-tab-pane>
       <n-tab-pane name="error-log" tab="错误日志">
         <VAceEditor

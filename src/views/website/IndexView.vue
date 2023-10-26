@@ -301,7 +301,7 @@ onMounted(() => {
   <CommonPage show-footer>
     <template #action>
       <div>
-        <n-button class="ml-16" type="primary" @click="() => (addModal = true)">
+        <n-button class="ml-16" type="primary" @click="addModal = true">
           <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
           新建网站
         </n-button>
