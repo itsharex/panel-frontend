@@ -22,16 +22,16 @@ const statusStr = computed(() => {
 const addDatabaseModel = ref({
   database: '',
   user: '',
-  password: ''
+  password: generateRandomString(16)
 })
 const addUserModel = ref({
   database: '',
   user: '',
-  password: ''
+  password: generateRandomString(16)
 })
 const changePasswordModel = ref({
   user: '',
-  password: ''
+  password: generateRandomString(16)
 })
 const changePrivilegesModel = ref({
   user: '',
@@ -334,6 +334,11 @@ const handleAddDatabase = async () => {
   mysql57.addDatabase(addDatabaseModel.value).then(() => {
     window.$message.success('添加成功')
     addDatabaseModal.value = false
+    addDatabaseModel.value = {
+      database: '',
+      user: '',
+      password: generateRandomString(16)
+    }
     onDatabasePageChange(databasePagination.page)
   })
 }
@@ -342,6 +347,11 @@ const handleAddUser = async () => {
   mysql57.addUser(addUserModel.value).then(() => {
     window.$message.success('添加成功')
     addUserModal.value = false
+    addDatabaseModel.value = {
+      user: '',
+      password: generateRandomString(16),
+      database: ''
+    }
     onUserPageChange(userPagination.page)
   })
 }
@@ -447,6 +457,8 @@ onMounted(() => {
               :columns="databaseColumns"
               :data="databases"
               :row-key="(row) => row.name"
+              @update:page="onDatabasePageChange"
+              @update:page-size="onDatabasePageSizeChange"
             />
           </n-card>
           <n-card title="用户" :segmented="true" rounded-10>
@@ -457,6 +469,8 @@ onMounted(() => {
               :columns="userColumns"
               :data="users"
               :row-key="(row) => row.user"
+              @update:page="onUserPageChange"
+              @update:page-size="onUserPageSizeChange"
             />
           </n-card>
         </n-space>
