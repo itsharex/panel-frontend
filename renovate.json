@@ -6,6 +6,7 @@
   "labels": [
     "🤖 Dependencies"
   ],
+  "lockFileMaintenance": { "enabled": true },
   "commitMessagePrefix": "chore(deps): ",
   "postUpdateOptions": [
     "pnpmDedupe"
