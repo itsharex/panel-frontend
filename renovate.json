@@ -19,5 +19,6 @@
         "*"
       ]
     }
-  ]
+  ],
+  "ignorePaths": [".gitlab-ci.yml"]
 }
