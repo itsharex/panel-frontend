@@ -36,7 +36,8 @@ export default {
   // 创建数据库
   addDatabase: (database: any) => request.post('/plugins/mysql57/databases', database),
   // 删除数据库
-  deleteDatabase: (database: string) => request.delete('/plugins/mysql57/databases', { database }),
+  deleteDatabase: (database: string) =>
+    request.delete('/plugins/mysql57/databases', { data: { database } }),
   // 备份列表
   backups: (page: number, limit: number) =>
     request.get('/plugins/mysql57/backups', { params: { page, limit } }),
@@ -45,7 +46,8 @@ export default {
   // 上传备份
   uploadBackup: (backup: string) => request.put('/plugins/mysql57/backups', { backup }),
   // 删除备份
-  deleteBackup: (backup: string) => request.delete('/plugins/mysql57/backups', { backup }),
+  deleteBackup: (backup: string) =>
+    request.delete('/plugins/mysql57/backups', { data: { backup } }),
   // 还原备份
   restoreBackup: (backup: string, database: string) =>
     request.post('/plugins/mysql57/backups/restore', { backup, database }),
@@ -55,7 +57,7 @@ export default {
   // 创建用户
   addUser: (user: any) => request.post('/plugins/mysql57/users', user),
   // 删除用户
-  deleteUser: (user: string) => request.delete('/plugins/mysql57/users', { user }),
+  deleteUser: (user: string) => request.delete('/plugins/mysql57/users', { data: { user } }),
   // 设置用户密码
   setUserPassword: (user: string, password: string) =>
     request.post('/plugins/mysql57/users/password', { user, password }),
