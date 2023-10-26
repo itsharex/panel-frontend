@@ -21,7 +21,7 @@ export default {
   // 更新日志
   updateInfo: () => request.get('/panel/info/updateInfo'),
   // 更新面板
-  update: () => request.post('/panel/info/update'),
+  update: () => request.post('/panel/info/update', null, { timeout: 60000 }),
   // 重启面板
   restart: () => request.post('/panel/info/restart')
 }

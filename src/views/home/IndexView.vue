@@ -3,6 +3,9 @@ import info from '@/api/panel/info'
 import type { CountInfo, HomePlugin, NowMonitor, SystemInfo } from './types'
 import { router } from '@/router'
 import { NButton, NPopconfirm } from 'naive-ui'
+import { useAppStore } from '@/store'
+
+const appStore = useAppStore()
 
 const nowMonitor = ref<NowMonitor | null>(null)
 const systemInfo = ref<SystemInfo | null>(null)
@@ -91,7 +94,7 @@ const handleRestartPanel = () => {
   info.restart().then(() => {
     window.$message.success('面板重启成功')
     setTimeout(() => {
-      window.location.reload()
+      appStore.reloadPage()
     }, 3000)
   })
 }
