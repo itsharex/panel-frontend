@@ -4,9 +4,11 @@ import { VAceEditor } from 'vue3-ace-editor'
 import mysql57 from '@/api/plugins/mysql57'
 import '@/utils/common/ace-config'
 import { generateRandomString, renderIcon } from '@/utils'
-import type { Database, User } from '@/views/plugins/mysql57/types'
+import type { Backup, Database, User } from '@/views/plugins/mysql57/types'
+import type { UploadFileInfo } from 'naive-ui'
 
 const currentTab = ref('status')
+const currentDatabase = ref('')
 const status = ref(false)
 const config = ref('')
 const errorLog = ref('')
@@ -42,6 +44,7 @@ const addDatabaseModal = ref(false)
 const addUserModal = ref(false)
 const changePasswordModal = ref(false)
 const changePrivilegesModal = ref(false)
+const backupModal = ref(false)
 
 const databaseColumns: any = [
   { title: '库名', key: 'name', fixed: 'left', resizable: true, ellipsis: { tooltip: true } },
@@ -59,8 +62,11 @@ const databaseColumns: any = [
           {
             size: 'small',
             type: 'warning',
-            secondary: true
-            //onClick: () => handleEdit(row)
+            secondary: true,
+            onClick: () => {
+              currentDatabase.value = row.name
+              backupModal.value = true
+            }
           },
           {
             default: () => '备份',
@@ -116,7 +122,7 @@ const userColumns: any = [
             size: 'small',
             type: 'warning',
             secondary: true,
-            onClick: () => handleChangePassword(row.user)
+            onClick: () => showChangePasswordModal(row.user)
           },
           {
             default: () => '改密',
@@ -130,7 +136,7 @@ const userColumns: any = [
             type: 'warning',
             secondary: true,
             style: 'margin-left: 15px;',
-            onClick: () => handleChangePrivileges(row.user, row.database)
+            onClick: () => showChangePrivilegesModal(row.user)
           },
           {
             default: () => '权限',
@@ -172,8 +178,64 @@ const loadColumns: any = [
   { title: '当前值', key: 'value', width: 200, ellipsis: { tooltip: true } }
 ]
 
+const backupColumns: any = [
+  { title: '文件名', key: 'name', fixed: 'left', resizable: true, ellipsis: { tooltip: true } },
+  { title: '大小', key: 'size', width: 200, ellipsis: { tooltip: true } },
+  {
+    title: '操作',
+    key: 'actions',
+    width: 200,
+    align: 'center',
+    fixed: 'right',
+    hideInExcel: true,
+    render(row: any) {
+      return [
+        h(
+          NButton,
+          {
+            size: 'small',
+            type: 'warning',
+            secondary: true,
+            onClick: () => handleRestoreBackup(row)
+          },
+          {
+            default: () => '恢复',
+            icon: renderIcon('material-symbols:settings-backup-restore-rounded', { size: 14 })
+          }
+        ),
+        h(
+          NPopconfirm,
+          {
+            onPositiveClick: () => handleDeleteBackup(row.name)
+          },
+          {
+            default: () => {
+              return '确定删除备份吗？'
+            },
+            trigger: () => {
+              return h(
+                NButton,
+                {
+                  size: 'small',
+                  type: 'error',
+                  style: 'margin-left: 15px;'
+                },
+                {
+                  default: () => '删除',
+                  icon: renderIcon('material-symbols:delete-outline', { size: 14 })
+                }
+              )
+            }
+          }
+        )
+      ]
+    }
+  }
+]
+
 const databases = ref<Database[]>([] as Database[])
 const users = ref<User[]>([] as User[])
+const backup = ref<Backup[]>([])
 const load = ref<any[]>([])
 
 const databasePagination = reactive({
@@ -187,6 +249,16 @@ const databasePagination = reactive({
 })
 
 const userPagination = reactive({
+  page: 1,
+  pageCount: 1,
+  pageSize: 10,
+  itemCount: 0,
+  showQuickJumper: true,
+  showSizePicker: true,
+  pageSizes: [10, 20, 50, 100]
+})
+
+const backupPagination = reactive({
   page: 1,
   pageCount: 1,
   pageSize: 10,
@@ -211,6 +283,11 @@ const getUserList = async (page: number, limit: number) => {
   return data
 }
 
+const getBackupList = async (page: number, limit: number) => {
+  const { data } = await mysql57.backups(page, limit)
+  return data
+}
+
 const onDatabasePageChange = (page: number) => {
   databasePagination.page = page
   getDatabaseList(page, databasePagination.pageSize).then((res) => {
@@ -229,6 +306,15 @@ const onUserPageChange = (page: number) => {
   })
 }
 
+const onBackupPageChange = (page: number) => {
+  backupPagination.page = page
+  getBackupList(page, backupPagination.pageSize).then((res) => {
+    backup.value = res.items
+    backupPagination.itemCount = res.total
+    backupPagination.pageCount = res.total / backupPagination.pageSize + 1
+  })
+}
+
 const onDatabasePageSizeChange = (pageSize: number) => {
   databasePagination.pageSize = pageSize
   onDatabasePageChange(1)
@@ -237,6 +323,11 @@ const onDatabasePageSizeChange = (pageSize: number) => {
 const onUserPageSizeChange = (pageSize: number) => {
   userPagination.pageSize = pageSize
   onUserPageChange(1)
+}
+
+const onBackupPageSizeChange = (pageSize: number) => {
+  backupPagination.pageSize = pageSize
+  onBackupPageChange(1)
 }
 
 const handleDeleteDatabase = async (name: string) => {
@@ -253,14 +344,13 @@ const handleDeleteUser = async (user: string) => {
   })
 }
 
-const handleChangePassword = (user: string) => {
+const showChangePasswordModal = (user: string) => {
   changePasswordModel.value.user = user
   changePasswordModal.value = true
 }
 
-const handleChangePrivileges = (user: string, database: string) => {
+const showChangePrivilegesModal = (user: string) => {
   changePrivilegesModel.value.user = user
-  changePrivilegesModel.value.database = database
   changePrivilegesModal.value = true
 }
 
@@ -309,7 +399,7 @@ const handleClearSlowLog = async () => {
 const handleStart = async () => {
   await mysql57.start()
   window.$message.success('启动成功')
-  getStatus()
+  await getStatus()
 }
 
 const handleStop = async () => {
@@ -340,6 +430,7 @@ const handleAddDatabase = async () => {
       password: generateRandomString(16)
     }
     onDatabasePageChange(databasePagination.page)
+    onUserPageChange(userPagination.page)
   })
 }
 
@@ -356,10 +447,72 @@ const handleAddUser = async () => {
   })
 }
 
+const handleChangePassword = async () => {
+  mysql57
+    .setUserPassword(changePasswordModel.value.user, changePasswordModel.value.password)
+    .then(() => {
+      window.$message.success('修改成功')
+      changePasswordModal.value = false
+      changePasswordModel.value = {
+        user: '',
+        password: generateRandomString(16)
+      }
+      onUserPageChange(userPagination.page)
+    })
+}
+
+const handleChangePrivileges = async () => {
+  mysql57
+    .setUserPrivileges(changePrivilegesModel.value.user, changePrivilegesModel.value.database)
+    .then(() => {
+      window.$message.success('修改成功')
+      changePrivilegesModal.value = false
+      changePrivilegesModel.value = {
+        user: '',
+        database: ''
+      }
+      onUserPageChange(userPagination.page)
+    })
+}
+
+const handleUploadBackup = async (files: UploadFileInfo[]) => {
+  for (let i = 0; i < files.length; i++) {
+    const file = files[i]
+    const formData = new FormData()
+    formData.append('file', file.file as Blob, file.name)
+    await mysql57.uploadBackup(formData).then(() => {
+      window.$message.success('上传成功')
+      onBackupPageChange(backupPagination.page)
+    })
+  }
+}
+
+const handleCreateBackup = async () => {
+  await mysql57.createBackup(currentDatabase.value).then(() => {
+    window.$message.success('创建成功')
+    onBackupPageChange(backupPagination.page)
+  })
+}
+
+const handleRestoreBackup = async (row: any) => {
+  await mysql57.restoreBackup(row.name, currentDatabase.value).then(() => {
+    window.$message.success('恢复成功')
+    onBackupPageChange(backupPagination.page)
+  })
+}
+
+const handleDeleteBackup = async (name: string) => {
+  await mysql57.deleteBackup(name).then(() => {
+    window.$message.success('删除成功')
+    onBackupPageChange(backupPagination.page)
+  })
+}
+
 onMounted(() => {
   getStatus()
   onDatabasePageChange(databasePagination.page)
   onUserPageChange(userPagination.page)
+  onBackupPageChange(backupPagination.page)
   getLoad().then((res) => {
     load.value = res
   })
@@ -575,7 +728,7 @@ onMounted(() => {
         <n-form-item path="password" label="密码">
           <n-input
             v-model:value="addDatabaseModel.password"
-            type="password"
+            type="text"
             @keydown.enter.prevent
             placeholder="建议使用生成器生成随机密码"
           />
@@ -602,7 +755,7 @@ onMounted(() => {
         <n-form-item path="password" label="密码">
           <n-input
             v-model:value="addUserModel.password"
-            type="password"
+            type="text"
             @keydown.enter.prevent
             placeholder="建议使用生成器生成随机密码"
           />
@@ -619,6 +772,87 @@ onMounted(() => {
       <n-row :gutter="[0, 24]">
         <n-col :span="24">
           <n-button type="info" block @click="handleAddUser">提交</n-button>
+        </n-col>
+      </n-row>
+    </n-card>
+  </n-modal>
+  <n-modal v-model:show="backupModal">
+    <n-card
+      closable
+      @close="() => (backupModal = false)"
+      :title="'备份管理 - ' + currentDatabase"
+      style="width: 60vw"
+    >
+      <n-space vertical>
+        <n-space>
+          <n-button type="primary" @click="handleCreateBackup">创建备份</n-button>
+          <n-upload
+            action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
+            accept=".sql,.zip,tar.gz,.tar,.rar,.bz2"
+            :default-upload="false"
+            :show-file-list="false"
+            @update:file-list="handleUploadBackup"
+          >
+            <n-button>上传备份</n-button>
+          </n-upload>
+        </n-space>
+        <n-data-table
+          striped
+          remote
+          :loading="false"
+          :columns="backupColumns"
+          :data="backup"
+          :row-key="(row) => row.name"
+          @update:page="onBackupPageChange"
+          @update:page-size="onBackupPageSizeChange"
+        />
+      </n-space>
+    </n-card>
+  </n-modal>
+  <n-modal v-model:show="changePasswordModal">
+    <n-card
+      closable
+      @close="() => (changePasswordModal = false)"
+      title="修改密码"
+      style="width: 60vw"
+    >
+      <n-form :model="changePasswordModel">
+        <n-form-item path="password" label="密码">
+          <n-input
+            v-model:value="changePasswordModel.password"
+            type="text"
+            @keydown.enter.prevent
+            placeholder="建议使用生成器生成随机密码"
+          />
+        </n-form-item>
+      </n-form>
+      <n-row :gutter="[0, 24]">
+        <n-col :span="24">
+          <n-button type="info" block @click="handleChangePassword">提交</n-button>
+        </n-col>
+      </n-row>
+    </n-card>
+  </n-modal>
+  <n-modal v-model:show="changePrivilegesModal">
+    <n-card
+      closable
+      @close="() => (changePrivilegesModal = false)"
+      title="修改权限"
+      style="width: 60vw"
+    >
+      <n-form :model="changePrivilegesModel">
+        <n-form-item path="database" label="数据库名">
+          <n-input
+            v-model:value="changePrivilegesModel.database"
+            type="text"
+            @keydown.enter.prevent
+            placeholder="输入授权给该用户的数据库名"
+          />
+        </n-form-item>
+      </n-form>
+      <n-row :gutter="[0, 24]">
+        <n-col :span="24">
+          <n-button type="info" block @click="handleChangePrivileges">提交</n-button>
         </n-col>
       </n-row>
     </n-card>

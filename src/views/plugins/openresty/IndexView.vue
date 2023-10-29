@@ -61,7 +61,7 @@ const handleClearErrorLog = async () => {
 const handleStart = async () => {
   await openresty.start()
   window.$message.success('启动成功')
-  getStatus()
+  await getStatus()
 }
 
 const handleStop = async () => {
