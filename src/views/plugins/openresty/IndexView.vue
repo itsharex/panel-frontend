@@ -120,34 +120,40 @@ onMounted(() => {
     </template>
     <n-tabs v-model:value="currentTab" type="line" animated>
       <n-tab-pane name="status" tab="运行状态">
-        <n-space vertical>
-          <n-alert :type="statusType">
-            {{ statusStr }}
-          </n-alert>
-          <n-space>
-            <n-button type="success" @click="handleStart">
-              <TheIcon :size="24" class="mr-5" icon="material-symbols:play-arrow-outline-rounded" />
-              启动
-            </n-button>
-            <n-popconfirm @positive-click="handleStop">
-              <template #trigger>
-                <n-button type="error">
-                  <TheIcon :size="24" class="mr-5" icon="material-symbols:stop-outline-rounded" />
-                  停止
-                </n-button>
-              </template>
-              停止 OpenResty 会导致所有网站无法访问，确定要停止吗？
-            </n-popconfirm>
-            <n-button type="warning" @click="handleRestart">
-              <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
-              重启
-            </n-button>
-            <n-button type="primary" @click="handleReload">
-              <TheIcon :size="20" class="mr-5" icon="material-symbols:refresh-rounded" />
-              重载
-            </n-button>
+        <n-card title="运行状态" rounded-10>
+          <n-space vertical>
+            <n-alert :type="statusType">
+              {{ statusStr }}
+            </n-alert>
+            <n-space>
+              <n-button type="success" @click="handleStart">
+                <TheIcon
+                  :size="24"
+                  class="mr-5"
+                  icon="material-symbols:play-arrow-outline-rounded"
+                />
+                启动
+              </n-button>
+              <n-popconfirm @positive-click="handleStop">
+                <template #trigger>
+                  <n-button type="error">
+                    <TheIcon :size="24" class="mr-5" icon="material-symbols:stop-outline-rounded" />
+                    停止
+                  </n-button>
+                </template>
+                停止 OpenResty 会导致所有网站无法访问，确定要停止吗？
+              </n-popconfirm>
+              <n-button type="warning" @click="handleRestart">
+                <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
+                重启
+              </n-button>
+              <n-button type="primary" @click="handleReload">
+                <TheIcon :size="20" class="mr-5" icon="material-symbols:refresh-rounded" />
+                重载
+              </n-button>
+            </n-space>
           </n-space>
-        </n-space>
+        </n-card>
       </n-tab-pane>
       <n-tab-pane name="config" tab="修改配置">
         <n-space vertical>
