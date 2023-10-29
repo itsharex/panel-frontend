@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
 import { VAceEditor } from 'vue3-ace-editor'
-import mysql57 from '@/api/plugins/mysql57'
+import mysql80 from '@/api/plugins/mysql80'
 import '@/utils/common/ace-config'
 import { generateRandomString, renderIcon } from '@/utils'
-import type { Backup, Database, User } from '@/views/plugins/mysql57/types'
+import type { Backup, Database, User } from '@/views/plugins/mysql80/types'
 import type { UploadFileInfo } from 'naive-ui'
 
 const currentTab = ref('status')
@@ -270,22 +270,22 @@ const backupPagination = reactive({
 })
 
 const getLoad = async () => {
-  const { data } = await mysql57.load()
+  const { data } = await mysql80.load()
   return data
 }
 
 const getDatabaseList = async (page: number, limit: number) => {
-  const { data } = await mysql57.databases(page, limit)
+  const { data } = await mysql80.databases(page, limit)
   return data
 }
 
 const getUserList = async (page: number, limit: number) => {
-  const { data } = await mysql57.users(page, limit)
+  const { data } = await mysql80.users(page, limit)
   return data
 }
 
 const getBackupList = async (page: number, limit: number) => {
-  const { data } = await mysql57.backups(page, limit)
+  const { data } = await mysql80.backups(page, limit)
   return data
 }
 
@@ -332,14 +332,14 @@ const onBackupPageSizeChange = (pageSize: number) => {
 }
 
 const handleDeleteDatabase = async (name: string) => {
-  mysql57.deleteDatabase(name).then(() => {
+  mysql80.deleteDatabase(name).then(() => {
     window.$message.success('删除成功')
     onDatabasePageChange(databasePagination.page)
   })
 }
 
 const handleDeleteUser = async (user: string) => {
-  mysql57.deleteUser(user).then(() => {
+  mysql80.deleteUser(user).then(() => {
     window.$message.success('删除成功')
     onUserPageChange(userPagination.page)
   })
@@ -356,39 +356,39 @@ const showChangePrivilegesModal = (user: string) => {
 }
 
 const getStatus = async () => {
-  await mysql57.status().then((res: any) => {
+  await mysql80.status().then((res: any) => {
     status.value = res.data
   })
 }
 
 const getRootPassword = async () => {
-  await mysql57.rootPassword().then((res: any) => {
+  await mysql80.rootPassword().then((res: any) => {
     rootPassword.value = res.data
   })
 }
 
 const getErrorLog = async () => {
-  const { data } = await mysql57.errorLog()
+  const { data } = await mysql80.errorLog()
   return data
 }
 
 const getSlowLog = async () => {
-  const { data } = await mysql57.slowLog()
+  const { data } = await mysql80.slowLog()
   return data
 }
 
 const getConfig = async () => {
-  const { data } = await mysql57.config()
+  const { data } = await mysql80.config()
   return data
 }
 
 const handleSaveConfig = async () => {
-  await mysql57.saveConfig(config.value)
+  await mysql80.saveConfig(config.value)
   window.$message.success('保存成功')
 }
 
 const handleClearErrorLog = async () => {
-  await mysql57.clearErrorLog()
+  await mysql80.clearErrorLog()
   getErrorLog().then((res) => {
     errorLog.value = res
   })
@@ -396,7 +396,7 @@ const handleClearErrorLog = async () => {
 }
 
 const handleClearSlowLog = async () => {
-  await mysql57.clearSlowLog()
+  await mysql80.clearSlowLog()
   getSlowLog().then((res) => {
     slowLog.value = res
   })
@@ -404,36 +404,36 @@ const handleClearSlowLog = async () => {
 }
 
 const handleStart = async () => {
-  await mysql57.start()
+  await mysql80.start()
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await mysql57.stop()
+  await mysql80.stop()
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await mysql57.restart()
+  await mysql80.restart()
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleReload = async () => {
-  await mysql57.reload()
+  await mysql80.reload()
   window.$message.success('重载成功')
   await getStatus()
 }
 
 const handleSetRootPassword = async () => {
-  await mysql57.setRootPassword(rootPassword.value)
+  await mysql80.setRootPassword(rootPassword.value)
   window.$message.success('修改成功')
 }
 
 const handleAddDatabase = async () => {
-  mysql57.addDatabase(addDatabaseModel.value).then(() => {
+  mysql80.addDatabase(addDatabaseModel.value).then(() => {
     window.$message.success('添加成功')
     addDatabaseModal.value = false
     addDatabaseModel.value = {
@@ -447,7 +447,7 @@ const handleAddDatabase = async () => {
 }
 
 const handleAddUser = async () => {
-  mysql57.addUser(addUserModel.value).then(() => {
+  mysql80.addUser(addUserModel.value).then(() => {
     window.$message.success('添加成功')
     addUserModal.value = false
     addDatabaseModel.value = {
@@ -460,7 +460,7 @@ const handleAddUser = async () => {
 }
 
 const handleChangePassword = async () => {
-  mysql57
+  mysql80
     .setUserPassword(changePasswordModel.value.user, changePasswordModel.value.password)
     .then(() => {
       window.$message.success('修改成功')
@@ -474,7 +474,7 @@ const handleChangePassword = async () => {
 }
 
 const handleChangePrivileges = async () => {
-  mysql57
+  mysql80
     .setUserPrivileges(changePrivilegesModel.value.user, changePrivilegesModel.value.database)
     .then(() => {
       window.$message.success('修改成功')
@@ -492,7 +492,7 @@ const handleUploadBackup = async (files: UploadFileInfo[]) => {
     const file = files[i]
     const formData = new FormData()
     formData.append('file', file.file as Blob, file.name)
-    await mysql57.uploadBackup(formData).then(() => {
+    await mysql80.uploadBackup(formData).then(() => {
       window.$message.success('上传成功')
       onBackupPageChange(backupPagination.page)
     })
@@ -500,21 +500,21 @@ const handleUploadBackup = async (files: UploadFileInfo[]) => {
 }
 
 const handleCreateBackup = async () => {
-  await mysql57.createBackup(currentDatabase.value).then(() => {
+  await mysql80.createBackup(currentDatabase.value).then(() => {
     window.$message.success('创建成功')
     onBackupPageChange(backupPagination.page)
   })
 }
 
 const handleRestoreBackup = async (row: any) => {
-  await mysql57.restoreBackup(row.name, currentDatabase.value).then(() => {
+  await mysql80.restoreBackup(row.name, currentDatabase.value).then(() => {
     window.$message.success('恢复成功')
     onBackupPageChange(backupPagination.page)
   })
 }
 
 const handleDeleteBackup = async (name: string) => {
-  await mysql57.deleteBackup(name).then(() => {
+  await mysql80.deleteBackup(name).then(() => {
     window.$message.success('删除成功')
     onBackupPageChange(backupPagination.page)
   })
