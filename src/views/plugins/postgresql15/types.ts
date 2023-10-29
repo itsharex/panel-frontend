@@ -4,8 +4,7 @@ export interface Database {
 
 export interface User {
   user: string
-  host: string
-  grants: string
+  role: string
 }
 
 export interface Backup {

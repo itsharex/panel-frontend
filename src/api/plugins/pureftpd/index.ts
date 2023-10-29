@@ -3,8 +3,6 @@ import { request } from '@/utils'
 export default {
   // 运行状态
   status: () => request.get('/plugins/pureftpd/status'),
-  // 重载
-  reload: () => request.post('/plugins/pureftpd/reload'),
   // 重启
   restart: () => request.post('/plugins/pureftpd/restart'),
   // 启动

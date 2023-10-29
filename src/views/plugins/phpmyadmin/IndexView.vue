@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NButton } from 'naive-ui'
 import phpmyadmin from '@/api/plugins/phpmyadmin'
-import '@/utils/common/ace-config'
 
 const hostname = ref(window.location.hostname)
 const port = ref(0)
