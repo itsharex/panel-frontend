@@ -552,7 +552,7 @@ onMounted(() => {
                       停止
                     </n-button>
                   </template>
-                  停止 MySQL 会导致使用 MySQL 的网站无法访问，确定要停止吗？
+                  停止 PostgreSQL 会导致使用 PostgreSQL 的网站无法访问，确定要停止吗？
                 </n-popconfirm>
                 <n-button type="warning" @click="handleRestart">
                   <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
