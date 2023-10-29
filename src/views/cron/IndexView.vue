@@ -183,7 +183,7 @@ const getWebsiteList = async (page: number, limit: number) => {
       value: item.name
     })
   }
-  addModel.value.website = websites.value[0].value
+  addModel.value.website = websites.value[0]?.value
 }
 
 const getPhpAndDb = async () => {
