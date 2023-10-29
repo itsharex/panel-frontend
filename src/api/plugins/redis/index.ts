@@ -3,8 +3,6 @@ import { request } from '@/utils'
 export default {
   // 运行状态
   status: () => request.get('/plugins/redis/status'),
-  // 重载
-  reload: () => request.post('/plugins/redis/reload'),
   // 重启
   restart: () => request.post('/plugins/redis/restart'),
   // 启动
