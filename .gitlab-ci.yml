@@ -57,7 +57,7 @@ upload:
 
 release:
   stage: release
-  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  image: chenio/release-cli:latest
   only:
     - tags
   script:
