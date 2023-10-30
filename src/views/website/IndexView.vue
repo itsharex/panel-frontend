@@ -1,6 +1,5 @@
 <script lang="ts" setup>
 import { NButton, NDataTable, NSpace, NSwitch, NPopconfirm, NInput } from 'naive-ui'
-
 import website from '@/api/panel/website'
 import info from '@/api/panel/info'
 import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'

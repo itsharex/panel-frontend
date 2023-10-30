@@ -12,17 +12,18 @@ export default {
   // 停止
   stop: () => request.post('/plugins/fail2ban/stop'),
   // 保护列表
-  list: () => request.get('/plugins/fail2ban/list'),
+  jails: (page: number, limit: number) =>
+    request.get('/plugins/fail2ban/jails', { params: { page, limit } }),
   // 添加保护
-  add: (data: any) => request.post('/plugins/fail2ban/add', data),
+  add: (data: any) => request.post('/plugins/fail2ban/jails', data),
   // 删除保护
-  delete: (name: string) => request.post('/plugins/fail2ban/delete', { name }),
+  delete: (name: string) => request.delete('/plugins/fail2ban/jails', { params: { name } }),
   // 封禁列表
-  ban: (name: string) => request.post('/plugins/fail2ban/ban', { name }),
+  jail: (name: string) => request.get('/plugins/fail2ban/jails/' + name),
   // 解封 IP
   unban: (name: string, ip: string) => request.post('/plugins/fail2ban/unban', { name, ip }),
   // 获取白名单
-  whitelist: () => request.get('/plugins/fail2ban/whitelist'),
+  whitelist: () => request.get('/plugins/fail2ban/whiteList'),
   // 设置白名单
-  setWhitelist: (whitelist: string) => request.post('/plugins/fail2ban/whitelist', { whitelist })
+  setWhitelist: (ip: string) => request.post('/plugins/fail2ban/whiteList', { ip })
 }

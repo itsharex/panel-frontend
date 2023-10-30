@@ -22,7 +22,8 @@ export default {
   // 保存配置
   saveConfig: (config: string) => request.post('/plugins/supervisor/config', { config }),
   // 进程列表
-  processes: () => request.get('/plugins/supervisor/processes'),
+  processes: (page: number, limit: number) =>
+    request.get('/plugins/supervisor/processes', { params: { page, limit } }),
   // 进程启动
   startProcess: (process: string) => request.post('/plugins/supervisor/startProcess', { process }),
   // 进程停止
@@ -45,5 +46,5 @@ export default {
   // 添加进程
   addProcess: (process: any) => request.post('/plugins/supervisor/addProcess', process),
   // 删除进程
-  removeProcess: (process: string) => request.post('/plugins/supervisor/removeProcess', { process })
+  deleteProcess: (process: string) => request.post('/plugins/supervisor/deleteProcess', { process })
 }
