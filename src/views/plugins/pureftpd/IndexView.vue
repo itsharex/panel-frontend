@@ -19,13 +19,13 @@ const statusStr = computed(() => {
 
 const addUserModel = ref({
   username: '',
-  password: '',
+  password: generateRandomString(16),
   path: ''
 })
 
 const changePasswordModel = ref({
   username: '',
-  password: ''
+  password: generateRandomString(16)
 })
 
 const pagination = reactive({
@@ -169,6 +169,9 @@ const handleAddUser = async () => {
   window.$message.success('添加成功')
   onPageChange(1)
   addUserModal.value = false
+  addUserModel.value.username = ''
+  addUserModel.value.password = generateRandomString(16)
+  addUserModel.value.path = ''
 }
 
 const handleChangePassword = async () => {
