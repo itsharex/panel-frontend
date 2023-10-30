@@ -497,7 +497,6 @@ onUnmounted(() => {
                       :segmented="true"
                       rounded-10
                       size="small"
-                      style="background-color: #f5f5f5"
                       @click="handleManagePlugin(item.slug)"
                     >
                       <n-space>
