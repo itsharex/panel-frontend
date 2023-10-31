@@ -149,7 +149,8 @@ const addModel = ref({
   domains: [] as Array<string>,
   ports: [] as Array<string>,
   php: '0',
-  db: '0',
+  db: false,
+  db_type: '0',
   db_name: '',
   db_user: '',
   db_password: '',
@@ -258,7 +259,8 @@ const handleAdd = async () => {
         domains: [] as Array<string>,
         ports: [] as Array<string>,
         php: '0',
-        db: '0',
+        db: false,
+        db_type: '0',
         db_name: '',
         db_user: '',
         db_password: '',
@@ -411,12 +413,13 @@ onMounted(() => {
             <n-col :span="11">
               <n-form-item path="db" label="数据库">
                 <n-select
-                  v-model:value="addModel.db"
+                  v-model:value="addModel.db_type"
                   :options="installedDbAndPhp.db"
                   placeholder="选择数据库"
                   @keydown.enter.prevent
                   @update:value="
                     () => {
+                      addModel.db = addModel.db_type != '0'
                       addModel.db_name = addModel.name
                       addModel.db_user = addModel.name
                       addModel.db_password = generateRandomString(16)
@@ -429,7 +432,7 @@ onMounted(() => {
           </n-row>
           <n-row :gutter="[0, 24]">
             <n-col :span="7">
-              <n-form-item v-if="addModel.db != '0'" path="db_name" label="数据库名">
+              <n-form-item v-if="addModel.db" path="db_name" label="数据库名">
                 <n-input
                   v-model:value="addModel.db_name"
                   type="text"
@@ -440,7 +443,7 @@ onMounted(() => {
             </n-col>
             <n-col :span="1"></n-col>
             <n-col :span="7">
-              <n-form-item v-if="addModel.db != '0'" path="db_user" label="数据库用户名">
+              <n-form-item v-if="addModel.db" path="db_user" label="数据库用户名">
                 <n-input
                   v-model:value="addModel.db_user"
                   type="text"
@@ -451,7 +454,7 @@ onMounted(() => {
             </n-col>
             <n-col :span="1"></n-col>
             <n-col :span="8">
-              <n-form-item v-if="addModel.db != '0'" path="db_password" label="数据库密码">
+              <n-form-item v-if="addModel.db" path="db_password" label="数据库密码">
                 <n-input
                   v-model:value="addModel.db_password"
                   type="text"
