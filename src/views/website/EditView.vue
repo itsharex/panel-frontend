@@ -3,8 +3,8 @@ import type { WebsiteSetting } from '@/views/website/types'
 import website from '@/api/panel/website'
 import { NButton } from 'naive-ui'
 import info from '@/api/panel/info'
-import { VAceEditor } from 'vue3-ace-editor'
-import '@/utils/common/ace-config'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const route = useRoute()
 const { id } = route.params
@@ -205,22 +205,16 @@ onMounted(() => {
             <n-tag>location</n-tag>
             部分即可
           </n-alert>
-          <VAceEditor
+          <Editor
             v-if="setting"
             v-model:value="setting.rewrite"
-            lang="nginx"
-            theme="monokai"
-            style="height: 60vh"
-            :printMargin="false"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
@@ -241,22 +235,16 @@ onMounted(() => {
               确定要重置配置吗？
             </n-popconfirm>
           </n-space>
-          <VAceEditor
+          <Editor
             v-if="setting"
             v-model:value="setting.raw"
-            lang="nginx"
-            theme="monokai"
-            style="height: 60vh"
-            :printMargin="false"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
@@ -272,23 +260,18 @@ onMounted(() => {
             </template>
             确定要清空吗？
           </n-popconfirm>
-          <VAceEditor
+          <Editor
             v-if="setting"
             v-model:value="setting.log"
-            readonly
-            lang="nginx"
-            theme="monokai"
-            style="height: 60vh"
-            :printMargin="false"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
+            :line="999999"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true,
+              readOnly: true
             }"
           />
         </n-space>

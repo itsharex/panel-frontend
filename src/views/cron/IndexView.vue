@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { VAceEditor } from 'vue3-ace-editor'
-import '@/utils/common/ace-config'
 import info from '@/api/panel/info'
 import website from '@/api/panel/website'
 import cron from '@/api/panel/cron'
 import { NButton, NDataTable, NInput, NPopconfirm, NSwitch } from 'naive-ui'
 import type { CronTask } from '@/views/cron/types'
 import { renderIcon } from '@/utils'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const addModel = ref({
   name: '',
@@ -299,22 +299,16 @@ onMounted(() => {
             </n-form-item>
             <div v-if="addModel.type === 'shell'">
               <n-text>脚本内容</n-text>
-              <VAceEditor
+              <Editor
                 v-model:value="addModel.script"
-                lang="sh"
-                theme="monokai"
+                language="shell"
+                theme="vs-dark"
+                height="40vh"
                 mt-8
-                style="height: 40vh"
-                :printMargin="false"
                 :options="{
-                  useWorker: true,
-                  animatedScroll: true,
-                  behavioursEnabled: true,
-                  enableAutoIndent: true,
-                  autoScrollEditorIntoView: true,
-                  enableLiveAutocompletion: true,
-                  enableBasicAutocompletion: true,
-                  enableSnippets: true
+                  automaticLayout: true,
+                  formatOnType: true,
+                  formatOnPaste: true
                 }"
               />
             </div>
@@ -392,23 +386,18 @@ onMounted(() => {
     :bordered="false"
     :segmented="false"
   >
-    <VAceEditor
+    <Editor
       v-model:value="taskLog"
-      lang="sh"
-      theme="monokai"
-      style="height: 60vh"
-      readonly
+      language="ini"
+      theme="vs-dark"
+      height="60vh"
+      :line="999999"
       mt-8
-      :printMargin="false"
       :options="{
-        useWorker: true,
-        animatedScroll: true,
-        behavioursEnabled: true,
-        enableAutoIndent: true,
-        autoScrollEditorIntoView: true,
-        enableLiveAutocompletion: true,
-        enableBasicAutocompletion: true,
-        enableSnippets: true
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true,
+        readOnly: true
       }"
     />
   </n-modal>
@@ -434,23 +423,16 @@ onMounted(() => {
         />
       </n-form-item>
     </n-form>
-
-    <VAceEditor
+    <Editor
       v-model:value="editTask.script"
-      lang="sh"
-      theme="monokai"
+      language="shell"
+      theme="vs-dark"
+      height="60vh"
       mt-8
-      style="height: 60vh"
-      :printMargin="false"
       :options="{
-        useWorker: true,
-        animatedScroll: true,
-        behavioursEnabled: true,
-        enableAutoIndent: true,
-        autoScrollEditorIntoView: true,
-        enableLiveAutocompletion: true,
-        enableBasicAutocompletion: true,
-        enableSnippets: true
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true
       }"
     />
   </n-modal>

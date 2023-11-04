@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
-import { VAceEditor } from 'vue3-ace-editor'
 import supervisor from '@/api/plugins/supervisor'
-import '@/utils/common/ace-config'
 import { renderIcon } from '@/utils'
 import type { Process } from '@/views/plugins/supervisor/types'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -431,44 +431,33 @@ onUnmounted(() => {
             此处修改的是 Supervisor 主配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
-          <VAceEditor
+          <Editor
             v-model:value="config"
-            lang="sh"
-            theme="monokai"
-            style="height: 60vh"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             mt-8
-            :printMargin="false"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
       </n-tab-pane>
       <n-tab-pane name="log" tab="日志">
-        <VAceEditor
+        <Editor
           v-model:value="log"
-          lang="sh"
-          theme="monokai"
-          style="height: 60vh"
-          readonly
+          language="ini"
+          theme="vs-dark"
+          height="60vh"
+          :line="999999"
           mt-8
-          :printMargin="false"
           :options="{
-            useWorker: true,
-            animatedScroll: true,
-            behavioursEnabled: true,
-            enableAutoIndent: true,
-            autoScrollEditorIntoView: true,
-            enableLiveAutocompletion: true,
-            enableBasicAutocompletion: true,
-            enableSnippets: true
+            automaticLayout: true,
+            formatOnType: true,
+            formatOnPaste: true,
+            readOnly: true
           }"
         />
       </n-tab-pane>
@@ -529,23 +518,18 @@ onUnmounted(() => {
     :bordered="false"
     :segmented="false"
   >
-    <VAceEditor
+    <Editor
       v-model:value="processLog"
-      lang="sh"
-      theme="monokai"
-      style="height: 60vh"
-      readonly
+      language="ini"
+      theme="vs-dark"
+      height="60vh"
+      :line="999999"
       mt-8
-      :printMargin="false"
       :options="{
-        useWorker: true,
-        animatedScroll: true,
-        behavioursEnabled: true,
-        enableAutoIndent: true,
-        autoScrollEditorIntoView: true,
-        enableLiveAutocompletion: true,
-        enableBasicAutocompletion: true,
-        enableSnippets: true
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true,
+        readOnly: true
       }"
     />
   </n-modal>
@@ -559,22 +543,16 @@ onUnmounted(() => {
     :segmented="false"
     @close="handleSaveProcessConfig"
   >
-    <VAceEditor
+    <Editor
       v-model:value="editProcessModel.config"
-      lang="sh"
-      theme="monokai"
+      language="ini"
+      theme="vs-dark"
+      height="60vh"
       mt-8
-      style="height: 60vh"
-      :printMargin="false"
       :options="{
-        useWorker: true,
-        animatedScroll: true,
-        behavioursEnabled: true,
-        enableAutoIndent: true,
-        autoScrollEditorIntoView: true,
-        enableLiveAutocompletion: true,
-        enableBasicAutocompletion: true,
-        enableSnippets: true
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true
       }"
     />
   </n-modal>

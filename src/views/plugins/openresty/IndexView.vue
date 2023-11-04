@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
-import { VAceEditor } from 'vue3-ace-editor'
 import openresty from '@/api/plugins/openresty'
-import '@/utils/common/ace-config'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -161,22 +161,16 @@ onMounted(() => {
             此处修改的是 OpenResty 主配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
-          <VAceEditor
+          <Editor
             v-model:value="config"
-            lang="sh"
-            theme="monokai"
-            style="height: 60vh"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             mt-8
-            :printMargin="false"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
@@ -185,23 +179,18 @@ onMounted(() => {
         <n-data-table striped remote :loading="false" :columns="columns" :data="load" />
       </n-tab-pane>
       <n-tab-pane name="error-log" tab="错误日志">
-        <VAceEditor
+        <Editor
           v-model:value="errorLog"
-          lang="sh"
-          theme="monokai"
-          style="height: 60vh"
-          readonly
+          language="ini"
+          theme="vs-dark"
+          height="60vh"
+          :line="999999"
           mt-8
-          :printMargin="false"
           :options="{
-            useWorker: true,
-            animatedScroll: true,
-            behavioursEnabled: true,
-            enableAutoIndent: true,
-            autoScrollEditorIntoView: true,
-            enableLiveAutocompletion: true,
-            enableBasicAutocompletion: true,
-            enableSnippets: true
+            automaticLayout: true,
+            formatOnType: true,
+            formatOnPaste: true,
+            readOnly: true
           }"
         />
       </n-tab-pane>

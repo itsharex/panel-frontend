@@ -3,8 +3,8 @@ import type { Task } from '@/views/task/types'
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import task from '@/api/panel/task'
-import { VAceEditor } from 'vue3-ace-editor'
-import '@/utils/common/ace-config'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const taskLogModal = ref(false)
 const taskLog = ref('')
@@ -168,23 +168,18 @@ onMounted(() => {
     :bordered="false"
     :segmented="false"
   >
-    <VAceEditor
+    <Editor
       v-model:value="taskLog"
-      lang="sh"
-      theme="monokai"
-      style="height: 60vh"
-      readonly
+      language="ini"
+      theme="vs-dark"
+      height="60vh"
+      :line="999999"
       mt-8
-      :printMargin="false"
       :options="{
-        useWorker: true,
-        animatedScroll: true,
-        behavioursEnabled: true,
-        enableAutoIndent: true,
-        autoScrollEditorIntoView: true,
-        enableLiveAutocompletion: true,
-        enableBasicAutocompletion: true,
-        enableSnippets: true
+        automaticLayout: true,
+        formatOnType: true,
+        formatOnPaste: true,
+        readOnly: true
       }"
     />
   </n-modal>

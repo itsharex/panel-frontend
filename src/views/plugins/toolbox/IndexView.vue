@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { NButton } from 'naive-ui'
-import { VAceEditor } from 'vue3-ace-editor'
 import toolbox from '@/api/plugins/toolbox'
-import '@/utils/common/ace-config'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const currentTab = ref('dns')
 const dns1 = ref('')
@@ -142,22 +142,16 @@ onMounted(() => {
             此处修改的是系统 Hosts 文件，如果你不了解这是干什么的，请不要随意修改！
           </n-alert>
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
-          <VAceEditor
+          <Editor
             v-model:value="hosts"
-            lang="sh"
-            theme="monokai"
-            style="height: 60vh"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             mt-8
-            :printMargin="false"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>

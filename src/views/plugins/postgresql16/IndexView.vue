@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
-import { VAceEditor } from 'vue3-ace-editor'
 import postgresql16 from '@/api/plugins/postgresql16'
-import '@/utils/common/ace-config'
 import { generateRandomString, renderIcon } from '@/utils'
 import type { Backup, Database, User } from '@/views/plugins/postgresql16/types'
 import type { UploadFileInfo } from 'naive-ui'
+import Editor from '@guolao/vue-monaco-editor'
+import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const currentDatabase = ref('')
@@ -601,22 +601,16 @@ onMounted(() => {
             此处修改的是 PostgreSQL 主配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
-          <VAceEditor
+          <Editor
             v-model:value="config"
-            lang="sh"
-            theme="monokai"
-            style="height: 60vh"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             mt-8
-            :printMargin="false"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
@@ -627,22 +621,16 @@ onMounted(() => {
             此处修改的是 PostgreSQL 用户配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
-          <VAceEditor
+          <Editor
             v-model:value="userConfig"
-            lang="sh"
-            theme="monokai"
-            style="height: 60vh"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
             mt-8
-            :printMargin="false"
             :options="{
-              useWorker: true,
-              animatedScroll: true,
-              behavioursEnabled: true,
-              enableAutoIndent: true,
-              autoScrollEditorIntoView: true,
-              enableLiveAutocompletion: true,
-              enableBasicAutocompletion: true,
-              enableSnippets: true
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
             }"
           />
         </n-space>
@@ -651,23 +639,18 @@ onMounted(() => {
         <n-data-table striped remote :loading="false" :columns="loadColumns" :data="load" />
       </n-tab-pane>
       <n-tab-pane name="log" tab="日志">
-        <VAceEditor
+        <Editor
           v-model:value="log"
-          lang="sh"
-          theme="monokai"
-          style="height: 60vh"
-          readonly
+          language="ini"
+          theme="vs-dark"
+          height="60vh"
+          :line="999999"
           mt-8
-          :printMargin="false"
           :options="{
-            useWorker: true,
-            animatedScroll: true,
-            behavioursEnabled: true,
-            enableAutoIndent: true,
-            autoScrollEditorIntoView: true,
-            enableLiveAutocompletion: true,
-            enableBasicAutocompletion: true,
-            enableSnippets: true
+            automaticLayout: true,
+            formatOnType: true,
+            formatOnPaste: true,
+            readOnly: true
           }"
         />
       </n-tab-pane>
