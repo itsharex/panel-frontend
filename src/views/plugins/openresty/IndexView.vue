@@ -2,7 +2,6 @@
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import openresty from '@/api/plugins/openresty'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const status = ref(false)

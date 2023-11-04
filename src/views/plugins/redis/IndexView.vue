@@ -2,7 +2,6 @@
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import redis from '@/api/plugins/redis'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const status = ref(false)

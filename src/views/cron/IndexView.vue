@@ -6,7 +6,6 @@ import { NButton, NDataTable, NInput, NPopconfirm, NSwitch } from 'naive-ui'
 import type { CronTask } from '@/views/cron/types'
 import { renderIcon } from '@/utils'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const addModel = ref({
   name: '',

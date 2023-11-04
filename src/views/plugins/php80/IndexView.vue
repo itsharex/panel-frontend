@@ -3,7 +3,6 @@ import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import php80 from '@/api/plugins/php80'
 import { renderIcon } from '@/utils'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const version = ref('8.0')

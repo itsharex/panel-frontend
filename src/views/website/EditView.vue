@@ -4,7 +4,6 @@ import website from '@/api/panel/website'
 import { NButton } from 'naive-ui'
 import info from '@/api/panel/info'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const route = useRoute()
 const { id } = route.params

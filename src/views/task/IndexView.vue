@@ -4,7 +4,6 @@ import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import task from '@/api/panel/task'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const taskLogModal = ref(false)
 const taskLog = ref('')

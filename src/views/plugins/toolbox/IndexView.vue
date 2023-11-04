@@ -2,7 +2,6 @@
 import { NButton } from 'naive-ui'
 import toolbox from '@/api/plugins/toolbox'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('dns')
 const dns1 = ref('')

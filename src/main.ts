@@ -7,10 +7,19 @@ import App from './App.vue'
 import { setupStore } from './store'
 import { setupRouter } from './router'
 import { setupNaiveDiscreteApi } from './utils'
+import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor'
 import info from '@/api/panel/info'
 
 async function setupApp() {
   const app = createApp(App)
+  app.use(VueMonacoEditorPlugin, {
+    paths: {
+      vs: 'https://cdnjs.cdn.haozi.net/monaco-editor/0.43.0/min/vs'
+    },
+    'vs/nls': {
+      availableLanguages: { '*': 'zh-cn' }
+    }
+  })
   setupStore(app)
   setupNaiveDiscreteApi()
   await setupRouter(app)

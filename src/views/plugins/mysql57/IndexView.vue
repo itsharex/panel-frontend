@@ -5,7 +5,6 @@ import { generateRandomString, renderIcon } from '@/utils'
 import type { Backup, Database, User } from '@/views/plugins/mysql57/types'
 import type { UploadFileInfo } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const currentDatabase = ref('')

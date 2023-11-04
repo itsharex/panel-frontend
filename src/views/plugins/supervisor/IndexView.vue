@@ -4,7 +4,6 @@ import supervisor from '@/api/plugins/supervisor'
 import { renderIcon } from '@/utils'
 import type { Process } from '@/views/plugins/supervisor/types'
 import Editor from '@guolao/vue-monaco-editor'
-import '@/utils/common/editor'
 
 const currentTab = ref('status')
 const status = ref(false)
