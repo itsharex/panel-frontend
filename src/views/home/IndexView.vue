@@ -495,8 +495,10 @@ onUnmounted(() => {
                   <n-gi v-for="item in homePlugins" :key="item.name">
                     <n-card
                       :segmented="true"
-                      rounded-10
                       size="small"
+                      cursor-pointer
+                      rounded-10
+                      hover:card-shadow
                       @click="handleManagePlugin(item.slug)"
                     >
                       <n-space>
@@ -538,10 +540,14 @@ onUnmounted(() => {
                 </template>
                 <n-space vertical :size="12">
                   <n-alert type="success">
-                    开发组祝大家2023中秋国庆快乐！永无Bug，永不宕机！
+                    开发组祝大家 2023 光棍节快乐！<del>永远单身！</del>永无Bug！永不宕机！
                   </n-alert>
                   <n-alert type="info">
-                    欢迎您使用耗子Linux面板。如遇到问题/Bug，可通过 Q群12370907 / QQ频道 寻求帮助
+                    欢迎您使用耗子Linux面板。如遇到问题，可通过Q群
+                    <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">12370907</a>
+                    /
+                    <a target="_blank" href="https://pd.qq.com/s/fyol46wfy">QQ频道</a>
+                    寻求帮助
                   </n-alert>
                 </n-space>
               </n-card>
