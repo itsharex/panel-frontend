@@ -2,6 +2,9 @@
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import openresty from '@/api/plugins/openresty'
 import Editor from '@guolao/vue-monaco-editor'
+import { themeConfig, themeDarkConfig, tokenConf } from 'monaco-editor-nginx/cjs/conf'
+import suggestions from 'monaco-editor-nginx/cjs/suggestions'
+import directives from 'monaco-editor-nginx/cjs/directives.json'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -79,6 +82,58 @@ const handleReload = async () => {
   await openresty.reload()
   window.$message.success('重载成功')
   await getStatus()
+}
+
+const editorOnBeforeMount = (monaco: any) => {
+  monaco.languages.register({
+    id: 'nginx'
+  })
+
+  monaco.languages.setMonarchTokensProvider('nginx', tokenConf)
+  monaco.editor.defineTheme('nginx-theme', themeConfig)
+  monaco.editor.defineTheme('nginx-theme-dark', themeDarkConfig)
+
+  monaco.languages.registerCompletionItemProvider('nginx', {
+    provideCompletionItems: (model: any, position: any) => {
+      const word = model.getWordUntilPosition(position)
+      const range = {
+        startLineNumber: position.lineNumber,
+        endLineNumber: position.lineNumber,
+        startColumn: word.startColumn,
+        endColumn: word.endColumn
+      }
+      return { suggestions: suggestions(range) }
+    }
+  })
+
+  monaco.languages.registerHoverProvider('nginx', {
+    provideHover: (model: any, position: any, token: any) => {
+      const word = model.getWordAtPosition(position)
+      if (!word) return
+      const data = directives.find((item) => item.n === word.word || item.n === `$${word.word}`)
+      if (!data) return
+      const range = {
+        startLineNumber: position.lineNumber,
+        endLineNumber: position.lineNumber,
+        startColumn: word.startColumn,
+        endColumn: word.endColumn
+      }
+      const contents = [{ value: `**\`${data.n}\`** | ${data.m} | ${data.c || ''}` }]
+      if (data.s) {
+        contents.push({ value: `**syntax:** ${data.s || ''}` })
+      }
+      if (data.v) {
+        contents.push({ value: `**default:** ${data.v || ''}` })
+      }
+      if (data.d) {
+        contents.push({ value: `${data.d}` })
+      }
+      return {
+        contents: [...contents],
+        range: range
+      }
+    }
+  })
 }
 
 onMounted(() => {
@@ -162,10 +217,11 @@ onMounted(() => {
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
           <Editor
             v-model:value="config"
-            language="ini"
-            theme="vs-dark"
+            language="nginx"
+            theme="nginx-theme-dark"
             height="60vh"
             mt-8
+            @before-mount="editorOnBeforeMount"
             :options="{
               automaticLayout: true,
               formatOnType: true,
