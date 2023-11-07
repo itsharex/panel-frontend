@@ -19,7 +19,7 @@ const getSetting = () => {
 }
 
 const handleSave = () => {
-  setting.save(model.value).then(() => {
+  setting.update(model.value).then(() => {
     window.$message.success('保存成功')
   })
 }
@@ -41,7 +41,7 @@ onMounted(() => {
       <n-form-item label="密码">
         <n-input v-model:value="model.password" placeholder="admin" />
       </n-form-item>
-      <n-form-item label="邮箱（用于签发SSL证书）">
+      <n-form-item label="邮箱（以后可能会有用）">
         <n-input v-model:value="model.email" placeholder="admin@example.com" />
       </n-form-item>
       <n-form-item label="端口（保存后需要重启面板并修改浏览器地址栏的端口为新端口以访问面板）">
