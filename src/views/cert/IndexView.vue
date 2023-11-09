@@ -1,20 +1,9 @@
 <script setup lang="ts">
 import website from '@/api/panel/website'
-import {
-  NButton,
-  NDataTable,
-  NInput,
-  NPopconfirm,
-  NSwitch,
-  NTag,
-  NList,
-  NListItem,
-  NTable
-} from 'naive-ui'
+import { NButton, NDataTable, NInput, NPopconfirm, NSwitch, NTag, NTable } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import type { Cert, DNS, User } from './types'
 import cert from '@/api/panel/cert'
-import Editor from '@guolao/vue-monaco-editor'
 
 const currentTab = ref('cert')
 const addCertModal = ref(false)
@@ -317,7 +306,16 @@ const certColumns: any = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 15px;',
-            onClick: () => window.$message.info('暂不支持')
+            onClick: () => {
+              updateCert.value = row.id
+              updateCertModel.value.domains = row.domains
+              updateCertModel.value.dns_id = row.dns_id
+              updateCertModel.value.type = row.type
+              updateCertModel.value.user_id = row.user_id
+              updateCertModel.value.website_id = row.website_id
+              updateCertModel.value.auto_renew = row.auto_renew
+              updateCertModal.value = true
+            }
           },
           {
             default: () => '修改',
@@ -389,7 +387,15 @@ const userColumns: any = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 15px;',
-            onClick: () => window.$message.info('暂不支持')
+            onClick: () => {
+              updateUser.value = row.id
+              updateUserModel.value.email = row.email
+              updateUserModel.value.hmac_encoded = row.hmac_encoded
+              updateUserModel.value.kid = row.kid
+              updateUserModel.value.key_type = row.key_type
+              updateUserModel.value.ca = row.ca
+              updateUserModal.value = true
+            }
           },
           {
             default: () => '修改',
@@ -460,7 +466,18 @@ const dnsColumns: any = [
             size: 'small',
             type: 'primary',
             style: 'margin-left: 15px;',
-            onClick: () => window.$message.info('暂不支持')
+            onClick: () => {
+              updateDNS.value = row.id
+              updateDNSModel.value.data.email = row.data.email
+              updateDNSModel.value.data.token = row.data.token
+              updateDNSModel.value.data.id = row.data.id
+              updateDNSModel.value.data.access_key = row.data.access_key
+              updateDNSModel.value.data.api_key = row.data.api_key
+              updateDNSModel.value.data.secret_key = row.data.secret_key
+              updateDNSModel.value.type = row.type
+              updateDNSModel.value.name = row.name
+              updateDNSModal.value = true
+            }
           },
           {
             default: () => '修改',
@@ -630,8 +647,8 @@ const handleAddDNS = async () => {
   await getAsyncData()
 }
 
-const handleUpdateCert = async (id: number) => {
-  await cert.certUpdate(id, updateCertModel.value)
+const handleUpdateCert = async () => {
+  await cert.certUpdate(updateCert.value, updateCertModel.value)
   window.$message.success('更新成功')
   updateCertModal.value = false
   onCertPageChange(1)
@@ -644,9 +661,9 @@ const handleUpdateCert = async (id: number) => {
   await getAsyncData()
 }
 
-const handleUpdateUser = async (id: number) => {
+const handleUpdateUser = async () => {
   window.$message.loading('正在向 CA 注册账号，请耐心等待')
-  await cert.userUpdate(id, updateUserModel.value)
+  await cert.userUpdate(updateUser.value, updateUserModel.value)
   window.$message.success('更新成功')
   updateUserModal.value = false
   onUserPageChange(1)
@@ -656,8 +673,8 @@ const handleUpdateUser = async (id: number) => {
   await getAsyncData()
 }
 
-const handleUpdateDNS = async (id: number) => {
-  await cert.dnsUpdate(id, updateDNSModel.value)
+const handleUpdateDNS = async () => {
+  await cert.dnsUpdate(updateDNS.value, updateDNSModel.value)
   window.$message.success('更新成功')
   updateDNSModal.value = false
   onDnsPageChange(1)
@@ -668,27 +685,6 @@ const handleUpdateDNS = async (id: number) => {
   updateDNSModel.value.data.api_key = ''
   updateDNSModel.value.data.secret_key = ''
   updateDNSModel.value.name = ''
-  await getAsyncData()
-}
-
-const handleDeleteCert = async (id: number) => {
-  await cert.certDelete(id)
-  window.$message.success('删除成功')
-  onCertPageChange(1)
-  await getAsyncData()
-}
-
-const handleDeleteUser = async (id: number) => {
-  await cert.userDelete(id)
-  window.$message.success('删除成功')
-  onUserPageChange(1)
-  await getAsyncData()
-}
-
-const handleDeleteDNS = async (id: number) => {
-  await cert.dnsDelete(id)
-  window.$message.success('删除成功')
-  onDnsPageChange(1)
   await getAsyncData()
 }
 
@@ -1091,7 +1087,7 @@ onMounted(() => {
           />
         </n-form-item>
       </n-form>
-      <n-button type="info" block @click="handleAddCert">提交</n-button>
+      <n-button type="info" block @click="handleUpdateCert">提交</n-button>
     </n-space>
   </n-modal>
   <n-modal
@@ -1152,7 +1148,7 @@ onMounted(() => {
           />
         </n-form-item>
       </n-form>
-      <n-button type="info" block @click="handleAddUser">提交</n-button>
+      <n-button type="info" block @click="handleUpdateUser">提交</n-button>
     </n-space>
   </n-modal>
   <n-modal
@@ -1231,7 +1227,7 @@ onMounted(() => {
           />
         </n-form-item>
       </n-form>
-      <n-button type="info" block @click="handleAddDNS">提交</n-button>
+      <n-button type="info" block @click="handleUpdateDNS">提交</n-button>
     </n-space>
   </n-modal>
 </template>
