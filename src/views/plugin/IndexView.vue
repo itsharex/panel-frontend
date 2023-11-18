@@ -36,16 +36,30 @@ const columns: any = [
       return [
         row.installed && row.installed_version != row.version
           ? h(
-              NButton,
+              NPopconfirm,
               {
-                size: 'small',
-                type: 'warning',
-                secondary: true,
-                onClick: () => handleUpdate(row.slug)
+                onPositiveClick: () => handleUpdate(row.slug)
               },
               {
-                default: () => '升级',
-                icon: renderIcon('material-symbols:arrow-circle-up-outline-rounded', { size: 14 })
+                default: () => {
+                  return '升级插件可能会重置相关配置到默认状态，确定继续吗？'
+                },
+                trigger: () => {
+                  return h(
+                    NButton,
+                    {
+                      size: 'small',
+                      type: 'warning',
+                      secondary: true
+                    },
+                    {
+                      default: () => '升级',
+                      icon: renderIcon('material-symbols:arrow-circle-up-outline-rounded', {
+                        size: 14
+                      })
+                    }
+                  )
+                }
               }
             )
           : null,
@@ -210,6 +224,7 @@ onMounted(() => {
     </template>
     <n-space vertical>
       <n-alert type="info">按钮点击一次即可，请勿重复点击以免重复执行！</n-alert>
+      <n-alert type="warning">升级插件前强烈建议先备份/快照，以免出现问题时无法回滚！</n-alert>
       <n-data-table
         striped
         remote
