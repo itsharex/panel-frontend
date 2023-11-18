@@ -19,9 +19,9 @@ const updateDNS = ref<any>()
 const caProviders = ref<any>([])
 const dnsProviders = ref<any>([])
 const algorithms = ref<any>([])
-let websites: any = []
-let dns: any = []
-let users: any = []
+let websites = ref<any>([])
+let dns = ref<any>([])
+let users = ref<any>([])
 
 const addCertModel = ref<any>({
   domains: [],
@@ -690,27 +690,27 @@ const handleUpdateDNS = async () => {
 
 const getAsyncData = async () => {
   const { data: websiteData } = await website.list(1, 10000)
-  websites = []
+  websites.value = []
   for (const item of websiteData.items) {
-    websites.push({
+    websites.value.push({
       label: item.name,
       value: item.id
     })
   }
 
   const { data: dnsData } = await cert.dns(1, 10000)
-  dns = []
+  dns.value = []
   for (const item of dnsData.items) {
-    dns.push({
+    dns.value.push({
       label: item.name,
       value: item.id
     })
   }
 
   const { data: userData } = await cert.users(1, 10000)
-  users = []
+  users.value = []
   for (const item of userData.items) {
-    users.push({
+    users.value.push({
       label: item.email,
       value: item.id
     })
