@@ -220,8 +220,8 @@ const certColumns: any = [
                 style: 'margin-left: 15px;',
                 onClick: async () => {
                   window.$message.loading('请稍后...')
-                  // 没有设置 DNS 接口则获取解析记录
-                  if (row.dns_id == null) {
+                  // 没有设置 DNS 接口和网站则获取解析记录
+                  if (row.dns_id == null && row.website_id == null) {
                     const { data } = await cert.manualDNS(row.id)
                     window.$message.info('请先前往域名处设置 DNS 解析，再继续签发')
                     const d = window.$dialog.info({
