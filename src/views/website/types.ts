@@ -12,12 +12,12 @@ export interface Website {
 
 export interface WebsiteSetting {
   name: string
-  ports: string[]
+  ports: number[]
   domains: string[]
   root: string
   path: string
   index: string
-  php: string
+  php: number
   open_basedir: boolean
   ssl: boolean
   ssl_certificate: string

@@ -11,7 +11,33 @@ import directives from 'monaco-editor-nginx/cjs/directives.json'
 const route = useRoute()
 const { id } = route.params
 
-const setting = ref<WebsiteSetting | null>(null)
+const setting = ref<WebsiteSetting>({
+  name: '',
+  ports: [],
+  domains: [],
+  root: '',
+  path: '',
+  index: '',
+  php: 0,
+  open_basedir: false,
+  ssl: false,
+  ssl_certificate: '',
+  ssl_certificate_key: '',
+  ssl_not_before: '',
+  ssl_not_after: '',
+  ssl_dns_names: [],
+  ssl_issuer: '',
+  ssl_ocsp_server: [],
+  http_redirect: false,
+  hsts: false,
+  waf: false,
+  waf_mode: '',
+  waf_cc_deny: '',
+  waf_cache: '',
+  rewrite: '',
+  raw: '',
+  log: ''
+})
 const installedDbAndPhp = ref({
   php: [
     {
@@ -39,6 +65,21 @@ const getWebsiteSetting = async () => {
 }
 
 const handleSave = async () => {
+  if (setting.value.ssl) {
+    if (setting.value.ssl_certificate == '') {
+      window.$message.error('请填写证书')
+      return
+    }
+    if (setting.value.ssl_certificate_key == '') {
+      window.$message.error('请填写私钥')
+      return
+    }
+    if (!setting.value.ports.includes(443)) {
+      setting.value.ports.push(443)
+    }
+  } else {
+    setting.value.ports = setting.value.ports.filter((item) => item != 443)
+  }
   await website.saveConfig(Number(id), setting.value).then(() => {
     getWebsiteSetting()
     window.$message.success('保存成功')
