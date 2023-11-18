@@ -3,7 +3,7 @@ export interface Website {
   name: string
   status: boolean
   path: string
-  php: string
+  php: number
   ssl: boolean
   remark: string
   created_at: string

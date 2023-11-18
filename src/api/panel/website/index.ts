@@ -3,38 +3,38 @@ import { request } from '@/utils'
 export default {
   // 列表
   list: (page: number, limit: number) =>
-    request.get('/panel/website/list', { params: { page, limit } }),
+    request.get('/panel/websites', { params: { page, limit } }),
   // 添加
-  add: (data: any) => request.post('/panel/website/add', data),
+  add: (data: any) => request.post('/panel/websites', data),
   // 删除
-  delete: (id: number) => request.delete('/panel/website/delete/' + id),
+  delete: (id: number) => request.delete('/panel/websites/' + id),
   // 获取默认配置
   defaultConfig: () => request.get('/panel/website/defaultConfig'),
   // 保存默认配置
   saveDefaultConfig: (data: any) => request.post('/panel/website/defaultConfig', data),
   // 网站配置
-  config: (id: number) => request.get('/panel/website/config/' + id),
+  config: (id: number) => request.get('/panel/websites/' + id + '/config'),
   // 保存网站配置
-  saveConfig: (id: number, data: any) => request.post('/panel/website/config/' + id, data),
+  saveConfig: (id: number, data: any) => request.post('/panel/websites/' + id + '/config', data),
   // 清空日志
-  clearLog: (id: number) => request.delete('/panel/website/log/' + id),
+  clearLog: (id: number) => request.delete('/panel/websites/' + id + '/log'),
   // 更新备注
   updateRemark: (id: number, remark: string) =>
-    request.post('/panel/website/updateRemark/' + id, { remark }),
+    request.post('/panel/websites/' + id + '/updateRemark', { remark }),
   // 获取备份列表
-  backupList: (id: number) => request.get('/panel/website/backupList/' + id),
+  backupList: () => request.get('/panel/website/backupList'),
   // 创建备份
-  createBackup: (id: number) => request.post('/panel/website/createBackup/' + id),
+  createBackup: (id: number) => request.post('/panel/websites/' + id + '/createBackup'),
   // 上传备份
-  uploadBackup: (id: number, data: any) => request.post('/panel/website/uploadBackup/' + id, data),
+  uploadBackup: (data: any) => request.post('/panel/website/uploadBackup', data),
   // 删除备份
-  deleteBackup: (id: number, backupId: number) =>
-    request.delete('/panel/website/deleteBackup/' + id + '/' + backupId),
+  deleteBackup: (name: string) => request.delete('/panel/website/deleteBackup', { data: { name } }),
   // 恢复备份
-  restoreBackup: (id: number, backupId: number) =>
-    request.post('/panel/website/restoreBackup/' + id + '/' + backupId),
+  restoreBackup: (id: number, name: number) =>
+    request.post('/panel/websites/' + id + '/restoreBackup', { name }),
   // 重置配置
-  resetConfig: (id: number) => request.post('/panel/website/resetConfig/' + id),
+  resetConfig: (id: number) => request.post('/panel/websites/' + id + '/resetConfig'),
   // 修改状态
-  status: (id: number, status: boolean) => request.post('/panel/website/status/', { id, status })
+  status: (id: number, status: boolean) =>
+    request.post('/panel/websites/' + id + '/status', { status })
 }
