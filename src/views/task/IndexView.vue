@@ -20,10 +20,10 @@ const columns: any = [
       return row.status === 'finished'
         ? '已完成'
         : row.status === 'waiting'
-        ? '等待中'
-        : row.status === 'failed'
-        ? '已失败'
-        : '运行中'
+          ? '等待中'
+          : row.status === 'failed'
+            ? '已失败'
+            : '运行中'
     }
   },
   { title: '创建时间', key: 'created_at', width: 160, ellipsis: { tooltip: true } },

@@ -130,7 +130,7 @@ const editorOnBeforeMount = (monaco: any) => {
   })
 
   monaco.languages.registerHoverProvider('nginx', {
-    provideHover: (model: any, position: any, token: any) => {
+    provideHover: (model: any, position: any) => {
       const word = model.getWordAtPosition(position)
       if (!word) return
       const data = directives.find((item) => item.n === word.word || item.n === `$${word.word}`)

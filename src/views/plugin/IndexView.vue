@@ -49,8 +49,7 @@ const columns: any = [
                     NButton,
                     {
                       size: 'small',
-                      type: 'warning',
-                      secondary: true
+                      type: 'warning'
                     },
                     {
                       default: () => '升级',
@@ -69,7 +68,6 @@ const columns: any = [
               {
                 size: 'small',
                 type: 'success',
-                style: 'margin-left: 15px;',
                 onClick: () => handleManage(row.slug)
               },
               {
@@ -120,8 +118,7 @@ const columns: any = [
                     NButton,
                     {
                       size: 'small',
-                      type: 'error',
-                      style: 'margin-left: 15px;'
+                      type: 'info'
                     },
                     {
                       default: () => '安装',
