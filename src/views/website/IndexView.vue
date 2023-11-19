@@ -4,6 +4,7 @@ import website from '@/api/panel/website'
 import info from '@/api/panel/info'
 import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
 import type { Website } from './types'
+import Editor from '@guolao/vue-monaco-editor'
 
 const router = useRouter()
 
@@ -142,6 +143,7 @@ const pagination = reactive({
 })
 
 const addModal = ref(false)
+const editDefaultPageModal = ref(false)
 const buttonLoading = ref(false)
 const buttonDisabled = ref(false)
 const addModel = ref({
@@ -156,6 +158,10 @@ const addModel = ref({
   db_password: '',
   path: '',
   remark: ''
+})
+const editDefaultPageModel = ref({
+  index: '',
+  stop: ''
 })
 
 const installedDbAndPhp = ref({
@@ -197,6 +203,11 @@ const getWebsiteList = async (page: number, limit: number) => {
   return data
 }
 
+const getDefaultPage = async () => {
+  const { data } = await website.defaultConfig()
+  editDefaultPageModel.value = data
+}
+
 const onPageChange = (page: number) => {
   pagination.page = page
   getWebsiteList(page, pagination.pageSize).then((res) => {
@@ -235,6 +246,15 @@ const handleDelete = (id: number) => {
 
 const handleSearch = () => {
   window.$message.info('暂不支持')
+}
+
+const handleSaveDefaultPage = () => {
+  website
+    .saveDefaultConfig(editDefaultPageModel.value.index, editDefaultPageModel.value.stop)
+    .then(() => {
+      window.$message.success('修改成功')
+      editDefaultPageModal.value = false
+    })
 }
 
 const handleAdd = async () => {
@@ -295,6 +315,7 @@ const batchDelete = async () => {
 onMounted(() => {
   onPageChange(pagination.page)
   getPhpAndDb()
+  getDefaultPage()
 })
 </script>
 
@@ -325,13 +346,12 @@ onMounted(() => {
         <n-space>
           <n-popconfirm @positive-click="batchDelete">
             <template #trigger>
-              <n-button type="warning"> 批量删除 </n-button>
+              <n-button type="error"> 批量删除 </n-button>
             </template>
             高危操作！确定删除选中的网站吗？
           </n-popconfirm>
-          <n-button> 修改默认页</n-button>
-          <n-button> 命令行 PHP 版本</n-button>
-          <n-button> HTTPS 防窜站</n-button>
+          <n-button type="warning" @click="editDefaultPageModal = true">修改默认页</n-button>
+          <n-button type="info">HTTPS 防窜站</n-button>
         </n-space>
       </n-space>
 
@@ -362,139 +382,186 @@ onMounted(() => {
       @update:page="onPageChange"
       @update:page-size="onPageSizeChange"
     />
-
-    <n-modal v-model:show="addModal" title="新建网站">
-      <n-card closable @close="() => (addModal = false)" title="新建网站" style="width: 60vw">
-        <n-form :model="addModel">
-          <n-form-item path="name" label="网站名">
-            <n-input
-              v-model:value="addModel.name"
-              type="text"
-              @keydown.enter.prevent
-              placeholder="网站名建议使用英文，设置后不可修改"
-            />
-          </n-form-item>
-          <n-row :gutter="[0, 24]">
-            <n-col :span="11">
-              <n-form-item label="域名">
-                <n-dynamic-input
-                  v-model:value="addModel.domains"
-                  placeholder="example.com"
-                  :min="1"
-                  show-sort-button
-                />
-              </n-form-item>
-            </n-col>
-            <n-col :span="2"></n-col>
-            <n-col :span="11">
-              <n-form-item label="端口">
-                <n-dynamic-input
-                  v-model:value="addModel.ports"
-                  placeholder="80"
-                  :min="1"
-                  show-sort-button
-                />
-              </n-form-item>
-            </n-col>
-          </n-row>
-          <n-row :gutter="[0, 24]">
-            <n-col :span="11">
-              <n-form-item path="php" label="PHP版本">
-                <n-select
-                  v-model:value="addModel.php"
-                  :options="installedDbAndPhp.php"
-                  placeholder="选择PHP版本"
-                  @keydown.enter.prevent
-                >
-                </n-select>
-              </n-form-item>
-            </n-col>
-            <n-col :span="2"></n-col>
-            <n-col :span="11">
-              <n-form-item path="db" label="数据库">
-                <n-select
-                  v-model:value="addModel.db_type"
-                  :options="installedDbAndPhp.db"
-                  placeholder="选择数据库"
-                  @keydown.enter.prevent
-                  @update:value="
-                    () => {
-                      addModel.db = addModel.db_type != '0'
-                      addModel.db_name = addModel.name
-                      addModel.db_user = addModel.name
-                      addModel.db_password = generateRandomString(16)
-                    }
-                  "
-                >
-                </n-select>
-              </n-form-item>
-            </n-col>
-          </n-row>
-          <n-row :gutter="[0, 24]">
-            <n-col :span="7">
-              <n-form-item v-if="addModel.db" path="db_name" label="数据库名">
-                <n-input
-                  v-model:value="addModel.db_name"
-                  type="text"
-                  @keydown.enter.prevent
-                  placeholder="数据库名"
-                />
-              </n-form-item>
-            </n-col>
-            <n-col :span="1"></n-col>
-            <n-col :span="7">
-              <n-form-item v-if="addModel.db" path="db_user" label="数据库用户名">
-                <n-input
-                  v-model:value="addModel.db_user"
-                  type="text"
-                  @keydown.enter.prevent
-                  placeholder="数据库用户名"
-                />
-              </n-form-item>
-            </n-col>
-            <n-col :span="1"></n-col>
-            <n-col :span="8">
-              <n-form-item v-if="addModel.db" path="db_password" label="数据库密码">
-                <n-input
-                  v-model:value="addModel.db_password"
-                  type="text"
-                  @keydown.enter.prevent
-                  placeholder="数据库密码"
-                />
-              </n-form-item>
-            </n-col>
-          </n-row>
-          <n-form-item path="path" label="目录">
-            <n-input
-              v-model:value="addModel.path"
-              type="text"
-              @keydown.enter.prevent
-              placeholder="网站根目录（不填默认为建站目录/网站名）"
-            />
-          </n-form-item>
-          <n-form-item path="remark" label="备注">
-            <n-input
-              v-model:value="addModel.remark"
-              type="textarea"
-              @keydown.enter.prevent
-              placeholder="备注"
-            />
-          </n-form-item>
-        </n-form>
-        <n-row :gutter="[0, 24]">
-          <n-col :span="24">
-            <n-button
-              type="info"
-              block
-              :loading="buttonLoading"
-              :disabled="buttonDisabled"
-              @click="handleAdd"
-            >
-              提交
-            </n-button>
-          </n-col>
-        </n-row>
-      </n-card>
-    </n-modal>
   </CommonPage>
+  <n-modal
+    v-model:show="addModal"
+    title="新建网站"
+    preset="card"
+    style="width: 60vw"
+    size="huge"
+    :bordered="false"
+    :segmented="false"
+    @close="addModal = false"
+  >
+    <n-form :model="addModel">
+      <n-form-item path="name" label="网站名">
+        <n-input
+          v-model:value="addModel.name"
+          type="text"
+          @keydown.enter.prevent
+          placeholder="网站名建议使用英文，设置后不可修改"
+        />
+      </n-form-item>
+      <n-row :gutter="[0, 24]">
+        <n-col :span="11">
+          <n-form-item label="域名">
+            <n-dynamic-input
+              v-model:value="addModel.domains"
+              placeholder="example.com"
+              :min="1"
+              show-sort-button
+            />
+          </n-form-item>
+        </n-col>
+        <n-col :span="2"></n-col>
+        <n-col :span="11">
+          <n-form-item label="端口">
+            <n-dynamic-input
+              v-model:value="addModel.ports"
+              placeholder="80"
+              :min="1"
+              show-sort-button
+            />
+          </n-form-item>
+        </n-col>
+      </n-row>
+      <n-row :gutter="[0, 24]">
+        <n-col :span="11">
+          <n-form-item path="php" label="PHP版本">
+            <n-select
+              v-model:value="addModel.php"
+              :options="installedDbAndPhp.php"
+              placeholder="选择PHP版本"
+              @keydown.enter.prevent
+            >
+            </n-select>
+          </n-form-item>
+        </n-col>
+        <n-col :span="2"></n-col>
+        <n-col :span="11">
+          <n-form-item path="db" label="数据库">
+            <n-select
+              v-model:value="addModel.db_type"
+              :options="installedDbAndPhp.db"
+              placeholder="选择数据库"
+              @keydown.enter.prevent
+              @update:value="
+                () => {
+                  addModel.db = addModel.db_type != '0'
+                  addModel.db_name = addModel.name
+                  addModel.db_user = addModel.name
+                  addModel.db_password = generateRandomString(16)
+                }
+              "
+            >
+            </n-select>
+          </n-form-item>
+        </n-col>
+      </n-row>
+      <n-row :gutter="[0, 24]">
+        <n-col :span="7">
+          <n-form-item v-if="addModel.db" path="db_name" label="数据库名">
+            <n-input
+              v-model:value="addModel.db_name"
+              type="text"
+              @keydown.enter.prevent
+              placeholder="数据库名"
+            />
+          </n-form-item>
+        </n-col>
+        <n-col :span="1"></n-col>
+        <n-col :span="7">
+          <n-form-item v-if="addModel.db" path="db_user" label="数据库用户名">
+            <n-input
+              v-model:value="addModel.db_user"
+              type="text"
+              @keydown.enter.prevent
+              placeholder="数据库用户名"
+            />
+          </n-form-item>
+        </n-col>
+        <n-col :span="1"></n-col>
+        <n-col :span="8">
+          <n-form-item v-if="addModel.db" path="db_password" label="数据库密码">
+            <n-input
+              v-model:value="addModel.db_password"
+              type="text"
+              @keydown.enter.prevent
+              placeholder="数据库密码"
+            />
+          </n-form-item>
+        </n-col>
+      </n-row>
+      <n-form-item path="path" label="目录">
+        <n-input
+          v-model:value="addModel.path"
+          type="text"
+          @keydown.enter.prevent
+          placeholder="网站根目录（不填默认为建站目录/网站名）"
+        />
+      </n-form-item>
+      <n-form-item path="remark" label="备注">
+        <n-input
+          v-model:value="addModel.remark"
+          type="textarea"
+          @keydown.enter.prevent
+          placeholder="备注"
+        />
+      </n-form-item>
+    </n-form>
+    <n-row :gutter="[0, 24]">
+      <n-col :span="24">
+        <n-button
+          type="info"
+          block
+          :loading="buttonLoading"
+          :disabled="buttonDisabled"
+          @click="handleAdd"
+        >
+          提交
+        </n-button>
+      </n-col>
+    </n-row>
+  </n-modal>
+  <n-modal
+    v-model:show="editDefaultPageModal"
+    preset="card"
+    title="修改默认页"
+    style="width: 80vw"
+    size="huge"
+    :bordered="false"
+    :segmented="false"
+    @close="handleSaveDefaultPage"
+  >
+    <n-tabs type="line" animated>
+      <n-tab-pane name="index" tab="默认页">
+        <Editor
+          v-model:value="editDefaultPageModel.index"
+          language="html"
+          theme="vs-dark"
+          height="60vh"
+          mt-8
+          :options="{
+            automaticLayout: true,
+            formatOnType: true,
+            formatOnPaste: true
+          }"
+        />
+      </n-tab-pane>
+      <n-tab-pane name="stop" tab="停止页">
+        <Editor
+          v-model:value="editDefaultPageModel.stop"
+          language="html"
+          theme="vs-dark"
+          height="60vh"
+          mt-8
+          :options="{
+            automaticLayout: true,
+            formatOnType: true,
+            formatOnPaste: true
+          }"
+        />
+      </n-tab-pane>
+    </n-tabs>
+  </n-modal>
 </template>

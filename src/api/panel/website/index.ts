@@ -11,7 +11,8 @@ export default {
   // 获取默认配置
   defaultConfig: () => request.get('/panel/website/defaultConfig'),
   // 保存默认配置
-  saveDefaultConfig: (data: any) => request.post('/panel/website/defaultConfig', data),
+  saveDefaultConfig: (index: string, stop: string) =>
+    request.post('/panel/website/defaultConfig', { index, stop }),
   // 网站配置
   config: (id: number) => request.get('/panel/websites/' + id + '/config'),
   // 保存网站配置
