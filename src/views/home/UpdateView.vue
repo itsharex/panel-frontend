@@ -23,9 +23,10 @@ const handleUpdate = () => {
       window.$message.loading('面板更新中...')
       info.update().then(() => {
         window.$message.success('面板更新成功')
+        router.push({ name: 'home-index' })
         setTimeout(() => {
-          router.push({ name: 'home-index' })
-        }, 3000)
+          window.location.reload()
+        }, 1000)
       })
     },
     onNegativeClick: () => {
