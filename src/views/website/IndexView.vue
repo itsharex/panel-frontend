@@ -40,7 +40,6 @@ const columns: any = [
         size: 'small',
         rubberBand: false,
         value: row.ssl,
-        loading: row.ssl,
         onClick: () => handleEdit(row)
       })
     }
