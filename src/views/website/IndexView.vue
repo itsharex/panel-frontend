@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { NButton, NDataTable, NSpace, NSwitch, NPopconfirm, NInput, UploadFileInfo } from 'naive-ui'
+import { NButton, NDataTable, NSpace, NSwitch, NPopconfirm, NInput } from 'naive-ui'
 import website from '@/api/panel/website'
 import info from '@/api/panel/info'
 import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
 import type { Backup, Website } from './types'
+import type { UploadFileInfo } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
 
 const router = useRouter()
