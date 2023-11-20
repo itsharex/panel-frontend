@@ -801,7 +801,6 @@ onMounted(() => {
         <n-space>
           <n-button type="primary" @click="handleCreateBackup">创建备份</n-button>
           <n-upload
-            action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
             accept=".sql,.zip,tar.gz,.tar,.rar,.bz2"
             :default-upload="false"
             :show-file-list="false"

@@ -39,7 +39,8 @@ export default {
   // 创建备份
   createBackup: (database: string) => request.post('/plugins/postgresql15/backups', { database }),
   // 上传备份
-  uploadBackup: (backup: any) => request.put('/plugins/postgresql15/backups', backup),
+  uploadBackup: (backup: any) =>
+    request.put('/plugins/postgresql15/backups', backup, { timeout: 0 }),
   // 删除备份
   deleteBackup: (name: string) =>
     request.delete('/plugins/postgresql15/backups', { params: { name } }),

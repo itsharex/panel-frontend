@@ -23,11 +23,12 @@ export default {
   updateRemark: (id: number, remark: string) =>
     request.post('/panel/websites/' + id + '/updateRemark', { remark }),
   // 获取备份列表
-  backupList: () => request.get('/panel/website/backupList'),
+  backupList: (page: number, limit: number) =>
+    request.get('/panel/website/backupList', { params: { page, limit } }),
   // 创建备份
   createBackup: (id: number) => request.post('/panel/websites/' + id + '/createBackup'),
   // 上传备份
-  uploadBackup: (data: any) => request.post('/panel/website/uploadBackup', data),
+  uploadBackup: (data: any) => request.put('/panel/website/uploadBackup', data, { timeout: 0 }),
   // 删除备份
   deleteBackup: (name: string) => request.delete('/panel/website/deleteBackup', { data: { name } }),
   // 恢复备份

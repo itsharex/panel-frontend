@@ -44,7 +44,7 @@ export default {
   // 创建备份
   createBackup: (database: string) => request.post('/plugins/mysql57/backups', { database }),
   // 上传备份
-  uploadBackup: (backup: any) => request.put('/plugins/mysql57/backups', backup),
+  uploadBackup: (backup: any) => request.put('/plugins/mysql57/backups', backup, { timeout: 0 }),
   // 删除备份
   deleteBackup: (name: string) => request.delete('/plugins/mysql57/backups', { params: { name } }),
   // 还原备份

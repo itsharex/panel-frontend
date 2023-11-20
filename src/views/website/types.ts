@@ -37,3 +37,8 @@ export interface WebsiteSetting {
   raw: string
   log: string
 }
+
+export interface Backup {
+  name: string
+  size: string
+}
