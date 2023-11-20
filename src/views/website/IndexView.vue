@@ -351,7 +351,6 @@ onMounted(() => {
             高危操作！确定删除选中的网站吗？
           </n-popconfirm>
           <n-button type="warning" @click="editDefaultPageModal = true">修改默认页</n-button>
-          <n-button type="info">HTTPS 防窜站</n-button>
         </n-space>
       </n-space>
 
