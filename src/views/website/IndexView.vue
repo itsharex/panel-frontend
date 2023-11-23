@@ -432,6 +432,16 @@ const handleDeleteBackup = async (name: string) => {
   })
 }
 
+const formatDbValue = (value: string) => {
+  value = value.replace(/\./g, '_')
+  value = value.replace(/-/g, '_')
+  if (value.length > 16) {
+    value = value.substring(0, 16)
+  }
+
+  return value
+}
+
 onMounted(() => {
   onPageChange(pagination.page)
   getPhpAndDb()
@@ -568,8 +578,8 @@ onMounted(() => {
               @update:value="
                 () => {
                   addModel.db = addModel.db_type != '0'
-                  addModel.db_name = addModel.name
-                  addModel.db_user = addModel.name
+                  addModel.db_name = formatDbValue(addModel.name)
+                  addModel.db_user = formatDbValue(addModel.name)
                   addModel.db_password = generateRandomString(16)
                 }
               "
