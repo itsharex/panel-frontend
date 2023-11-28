@@ -42,14 +42,15 @@ export default {
   backups: (page: number, limit: number) =>
     request.get('/plugins/mysql57/backups', { params: { page, limit } }),
   // 创建备份
-  createBackup: (database: string) => request.post('/plugins/mysql57/backups', { database }),
+  createBackup: (database: string) =>
+    request.post('/plugins/mysql57/backups', { database }, { timeout: 0 }),
   // 上传备份
   uploadBackup: (backup: any) => request.put('/plugins/mysql57/backups', backup, { timeout: 0 }),
   // 删除备份
   deleteBackup: (name: string) => request.delete('/plugins/mysql57/backups', { params: { name } }),
   // 还原备份
   restoreBackup: (backup: string, database: string) =>
-    request.post('/plugins/mysql57/backups/restore', { backup, database }),
+    request.post('/plugins/mysql57/backups/restore', { backup, database }, { timeout: 0 }),
   // 用户列表
   users: (page: number, limit: number) =>
     request.get('/plugins/mysql57/users', { params: { page, limit } }),

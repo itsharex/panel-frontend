@@ -140,7 +140,7 @@ const getEgg = () => {
 }
 
 const toJiHu = () => {
-  window.open('https://jihulab.com/haozi-team/panel')
+  window.open('https://git.haozi.net/opensource/panel')
 }
 
 const handleManagePlugin = (slug: string) => {

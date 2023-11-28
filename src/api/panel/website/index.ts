@@ -26,14 +26,15 @@ export default {
   backupList: (page: number, limit: number) =>
     request.get('/panel/website/backupList', { params: { page, limit } }),
   // 创建备份
-  createBackup: (id: number) => request.post('/panel/websites/' + id + '/createBackup'),
+  createBackup: (id: number) =>
+    request.post('/panel/websites/' + id + '/createBackup', {}, { timeout: 0 }),
   // 上传备份
   uploadBackup: (data: any) => request.put('/panel/website/uploadBackup', data, { timeout: 0 }),
   // 删除备份
   deleteBackup: (name: string) => request.delete('/panel/website/deleteBackup', { data: { name } }),
   // 恢复备份
   restoreBackup: (id: number, name: number) =>
-    request.post('/panel/websites/' + id + '/restoreBackup', { name }),
+    request.post('/panel/websites/' + id + '/restoreBackup', { name }, { timeout: 0 }),
   // 重置配置
   resetConfig: (id: number) => request.post('/panel/websites/' + id + '/resetConfig'),
   // 修改状态

@@ -2,13 +2,13 @@
   "private": true,
   "type": "module",
   "repository": {
-    "url": "https://jihulab.com/haozi-tech"
+    "url": "https://git.haozi.net/opensource/panel-frontend"
   },
   "license": "MIT",
   "author": {
     "name": "HaoZi Tech",
     "email": "admin@haozi.net",
-    "url": "https://jihulab.com/haozi-tech"
+    "url": "https://git.haozi.net/org"
   },
   "scripts": {
     "dev": "vite",

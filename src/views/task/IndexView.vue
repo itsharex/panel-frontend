@@ -8,6 +8,9 @@ import Editor from '@guolao/vue-monaco-editor'
 const taskLogModal = ref(false)
 const taskLog = ref('')
 
+const autoRefresh = ref(false)
+const currentTaskId = ref(0)
+
 const columns: any = [
   { type: 'selection', fixed: 'left' },
   { title: '任务名', key: 'name', resizable: true, ellipsis: { tooltip: true } },
@@ -44,7 +47,11 @@ const columns: any = [
                 size: 'small',
                 type: 'warning',
                 secondary: true,
-                onClick: () => handleShowLog(row)
+                onClick: () => {
+                  handleShowLog(row.id)
+                  currentTaskId.value = row.id
+                  autoRefresh.value = true
+                }
               },
               {
                 default: () => '日志',
@@ -108,11 +115,16 @@ const handleDelete = (id: number) => {
   })
 }
 
-const handleShowLog = (row: any) => {
-  task.log(row.id).then((res) => {
-    taskLogModal.value = true
-    taskLog.value = res.data
-  })
+const handleShowLog = (id: number) => {
+  task
+    .log(id)
+    .then((res) => {
+      taskLogModal.value = true
+      taskLog.value = res.data
+    })
+    .catch(() => {
+      autoRefresh.value = false
+    })
 }
 
 const getTaskList = async (page: number, limit: number) => {
@@ -138,8 +150,30 @@ const onPageSizeChange = (pageSize: number) => {
   onPageChange(1)
 }
 
+let timer: any = null
+const setAutoRefreshTimer = () => {
+  timer = setInterval(() => {
+    handleShowLog(currentTaskId.value)
+  }, 2000)
+}
+
+watch(
+  () => autoRefresh.value,
+  (value) => {
+    if (value) {
+      setAutoRefreshTimer()
+    } else {
+      clearInterval(timer)
+    }
+  },
+  { immediate: true }
+)
+
 onMounted(() => {
   onPageChange(pagination.page)
+})
+onUnmounted(() => {
+  clearInterval(timer)
 })
 </script>
 
@@ -166,13 +200,24 @@ onMounted(() => {
     size="huge"
     :bordered="false"
     :segmented="false"
+    @close="
+      () => {
+        autoRefresh = false
+        taskLogModal = false
+      }
+    "
   >
+    <template #header-extra>
+      <n-switch v-model:value="autoRefresh" style="margin-right: 10px">
+        <template #checked>自动刷新开启</template>
+        <template #unchecked>自动刷新关闭</template>
+      </n-switch>
+    </template>
     <Editor
       v-model:value="taskLog"
-      language="ini"
+      language="shell"
       theme="vs-dark"
       height="60vh"
-      :line="999999"
       mt-8
       :options="{
         automaticLayout: true,
