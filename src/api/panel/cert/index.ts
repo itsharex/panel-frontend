@@ -40,7 +40,7 @@ export default {
   // 证书删除
   certDelete: (id: number) => request.delete(`/panel/cert/certs/${id}`),
   // 签发
-  obtain: (id: number) => request.post(`/panel/cert/obtain`, { id }, { timeout: 300 * 1000 }),
+  obtain: (id: number) => request.post(`/panel/cert/obtain`, { id }, { timeout: 0 }),
   // 续签
   renew: (id: number) => request.post(`/panel/cert/renew`, { id }),
   // 获取 DNS 记录
