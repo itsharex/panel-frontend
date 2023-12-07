@@ -58,10 +58,10 @@ const end = ref(Math.floor(Date.now()))
 const monitorSwitch = ref(false)
 const saveDay = ref(30)
 
-const load = ref({
+const load = ref<any>({
   title: {
     text: '负载',
-    x: 'center',
+    textAlign: 'center',
     textStyle: {
       fontSize: 20
     }
@@ -70,7 +70,7 @@ const load = ref({
     trigger: 'axis'
   },
   legend: {
-    x: 'left',
+    align: 'left',
     data: ['1分钟', '5分钟', '15分钟']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
@@ -148,10 +148,10 @@ const load = ref({
   ]
 })
 
-const cpu = ref({
+const cpu = ref<any>({
   title: {
     text: 'CPU',
-    x: 'center',
+    textAlign: 'center',
     textStyle: {
       fontSize: 20
     }
@@ -203,10 +203,10 @@ const cpu = ref({
   ]
 })
 
-const mem = ref({
+const mem = ref<any>({
   title: {
     text: '内存',
-    x: 'center',
+    textAlign: 'center',
     textStyle: {
       fontSize: 20
     }
@@ -215,7 +215,7 @@ const mem = ref({
     trigger: 'axis'
   },
   legend: {
-    x: 'left',
+    align: 'left',
     data: ['内存', 'Swap']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
@@ -284,10 +284,10 @@ const mem = ref({
   ]
 })
 
-const net = ref({
+const net = ref<any>({
   title: {
     text: '网络',
-    x: 'center',
+    textAlign: 'center',
     textStyle: {
       fontSize: 20
     }
@@ -296,7 +296,7 @@ const net = ref({
     trigger: 'axis'
   },
   legend: {
-    x: 'left',
+    align: 'left',
     data: ['总计出', '总计入', '每秒出', '每秒入']
   },
   xAxis: [{ type: 'category', boundaryGap: false, data: data.value.times }],
