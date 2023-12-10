@@ -13,7 +13,6 @@ import {
 import monitor from '@/api/panel/monitor'
 import type { MonitorData } from '@/views/monitor/types'
 import { NButton } from 'naive-ui'
-import type { EChartsOption } from 'echarts'
 
 use([
   CanvasRenderer,
@@ -59,7 +58,7 @@ const end = ref(Math.floor(Date.now()))
 const monitorSwitch = ref(false)
 const saveDay = ref(30)
 
-const load = ref<EChartsOption>({
+const load = ref<any>({
   title: {
     text: '负载',
     textAlign: 'left',
