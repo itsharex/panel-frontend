@@ -540,13 +540,17 @@ onUnmounted(() => {
                 </template>
                 <n-space vertical :size="12">
                   <n-alert type="success">
-                    开发组祝大家 2023 光棍节快乐！<del>永远单身！</del>永无Bug！永不宕机！
+                    开发组祝大家 2024 新年快乐！永无Bug！永不宕机！
                   </n-alert>
                   <n-alert type="info">
-                    欢迎您使用耗子Linux面板。如遇到问题，可通过Q群
-                    <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">12370907</a>
+                    欢迎使用耗子 Linux 面板。如遇到问题，可通过
+                    <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH"> QQ 群 </a>
                     /
-                    <a target="_blank" href="https://pd.qq.com/s/fyol46wfy">QQ频道</a>
+                    <a target="_blank" href="https://pd.qq.com/s/fyol46wfy"> QQ 频道 </a>
+                    /
+                    <a target="_blank" href="https://github.com/haozi-team/panel/issues">
+                      GitHub
+                    </a>
                     寻求帮助
                   </n-alert>
                 </n-space>

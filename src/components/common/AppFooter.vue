@@ -4,14 +4,20 @@
       Copyright © 2022 - {{ year }}
       <a
         hover="decoration-underline color-primary"
-        href="https://github.com/haozi-team/panel"
+        href="https://git.haozi.net/opensource/panel"
         target="__blank"
       >
         耗子 Linux 面板
       </a>
       All Rights Reserved.
     </p>
-    <p>严禁使用耗子 Linux 面板从事任何非法活动，非法站点请勿向我们请求任何形式的技术支持。</p>
+    <p>
+      <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">交流 QQ 群 12370907</a>
+      /
+      <a target="_blank" href="https://pd.qq.com/s/fyol46wfy">QQ 频道 haoziofficial1</a>
+      /
+      <a target="_blank" href="https://github.com/haozi-team/panel/issues">问题反馈</a>
+    </p>
   </footer>
 </template>
 

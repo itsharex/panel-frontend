@@ -60,7 +60,7 @@ const openSession = () => {
   ws.onopen = () => {
     term.open(document.getElementById('terminal') as HTMLElement)
     fitAddon.fit()
-    term.write('\r\n欢迎来到耗子Linux面板SSH，连接成功。')
+    term.write('\r\n欢迎来到耗子 Linux 面板SSH，连接成功。')
     term.write('\r\nWelcome to HaoZiPanel SSH. Connection success.\r\n')
     term.focus()
   }

@@ -33,7 +33,7 @@ onMounted(() => {
   <CommonPage show-footer>
     <n-form>
       <n-form-item label="面板名称">
-        <n-input v-model:value="model.name" placeholder="耗子Linux面板" />
+        <n-input v-model:value="model.name" placeholder="耗子 Linux 面板" />
       </n-form-item>
       <n-form-item label="用户名">
         <n-input v-model:value="model.username" placeholder="admin" />
