@@ -1,35 +1,38 @@
 import { request } from '@/utils'
+import type { AxiosResponse } from 'axios'
 
 export default {
   // 运行状态
-  status: () => request.get('/plugins/php74/status'),
+  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/status'),
   // 重载
-  reload: () => request.post('/plugins/php74/reload'),
+  reload: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/reload'),
   // 重启
-  restart: () => request.post('/plugins/php74/restart'),
+  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/restart'),
   // 启动
-  start: () => request.post('/plugins/php74/start'),
+  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/start'),
   // 停止
-  stop: () => request.post('/plugins/php74/stop'),
+  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/stop'),
   // 负载状态
-  load: () => request.get('/plugins/php74/load'),
+  load: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/load'),
   // 获取配置
-  config: () => request.get('/plugins/php74/config'),
+  config: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/config'),
   // 保存配置
-  saveConfig: (config: string) => request.post('/plugins/php74/config', { config }),
+  saveConfig: (config: string): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/php74/config', { config }),
   // 获取错误日志
-  errorLog: () => request.get('/plugins/php74/errorLog'),
+  errorLog: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/errorLog'),
   // 清空错误日志
-  clearErrorLog: () => request.post('/plugins/php74/clearErrorLog'),
+  clearErrorLog: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/clearErrorLog'),
   // 获取慢日志
-  slowLog: () => request.get('/plugins/php74/slowLog'),
+  slowLog: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/slowLog'),
   // 清空慢日志
-  clearSlowLog: () => request.post('/plugins/php74/clearSlowLog'),
+  clearSlowLog: (): Promise<AxiosResponse<any>> => request.post('/plugins/php74/clearSlowLog'),
   // 拓展列表
-  extensions: () => request.get('/plugins/php74/extensions'),
+  extensions: (): Promise<AxiosResponse<any>> => request.get('/plugins/php74/extensions'),
   // 安装拓展
-  installExtension: (slug: string) => request.post('/plugins/php74/extensions', { slug }),
+  installExtension: (slug: string): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/php74/extensions', { slug }),
   // 卸载拓展
-  uninstallExtension: (slug: string) =>
+  uninstallExtension: (slug: string): Promise<AxiosResponse<any>> =>
     request.delete('/plugins/php74/extensions', { params: { slug } })
 }

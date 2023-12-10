@@ -3,8 +3,10 @@ import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
 import postgresql15 from '@/api/plugins/postgresql15'
 import { generateRandomString, renderIcon } from '@/utils'
 import type { Backup, Database, User } from '@/views/plugins/postgresql15/types'
-import type { UploadFileInfo } from 'naive-ui'
+import type { UploadFileInfo, MessageReactive } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
+
+let messageReactive: MessageReactive | null = null
 
 const currentTab = ref('status')
 const currentDatabase = ref('')
@@ -439,11 +441,15 @@ const handleChangePassword = async () => {
 }
 
 const handleUploadBackup = async (files: UploadFileInfo[]) => {
+  messageReactive = window.$message.loading('上传中...', {
+    duration: 0
+  })
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     const formData = new FormData()
     formData.append('file', file.file as Blob, file.name)
     await postgresql15.uploadBackup(formData).then(() => {
+      messageReactive?.destroy()
       window.$message.success('上传成功')
       onBackupPageChange(backupPagination.page)
     })
@@ -451,14 +457,22 @@ const handleUploadBackup = async (files: UploadFileInfo[]) => {
 }
 
 const handleCreateBackup = async () => {
+  messageReactive = window.$message.loading('创建中...', {
+    duration: 0
+  })
   await postgresql15.createBackup(currentDatabase.value).then(() => {
+    messageReactive?.destroy()
     window.$message.success('创建成功')
     onBackupPageChange(backupPagination.page)
   })
 }
 
 const handleRestoreBackup = async (row: any) => {
+  messageReactive = window.$message.loading('恢复中...', {
+    duration: 0
+  })
   await postgresql15.restoreBackup(row.name, currentDatabase.value).then(() => {
+    messageReactive?.destroy()
     window.$message.success('恢复成功')
     onBackupPageChange(backupPagination.page)
   })

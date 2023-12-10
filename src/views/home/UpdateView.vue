@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import info from '@/api/panel/info'
 import { NButton } from 'naive-ui'
+import type { MessageReactive } from 'naive-ui'
 import type { PanelInfo } from '@/views/home/types'
 import { formatDateTime } from '@/utils'
 import { router } from '@/router'
 
 const versions = ref<PanelInfo[] | null>(null)
+let messageReactive: MessageReactive | null = null
 
 const getVersions = () => {
   info.updateInfo().then((res: any) => {
@@ -20,8 +22,11 @@ const handleUpdate = () => {
     positiveText: '确定',
     negativeText: '取消',
     onPositiveClick: () => {
-      window.$message.loading('面板更新中...')
+      messageReactive = window.$message.loading('面板更新中...', {
+        duration: 0
+      })
       info.update().then(() => {
+        messageReactive?.destroy()
         window.$message.success('面板更新成功')
         setTimeout(() => {
           setTimeout(() => {

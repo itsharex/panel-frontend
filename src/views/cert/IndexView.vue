@@ -3,6 +3,7 @@ import website from '@/api/panel/website'
 import { NButton, NDataTable, NInput, NPopconfirm, NSwitch, NTag, NTable } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import type { Cert, DNS, User } from './types'
+import type { MessageReactive } from 'naive-ui'
 import cert from '@/api/panel/cert'
 
 const currentTab = ref('cert')
@@ -22,6 +23,8 @@ const algorithms = ref<any>([])
 let websites = ref<any>([])
 let dns = ref<any>([])
 let users = ref<any>([])
+
+let messageReactive: MessageReactive | null = null
 
 const addCertModel = ref<any>({
   domains: [],
@@ -219,10 +222,13 @@ const certColumns: any = [
                 type: 'info',
                 style: 'margin-left: 15px;',
                 onClick: async () => {
-                  window.$message.loading('请稍后...')
+                  messageReactive = window.$message.loading('请稍后...', {
+                    duration: 0
+                  })
                   // 没有设置 DNS 接口和网站则获取解析记录
                   if (row.dns_id == null && row.website_id == null) {
                     const { data } = await cert.manualDNS(row.id)
+                    messageReactive.destroy()
                     window.$message.info('请先前往域名处设置 DNS 解析，再继续签发')
                     const d = window.$dialog.info({
                       style: 'width: 60vw',
@@ -247,13 +253,18 @@ const certColumns: any = [
                       positiveText: '签发',
                       onPositiveClick: async () => {
                         d.loading = true
+                        messageReactive = window.$message.loading('请稍后...', {
+                          duration: 0
+                        })
                         await cert.obtain(row.id)
+                        messageReactive.destroy()
                         window.$message.success('签发成功')
                         onCertPageChange(1)
                       }
                     })
                   } else {
                     await cert.obtain(row.id)
+                    messageReactive.destroy()
                     window.$message.success('签发成功')
                     onCertPageChange(1)
                   }
@@ -273,8 +284,11 @@ const certColumns: any = [
                 type: 'success',
                 style: 'margin-left: 15px;',
                 onClick: async () => {
-                  window.$message.loading('请稍后...')
+                  messageReactive = window.$message.loading('请稍后...', {
+                    duration: 0
+                  })
                   await cert.renew(row.id)
+                  messageReactive.destroy()
                   window.$message.success('续签成功')
                   onCertPageChange(1)
                 }
@@ -621,8 +635,11 @@ const handleAddCert = async () => {
 }
 
 const handleAddUser = async () => {
-  window.$message.loading('正在向 CA 注册账号，请耐心等待')
+  messageReactive = window.$message.loading('正在向 CA 注册账号，请耐心等待', {
+    duration: 0
+  })
   await cert.userAdd(addUserModel.value)
+  messageReactive.destroy()
   window.$message.success('添加成功')
   addUserModal.value = false
   onUserPageChange(1)
@@ -662,8 +679,11 @@ const handleUpdateCert = async () => {
 }
 
 const handleUpdateUser = async () => {
-  window.$message.loading('正在向 CA 注册账号，请耐心等待')
+  messageReactive = window.$message.loading('正在向 CA 注册账号，请耐心等待', {
+    duration: 0
+  })
   await cert.userUpdate(updateUser.value, updateUserModel.value)
+  messageReactive.destroy()
   window.$message.success('更新成功')
   updateUserModal.value = false
   onUserPageChange(1)

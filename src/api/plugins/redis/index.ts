@@ -1,18 +1,20 @@
 import { request } from '@/utils'
+import type { AxiosResponse } from 'axios'
 
 export default {
   // 运行状态
-  status: () => request.get('/plugins/redis/status'),
+  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/redis/status'),
   // 重启
-  restart: () => request.post('/plugins/redis/restart'),
+  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/redis/restart'),
   // 启动
-  start: () => request.post('/plugins/redis/start'),
+  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/redis/start'),
   // 停止
-  stop: () => request.post('/plugins/redis/stop'),
+  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/redis/stop'),
   // 负载状态
-  load: () => request.get('/plugins/redis/load'),
+  load: (): Promise<AxiosResponse<any>> => request.get('/plugins/redis/load'),
   // 获取配置
-  config: () => request.get('/plugins/redis/config'),
+  config: (): Promise<AxiosResponse<any>> => request.get('/plugins/redis/config'),
   // 保存配置
-  saveConfig: (config: string) => request.post('/plugins/redis/config', { config })
+  saveConfig: (config: string): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/redis/config', { config })
 }

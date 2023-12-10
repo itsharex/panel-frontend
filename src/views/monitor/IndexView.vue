@@ -13,6 +13,7 @@ import {
 import monitor from '@/api/panel/monitor'
 import type { MonitorData } from '@/views/monitor/types'
 import { NButton } from 'naive-ui'
+import type { EChartsOption } from 'echarts'
 
 use([
   CanvasRenderer,
@@ -58,10 +59,10 @@ const end = ref(Math.floor(Date.now()))
 const monitorSwitch = ref(false)
 const saveDay = ref(30)
 
-const load = ref<any>({
+const load = ref<EChartsOption>({
   title: {
     text: '负载',
-    textAlign: 'center',
+    textAlign: 'left',
     textStyle: {
       fontSize: 20
     }
@@ -151,7 +152,7 @@ const load = ref<any>({
 const cpu = ref<any>({
   title: {
     text: 'CPU',
-    textAlign: 'center',
+    textAlign: 'left',
     textStyle: {
       fontSize: 20
     }
@@ -206,7 +207,7 @@ const cpu = ref<any>({
 const mem = ref<any>({
   title: {
     text: '内存',
-    textAlign: 'center',
+    textAlign: 'left',
     textStyle: {
       fontSize: 20
     }
@@ -287,7 +288,7 @@ const mem = ref<any>({
 const net = ref<any>({
   title: {
     text: '网络',
-    textAlign: 'center',
+    textAlign: 'left',
     textStyle: {
       fontSize: 20
     }

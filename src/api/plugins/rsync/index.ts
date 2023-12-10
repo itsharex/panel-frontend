@@ -1,26 +1,30 @@
 import { request } from '@/utils'
+import type { AxiosResponse } from 'axios'
 
 export default {
   // 运行状态
-  status: () => request.get('/plugins/rsync/status'),
+  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/rsync/status'),
   // 重启
-  restart: () => request.post('/plugins/rsync/restart'),
+  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/rsync/restart'),
   // 启动
-  start: () => request.post('/plugins/rsync/start'),
+  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/rsync/start'),
   // 停止
-  stop: () => request.post('/plugins/rsync/stop'),
+  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/rsync/stop'),
   // 获取配置
-  config: () => request.get('/plugins/rsync/config'),
+  config: (): Promise<AxiosResponse<any>> => request.get('/plugins/rsync/config'),
   // 保存配置
-  saveConfig: (config: string) => request.post('/plugins/rsync/config', { config }),
+  saveConfig: (config: string): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/rsync/config', { config }),
   // 模块列表
-  modules: (page: number, limit: number) =>
+  modules: (page: number, limit: number): Promise<AxiosResponse<any>> =>
     request.get('/plugins/rsync/modules', { params: { page, limit } }),
   // 添加模块
-  addModule: (module: any) => request.post('/plugins/rsync/modules', module),
+  addModule: (module: any): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/rsync/modules', module),
   // 删除模块
-  deleteModule: (name: string) => request.delete('/plugins/rsync/modules/' + name),
+  deleteModule: (name: string): Promise<AxiosResponse<any>> =>
+    request.delete('/plugins/rsync/modules/' + name),
   // 更新模块
-  updateModule: (name: string, module: any) =>
+  updateModule: (name: string, module: any): Promise<AxiosResponse<any>> =>
     request.post('/plugins/rsync/modules/' + name, module)
 }

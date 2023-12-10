@@ -4,10 +4,11 @@ import website from '@/api/panel/website'
 import info from '@/api/panel/info'
 import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
 import type { Backup, Website } from './types'
-import type { UploadFileInfo } from 'naive-ui'
+import type { UploadFileInfo, MessageReactive } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
 
 const router = useRouter()
+let messageReactive: MessageReactive | null = null
 
 const queryItems = ref<any>({})
 const selectedRowKeys = ref<any>([])
@@ -103,10 +104,7 @@ const columns: any = [
         h(
           NPopconfirm,
           {
-            onPositiveClick: () => handleDelete(row.id),
-            onNegativeClick: () => {
-              window.$message.info('取消删除')
-            }
+            onPositiveClick: () => handleDelete(row.id)
           },
           {
             default: () => {
@@ -400,11 +398,15 @@ const batchDelete = async () => {
 }
 
 const handleUploadBackup = async (files: UploadFileInfo[]) => {
+  messageReactive = window.$message.loading('上传中...', {
+    duration: 0
+  })
   for (let i = 0; i < files.length; i++) {
     const file = files[i]
     const formData = new FormData()
     formData.append('file', file.file as Blob, file.name)
     await website.uploadBackup(formData).then(() => {
+      messageReactive?.destroy()
       window.$message.success('上传成功')
       onBackupPageChange(backupPagination.page)
     })
@@ -412,14 +414,22 @@ const handleUploadBackup = async (files: UploadFileInfo[]) => {
 }
 
 const handleCreateBackup = async () => {
+  messageReactive = window.$message.loading('创建中...', {
+    duration: 0
+  })
   await website.createBackup(currentWebsite.value).then(() => {
+    messageReactive?.destroy()
     window.$message.success('创建成功')
     onBackupPageChange(backupPagination.page)
   })
 }
 
 const handleRestoreBackup = async (row: any) => {
+  messageReactive = window.$message.loading('恢复中...', {
+    duration: 0
+  })
   await website.restoreBackup(currentWebsite.value, row.name).then(() => {
+    messageReactive?.destroy()
     window.$message.success('恢复成功')
     onBackupPageChange(backupPagination.page)
   })
