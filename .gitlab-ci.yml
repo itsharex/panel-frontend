@@ -30,7 +30,7 @@ build:
     - npm install -g pnpm
     - pnpm set registry https://registry.npmmirror.com/
     - pnpm install
-    - sed -i 's/dl-cdn.alpinelinux.org/mirrors.tuna.tsinghua.edu.cn/g' /etc/apk/repositories
+    - sed -i 's/dl-cdn.alpinelinux.org/mirror.sjtu.edu.cn/g' /etc/apk/repositories
     - apk add --no-cache zip
   script:
     - cp .env.production .env
