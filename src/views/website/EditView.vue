@@ -363,7 +363,6 @@ onMounted(() => {
             language="ini"
             theme="vs-dark"
             height="60vh"
-            :line="999999"
             :options="{
               automaticLayout: true,
               formatOnType: true,
