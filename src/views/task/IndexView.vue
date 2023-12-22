@@ -206,6 +206,12 @@ onUnmounted(() => {
         taskLogModal = false
       }
     "
+    @mask-click="
+      () => {
+        autoRefresh = false
+        taskLogModal = false
+      }
+    "
   >
     <template #header-extra>
       <n-switch v-model:value="autoRefresh" style="margin-right: 10px">

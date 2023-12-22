@@ -42,7 +42,7 @@ const columns: any = [
               },
               {
                 default: () => {
-                  return '升级插件可能会重置相关配置到默认状态，确定继续吗？'
+                  return '升级 ' + row.name + ' 插件可能会重置相关配置到默认状态，确定继续吗？'
                 },
                 trigger: () => {
                   return h(
@@ -84,7 +84,7 @@ const columns: any = [
               },
               {
                 default: () => {
-                  return '确定卸载插件吗？'
+                  return '确定卸载插件 ' + row.name + ' 吗？'
                 },
                 trigger: () => {
                   return h(
@@ -111,7 +111,7 @@ const columns: any = [
               },
               {
                 default: () => {
-                  return '确定安装插件吗？'
+                  return '确定安装插件 ' + row.name + ' 吗？'
                 },
                 trigger: () => {
                   return h(
