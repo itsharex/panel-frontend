@@ -548,9 +548,7 @@ onUnmounted(() => {
                     /
                     <a target="_blank" href="https://pd.qq.com/s/fyol46wfy"> QQ 频道 </a>
                     /
-                    <a target="_blank" href="https://github.com/haozi-team/panel/issues">
-                      GitHub
-                    </a>
+                    <a target="_blank" href="https://github.com/TheTNB/panel/issues"> GitHub </a>
                     寻求帮助
                   </n-alert>
                 </n-space>

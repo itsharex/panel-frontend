@@ -1,5 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Please submit to haozi-team/panel (请提交至 haozi-team/panel)
-    url: https://github.com/haozi-team/panel/issues/new/choose
+  - name: Please submit to TheTNB/panel (请提交至 TheTNB/panel)
+    url: https://github.com/TheTNB/panel/issues/new/choose
     about: This repository does not accept issues submissions (本仓库不接受 Issues 提交)
