@@ -9,7 +9,8 @@ export function setupHtmlPlugin(viteEnv: ViteEnv) {
       data: {
         title: VITE_APP_TITLE
       }
-    }
+    },
+    viteNext: true
   })
   return htmlPlugin
 }
