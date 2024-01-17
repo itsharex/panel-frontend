@@ -653,7 +653,7 @@ onMounted(() => {
               :loading="false"
               :columns="databaseColumns"
               :data="databases"
-              :row-key="(row) => row.name"
+              :row-key="(row: any) => row.name"
               @update:page="onDatabasePageChange"
               @update:page-size="onDatabasePageSizeChange"
             />
@@ -665,7 +665,7 @@ onMounted(() => {
               :loading="false"
               :columns="userColumns"
               :data="users"
-              :row-key="(row) => row.user"
+              :row-key="(row: any) => row.user"
               @update:page="onUserPageChange"
               @update:page-size="onUserPageSizeChange"
             />
@@ -829,7 +829,7 @@ onMounted(() => {
           :loading="false"
           :columns="backupColumns"
           :data="backup"
-          :row-key="(row) => row.name"
+          :row-key="(row: any) => row.name"
           @update:page="onBackupPageChange"
           @update:page-size="onBackupPageSizeChange"
         />

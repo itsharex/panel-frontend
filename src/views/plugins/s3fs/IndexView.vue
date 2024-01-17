@@ -126,7 +126,7 @@ onMounted(() => {
         :loading="false"
         :columns="columns"
         :data="mounts"
-        :row-key="(row) => row.id"
+        :row-key="(row: any) => row.id"
         @update:page="onPageChange"
         @update:page-size="onPageSizeChange"
       />

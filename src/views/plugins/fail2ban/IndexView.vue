@@ -360,7 +360,7 @@ onMounted(() => {
             :loading="false"
             :columns="jailsColumns"
             :data="jails"
-            :row-key="(row) => row.name"
+            :row-key="(row: any) => row.name"
             @update:page="onPageChange"
             @update:page-size="onPageSizeChange"
           />
@@ -459,7 +459,7 @@ onMounted(() => {
             :loading="false"
             :columns="banedIPColumns"
             :data="jailBanedList"
-            :row-key="(row) => row.ip"
+            :row-key="(row: any) => row.ip"
             :pagination="false"
           />
         </n-card>

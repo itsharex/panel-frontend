@@ -228,7 +228,7 @@ onMounted(() => {
         :loading="false"
         :columns="columns"
         :data="plugins"
-        :row-key="(row) => row.slug"
+        :row-key="(row: any) => row.slug"
         :pagination="pagination"
         @update:checked-row-keys="onChecked"
         @update:page="onPageChange"

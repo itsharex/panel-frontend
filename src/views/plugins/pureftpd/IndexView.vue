@@ -265,7 +265,7 @@ onMounted(() => {
             :loading="false"
             :columns="userColumns"
             :data="users"
-            :row-key="(row) => row.username"
+            :row-key="(row: any) => row.username"
             @update:page="onPageChange"
             @update:page-size="onPageSizeChange"
           />

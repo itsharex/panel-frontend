@@ -185,7 +185,7 @@ onUnmounted(() => {
       :loading="false"
       :columns="columns"
       :data="tasks"
-      :row-key="(row) => row.id"
+      :row-key="(row: any) => row.id"
       :pagination="pagination"
       @update:checked-row-keys="onChecked"
       @update:page="onPageChange"

@@ -418,7 +418,7 @@ onUnmounted(() => {
             :loading="false"
             :columns="processColumns"
             :data="processes"
-            :row-key="(row) => row.name"
+            :row-key="(row: any) => row.name"
             @update:page="onPageChange"
             @update:page-size="onPageSizeChange"
           />

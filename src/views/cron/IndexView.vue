@@ -355,7 +355,7 @@ onMounted(() => {
           remote
           :data="data"
           :columns="columns"
-          :row-key="(row) => row.id"
+          :row-key="(row: any) => row.id"
           :pagination="pagination"
           :bordered="false"
           :loading="false"

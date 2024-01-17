@@ -516,7 +516,7 @@ onMounted(() => {
       :scroll-x="1200"
       :columns="columns"
       :data="data"
-      :row-key="(row) => row.id"
+      :row-key="(row: any) => row.id"
       :pagination="pagination"
       @update:checked-row-keys="onChecked"
       @update:page="onPageChange"
@@ -724,7 +724,7 @@ onMounted(() => {
           :loading="false"
           :columns="backupColumns"
           :data="backup"
-          :row-key="(row) => row.name"
+          :row-key="(row: any) => row.name"
           @update:page="onBackupPageChange"
           @update:page-size="onBackupPageSizeChange"
         />

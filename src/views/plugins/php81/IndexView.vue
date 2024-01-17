@@ -279,7 +279,7 @@ onMounted(() => {
             :loading="false"
             :columns="extensionColumns"
             :data="extensions"
-            :row-key="(row) => row.slug"
+            :row-key="(row: any) => row.slug"
           />
         </n-card>
       </n-tab-pane>

@@ -283,7 +283,7 @@ onMounted(() => {
             :loading="false"
             :columns="processColumns"
             :data="modules"
-            :row-key="(row) => row.name"
+            :row-key="(row: any) => row.name"
             @update:page="onPageChange"
             @update:page-size="onPageSizeChange"
           />

@@ -260,7 +260,7 @@ onMounted(() => {
         :scroll-x="1200"
         :columns="columns"
         :data="data"
-        :row-key="(row) => row.port + '/' + row.protocol"
+        :row-key="(row: any) => row.port + '/' + row.protocol"
         :pagination="pagination"
         @update:checked-row-keys="onChecked"
         @update:page="onPageChange"
