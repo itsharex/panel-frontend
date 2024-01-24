@@ -6,18 +6,20 @@
   "labels": [
     "🤖 Dependencies"
   ],
-  "lockFileMaintenance": { "enabled": true },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
   "commitMessagePrefix": "chore(deps): ",
   "postUpdateOptions": [
     "pnpmDedupe"
   ],
   "packageRules": [
     {
-      "groupName": "all dependencies",
-      "groupSlug": "all",
-      "matchPackagePatterns": [
-        "*"
-      ]
+      "description": "Automerge non-major updates",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
     }
   ]
 }
