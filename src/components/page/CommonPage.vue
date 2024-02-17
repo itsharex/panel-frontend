@@ -19,9 +19,12 @@ const route = useRoute()
     <header v-if="showHeader" mb-15 min-h-45 flex items-center justify-between px-15>
       <slot v-if="$slots.header" name="header" />
       <template v-else>
-        <h2 text-22 font-normal>
-          {{ title || route.meta?.title }}
-        </h2>
+        <div flex items-center>
+          <slot v-if="$slots['title-prefix']" name="title-prefix" />
+          <div mr-12 h-16 w-4 rounded-l-2 bg-primary></div>
+          <h2 font-normal>{{ title ?? route.meta?.title }}</h2>
+          <slot name="title-suffix" />
+        </div>
         <slot name="action" />
       </template>
     </header>

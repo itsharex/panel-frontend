@@ -1,13 +1,11 @@
 <script lang="ts" setup>
 import ContextMenu from './components/ContextMenu.vue'
 import type { TabItem } from '@/store'
-import { useTabStore, useThemeStore } from '@/store'
-import ScrollX from '@/components/common/ScrollX.vue'
+import { useTabStore } from '@/store'
 
 const route = useRoute()
 const router = useRouter()
 const tabStore = useTabStore()
-const useTheme = useThemeStore()
 
 interface ContextMenuOption {
   show: boolean
@@ -61,40 +59,54 @@ async function handleContextMenu(e: MouseEvent, tabItem: TabItem) {
 </script>
 
 <template>
-  <ScrollX :style="{ height: `${useTheme.tab.height}px` }" bg-white dark:bg-dark>
-    <n-tag
-      v-for="tab in tabStore.tabs"
-      :key="tab.path"
+  <div>
+    <n-tabs
+      :value="tabStore.activeTab"
       :closable="tabStore.tabs.length > 1"
-      :type="tabStore.activeTab === tab.path ? 'primary' : 'default'"
-      mx-5
-      cursor-pointer
-      rounded-4
-      px-15
-      @click="handleTagClick(tab.path)"
-      @close.stop="tabStore.removeTab(tab.path)"
-      @contextmenu.prevent="handleContextMenu($event, tab)"
+      type="card"
+      @close="(path: string) => tabStore.removeTab(path)"
+      bg-white
+      dark:bg-dark
     >
-      {{ tab.title }}
-    </n-tag>
-  </ScrollX>
-
-  <ContextMenu
-    v-model:show="contextMenuOption.show"
-    :current-path="contextMenuOption.currentPath"
-    :x="contextMenuOption.x"
-    :y="contextMenuOption.y"
-  />
+      <n-tab
+        v-for="item in tabStore.tabs"
+        :key="item.path"
+        :name="item.path"
+        @click="handleTagClick(item.path)"
+        @contextmenu.prevent="handleContextMenu($event, item)"
+      >
+        {{ item.title }}
+      </n-tab>
+    </n-tabs>
+    <ContextMenu
+      v-model:show="contextMenuOption.show"
+      :current-path="contextMenuOption.currentPath"
+      :x="contextMenuOption.x"
+      :y="contextMenuOption.y"
+    />
+  </div>
 </template>
 
-<style lang="scss">
-.n-tag__close {
-  box-sizing: content-box;
-  border-radius: 50%;
-  font-size: 12px;
-  padding: 2px;
-  transform: scale(0.9);
-  transform: translateX(5px);
-  transition: all 0.3s;
+<style scoped lang="scss">
+:deep(.n-tabs) {
+  .n-tabs-tab {
+    padding-left: 16px;
+    height: 36px;
+    background: transparent !important;
+    border-radius: 4px !important;
+    margin-right: 4px;
+    &:hover {
+      border: 1px solid var(--primary-color) !important;
+    }
+  }
+  .n-tabs-tab--active {
+    border: 1px solid var(--primary-color) !important;
+    background-color: var(--selected-bg) !important;
+  }
+  .n-tabs-pad,
+  .n-tabs-tab-pad,
+  .n-tabs-scroll-padding {
+    border: none !important;
+  }
 }
 </style>

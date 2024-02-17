@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '面板设置',
+        title: '设置',
         icon: 'mdi:settings-outline',
         role: ['admin'],
         requireAuth: true
