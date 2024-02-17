@@ -31,16 +31,16 @@ export default {
     request.get('/panel/website/backupList', { params: { page, limit } }),
   // 创建备份
   createBackup: (id: number): Promise<AxiosResponse<any>> =>
-    request.post('/panel/websites/' + id + '/createBackup', {}, { timeout: 0 }),
+    request.post('/panel/websites/' + id + '/createBackup', {}),
   // 上传备份
   uploadBackup: (data: any): Promise<AxiosResponse<any>> =>
-    request.put('/panel/website/uploadBackup', data, { timeout: 0 }),
+    request.put('/panel/website/uploadBackup', data),
   // 删除备份
   deleteBackup: (name: string): Promise<AxiosResponse<any>> =>
     request.delete('/panel/website/deleteBackup', { data: { name } }),
   // 恢复备份
   restoreBackup: (id: number, name: number): Promise<AxiosResponse<any>> =>
-    request.post('/panel/websites/' + id + '/restoreBackup', { name }, { timeout: 0 }),
+    request.post('/panel/websites/' + id + '/restoreBackup', { name }),
   // 重置配置
   resetConfig: (id: number): Promise<AxiosResponse<any>> =>
     request.post('/panel/websites/' + id + '/resetConfig'),

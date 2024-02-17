@@ -46,16 +46,16 @@ export default {
     request.get('/plugins/mysql57/backups', { params: { page, limit } }),
   // 创建备份
   createBackup: (database: string): Promise<AxiosResponse<any>> =>
-    request.post('/plugins/mysql57/backups', { database }, { timeout: 0 }),
+    request.post('/plugins/mysql57/backups', { database }),
   // 上传备份
   uploadBackup: (backup: any): Promise<AxiosResponse<any>> =>
-    request.put('/plugins/mysql57/backups', backup, { timeout: 0 }),
+    request.put('/plugins/mysql57/backups', backup),
   // 删除备份
   deleteBackup: (name: string): Promise<AxiosResponse<any>> =>
     request.delete('/plugins/mysql57/backups', { params: { name } }),
   // 还原备份
   restoreBackup: (backup: string, database: string): Promise<AxiosResponse<any>> =>
-    request.post('/plugins/mysql57/backups/restore', { backup, database }, { timeout: 0 }),
+    request.post('/plugins/mysql57/backups/restore', { backup, database }),
   // 用户列表
   users: (page: number, limit: number): Promise<AxiosResponse<any>> =>
     request.get('/plugins/mysql57/users', { params: { page, limit } }),

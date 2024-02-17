@@ -24,8 +24,7 @@ export default {
   // 更新日志
   updateInfo: (): Promise<AxiosResponse<any>> => request.get('/panel/info/updateInfo'),
   // 更新面板
-  update: (): Promise<AxiosResponse<any>> =>
-    request.post('/panel/info/update', null, { timeout: 0 }),
+  update: (): Promise<AxiosResponse<any>> => request.post('/panel/info/update', null),
   // 重启面板
   restart: (): Promise<AxiosResponse<any>> => request.post('/panel/info/restart')
 }

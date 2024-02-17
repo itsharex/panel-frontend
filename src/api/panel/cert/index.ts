@@ -47,8 +47,7 @@ export default {
   certDelete: (id: number): Promise<AxiosResponse<any>> =>
     request.delete(`/panel/cert/certs/${id}`),
   // 签发
-  obtain: (id: number): Promise<AxiosResponse<any>> =>
-    request.post(`/panel/cert/obtain`, { id }, { timeout: 0 }),
+  obtain: (id: number): Promise<AxiosResponse<any>> => request.post(`/panel/cert/obtain`, { id }),
   // 续签
   renew: (id: number): Promise<AxiosResponse<any>> => request.post(`/panel/cert/renew`, { id }),
   // 获取 DNS 记录

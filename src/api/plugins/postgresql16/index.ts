@@ -42,16 +42,16 @@ export default {
     request.get('/plugins/postgresql16/backups', { params: { page, limit } }),
   // 创建备份
   createBackup: (database: string): Promise<AxiosResponse<any>> =>
-    request.post('/plugins/postgresql16/backups', { database }, { timeout: 0 }),
+    request.post('/plugins/postgresql16/backups', { database }),
   // 上传备份
   uploadBackup: (backup: any): Promise<AxiosResponse<any>> =>
-    request.put('/plugins/postgresql16/backups', backup, { timeout: 0 }),
+    request.put('/plugins/postgresql16/backups', backup),
   // 删除备份
   deleteBackup: (name: string): Promise<AxiosResponse<any>> =>
     request.delete('/plugins/postgresql16/backups', { params: { name } }),
   // 还原备份
   restoreBackup: (backup: string, database: string): Promise<AxiosResponse<any>> =>
-    request.post('/plugins/postgresql16/backups/restore', { backup, database }, { timeout: 0 }),
+    request.post('/plugins/postgresql16/backups/restore', { backup, database }),
   // 用户列表
   users: (page: number, limit: number): Promise<AxiosResponse<any>> =>
     request.get('/plugins/postgresql16/users', { params: { page, limit } }),
