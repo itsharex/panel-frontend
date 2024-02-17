@@ -17,6 +17,7 @@ export class AxiosRejectError extends Error {
 export function resolveResError(code: number | string | undefined, message = ''): string {
   switch (code) {
     case 400:
+    case 422:
       message = message ?? '请求参数错误'
       break
     case 401:

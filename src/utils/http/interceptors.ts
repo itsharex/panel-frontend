@@ -27,10 +27,8 @@ export function reqReject(error: AxiosError) {
 export function resResolve(response: AxiosResponse) {
   // TODO: 处理不同的 response.headers
   const { data, status, config, statusText } = response
-  if (data?.code !== 0) {
+  if (status !== 200) {
     const code = data?.code ?? status
-
-    /** 根据code处理对应的操作，并返回处理后的message */
     const message = resolveResError(code, data?.message ?? statusText)
     const { noNeedTip } = config as RequestConfig
     !noNeedTip && window.$message.error(message)
