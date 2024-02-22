@@ -66,7 +66,7 @@ devDependencies:
     version: 18.2.2
   '@types/crypto-js':
     specifier: ^4.2.1
-    version: 4.2.1
+    version: 4.2.2
   '@types/lodash-es':
     specifier: ^4.17.12
     version: 4.17.12
@@ -1248,8 +1248,8 @@ packages:
     resolution: {integrity: sha512-d6McJeGsuoRlwWZmVIeE8CUA27lu6jLjvv1JzqmpsytOYYbVi1tHZEnwCNVOXnj4pyLvneZlFlpXUK+X9wBWyw==}
     dev: true
 
-  /@types/crypto-js@4.2.1:
-    resolution: {integrity: sha512-FSPGd9+OcSok3RsM0UZ/9fcvMOXJ1ENE/ZbLfOPlBWj7BgXtEAM8VYfTtT760GiLbQIMoVozwVuisjvsVwqYWw==}
+  /@types/crypto-js@4.2.2:
+    resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
     dev: true
 
   /@types/estree@1.0.5:
