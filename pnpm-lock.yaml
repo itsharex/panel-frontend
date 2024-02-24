@@ -60,7 +60,7 @@ devDependencies:
     version: 4.1.1(vue@3.4.19)
   '@rushstack/eslint-patch':
     specifier: ^1.6.0
-    version: 1.6.1
+    version: 1.7.2
   '@tsconfig/node18':
     specifier: ^18.2.2
     version: 18.2.2
@@ -1240,8 +1240,8 @@ packages:
     dev: true
     optional: true
 
-  /@rushstack/eslint-patch@1.6.1:
-    resolution: {integrity: sha512-UY+FGM/2jjMkzQLn8pxcHGMaVLh9aEitG3zY2CiY7XHdLiz3bZOwa6oDxNqEMv7zZkV+cj5DOdz0cQ1BP5Hjgw==}
+  /@rushstack/eslint-patch@1.7.2:
+    resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
     dev: true
 
   /@tsconfig/node18@18.2.2:
