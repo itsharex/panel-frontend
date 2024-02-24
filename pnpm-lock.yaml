@@ -22,7 +22,7 @@ dependencies:
     version: 1.11.10
   echarts:
     specifier: ^5.4.3
-    version: 5.4.3
+    version: 5.5.0
   install:
     specifier: ^0.13.0
     version: 0.13.0
@@ -40,7 +40,7 @@ dependencies:
     version: 3.4.19(typescript@5.3.3)
   vue-echarts:
     specifier: ^6.6.2
-    version: 6.6.9(echarts@5.4.3)(vue@3.4.19)
+    version: 6.6.9(echarts@5.5.0)(vue@3.4.19)
   vue-router:
     specifier: ^4.2.5
     version: 4.2.5(vue@3.4.19)
@@ -2333,11 +2333,11 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /echarts@5.4.3:
-    resolution: {integrity: sha512-mYKxLxhzy6zyTi/FaEbJMOZU1ULGEQHaeIeuMR5L+JnJTpz+YR03mnnpBhbR4+UYJAgiXgpyTVLffPAjOTLkZA==}
+  /echarts@5.5.0:
+    resolution: {integrity: sha512-rNYnNCzqDAPCr4m/fqyUFv7fD9qIsd50S6GDFgO1DxZhncCsNsG7IfUlAlvZe5oSEQxtsjnHiUuppzccry93Xw==}
     dependencies:
       tslib: 2.3.0
-      zrender: 5.4.4
+      zrender: 5.5.0
     dev: false
 
   /ee-first@1.1.1:
@@ -4325,7 +4325,7 @@ packages:
     dependencies:
       vue: 3.4.19(typescript@5.3.3)
 
-  /vue-echarts@6.6.9(echarts@5.4.3)(vue@3.4.19):
+  /vue-echarts@6.6.9(echarts@5.5.0)(vue@3.4.19):
     resolution: {integrity: sha512-mojIq3ZvsjabeVmDthhAUDV8Kgf2Rr/X4lV4da7gEFd1fP05gcSJ0j7wa7HQkW5LlFmF2gdCJ8p4Chas6NNIQQ==}
     requiresBuild: true
     peerDependencies:
@@ -4339,7 +4339,7 @@ packages:
       '@vue/runtime-core':
         optional: true
     dependencies:
-      echarts: 5.4.3
+      echarts: 5.5.0
       resize-detector: 0.3.0
       vue: 3.4.19(typescript@5.3.3)
       vue-demi: 0.13.11(vue@3.4.19)
@@ -4504,8 +4504,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /zrender@5.4.4:
-    resolution: {integrity: sha512-0VxCNJ7AGOMCWeHVyTrGzUgrK4asT4ml9PEkeGirAkKNYXYzoPJCLvmyfdoOXcjTHPs10OZVMfD1Rwg16AZyYw==}
+  /zrender@5.5.0:
+    resolution: {integrity: sha512-O3MilSi/9mwoovx77m6ROZM7sXShR/O/JIanvzTwjN3FORfLSr81PsUGd7jlaYOeds9d8tw82oP44+3YucVo+w==}
     dependencies:
       tslib: 2.3.0
     dev: false
