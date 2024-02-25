@@ -84,7 +84,7 @@ devDependencies:
     version: 9.0.0(eslint@8.57.0)(prettier@3.1.1)
   '@vue/eslint-config-typescript':
     specifier: ^12.0.0
-    version: 12.0.0(eslint-plugin-vue@9.19.2)(eslint@8.57.0)(typescript@5.3.3)
+    version: 12.0.0(eslint-plugin-vue@9.22.0)(eslint@8.57.0)(typescript@5.3.3)
   '@vue/tsconfig':
     specifier: ^0.5.0
     version: 0.5.1
@@ -96,7 +96,7 @@ devDependencies:
     version: 8.57.0
   eslint-plugin-vue:
     specifier: ^9.19.2
-    version: 9.19.2(eslint@8.57.0)
+    version: 9.22.0(eslint@8.57.0)
   naive-ui:
     specifier: ^2.35.0
     version: 2.36.0(vue@3.4.19)
@@ -1313,7 +1313,7 @@ packages:
       graphemer: 1.4.0
       ignore: 5.3.1
       natural-compare: 1.4.0
-      semver: 7.5.4
+      semver: 7.6.0
       ts-api-utils: 1.0.3(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -1389,7 +1389,7 @@ packages:
       globby: 11.1.0
       is-glob: 4.0.3
       minimatch: 9.0.3
-      semver: 7.5.4
+      semver: 7.6.0
       ts-api-utils: 1.0.3(typescript@5.3.3)
       typescript: 5.3.3
     transitivePeerDependencies:
@@ -1409,7 +1409,7 @@ packages:
       '@typescript-eslint/types': 6.17.0
       '@typescript-eslint/typescript-estree': 6.17.0(typescript@5.3.3)
       eslint: 8.57.0
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
       - typescript
@@ -1749,7 +1749,7 @@ packages:
       - '@types/eslint'
     dev: true
 
-  /@vue/eslint-config-typescript@12.0.0(eslint-plugin-vue@9.19.2)(eslint@8.57.0)(typescript@5.3.3):
+  /@vue/eslint-config-typescript@12.0.0(eslint-plugin-vue@9.22.0)(eslint@8.57.0)(typescript@5.3.3):
     resolution: {integrity: sha512-StxLFet2Qe97T8+7L8pGlhYBBr8Eg05LPuTDVopQV6il+SK6qqom59BA/rcFipUef2jD8P2X44Vd8tMFytfvlg==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
@@ -1763,9 +1763,9 @@ packages:
       '@typescript-eslint/eslint-plugin': 6.17.0(@typescript-eslint/parser@6.17.0)(eslint@8.57.0)(typescript@5.3.3)
       '@typescript-eslint/parser': 6.17.0(eslint@8.57.0)(typescript@5.3.3)
       eslint: 8.57.0
-      eslint-plugin-vue: 9.19.2(eslint@8.57.0)
+      eslint-plugin-vue: 9.22.0(eslint@8.57.0)
       typescript: 5.3.3
-      vue-eslint-parser: 9.3.2(eslint@8.57.0)
+      vue-eslint-parser: 9.4.2(eslint@8.57.0)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -2489,8 +2489,8 @@ packages:
       synckit: 0.8.8
     dev: true
 
-  /eslint-plugin-vue@9.19.2(eslint@8.57.0):
-    resolution: {integrity: sha512-CPDqTOG2K4Ni2o4J5wixkLVNwgctKXFu6oBpVJlpNq7f38lh9I80pRTouZSJ2MAebPJlINU/KTFSXyQfBUlymA==}
+  /eslint-plugin-vue@9.22.0(eslint@8.57.0):
+    resolution: {integrity: sha512-7wCXv5zuVnBtZE/74z4yZ0CM8AjH6bk4MQGm7hZjUC2DBppKU5ioeOk5LGSg/s9a1ZJnIsdPLJpXnu1Rc+cVHg==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: ^6.2.0 || ^7.0.0 || ^8.0.0
@@ -2500,8 +2500,8 @@ packages:
       natural-compare: 1.4.0
       nth-check: 2.1.1
       postcss-selector-parser: 6.0.15
-      semver: 7.5.4
-      vue-eslint-parser: 9.3.2(eslint@8.57.0)
+      semver: 7.6.0
+      vue-eslint-parser: 9.4.2(eslint@8.57.0)
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - supports-color
@@ -3770,8 +3770,8 @@ packages:
     hasBin: true
     dev: true
 
-  /semver@7.5.4:
-    resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
+  /semver@7.6.0:
+    resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -4345,8 +4345,8 @@ packages:
       vue-demi: 0.13.11(vue@3.4.19)
     dev: false
 
-  /vue-eslint-parser@9.3.2(eslint@8.57.0):
-    resolution: {integrity: sha512-q7tWyCVaV9f8iQyIA5Mkj/S6AoJ9KBN8IeUSf3XEmBrOtxOZnfTg5s4KClbZBCK3GtnT/+RyCLZyDHuZwTuBjg==}
+  /vue-eslint-parser@9.4.2(eslint@8.57.0):
+    resolution: {integrity: sha512-Ry9oiGmCAK91HrKMtCrKFWmSFWvYkpGglCeFAIqDdr9zdXmMMpJOmUJS7WWsW7fX81h6mwHmUZCQQ1E0PkSwYQ==}
     engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       eslint: '>=6.0.0'
@@ -4358,7 +4358,7 @@ packages:
       espree: 9.6.1
       esquery: 1.5.0
       lodash: 4.17.21
-      semver: 7.5.4
+      semver: 7.6.0
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4387,7 +4387,7 @@ packages:
     dependencies:
       '@volar/typescript': 1.11.1
       '@vue/language-core': 1.8.27(typescript@5.3.3)
-      semver: 7.5.4
+      semver: 7.6.0
       typescript: 5.3.3
     dev: true
 
