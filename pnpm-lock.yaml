@@ -99,7 +99,7 @@ devDependencies:
     version: 9.22.0(eslint@8.57.0)
   naive-ui:
     specifier: ^2.35.0
-    version: 2.38.0(vue@3.4.19)
+    version: 2.38.1(vue@3.4.19)
   npm-run-all2:
     specifier: ^6.1.1
     version: 6.1.2
@@ -3288,8 +3288,8 @@ packages:
     resolution: {integrity: sha512-ckmWDJjphvd/FvZawgygcUeQCxzvohjFO5RxTjj4eq8kw359gFF3E1brjfI+viLMxss5JrHTDRHZvu2/tuy0Qg==}
     dev: true
 
-  /naive-ui@2.38.0(vue@3.4.19):
-    resolution: {integrity: sha512-Sa1hPUSTaOBvFy5hBcdQ6ajGVqt59QHN4p6wcsC5stVo6JjQPnbRTUvWtNG3gAsLhCvHQBm9NXeJG5Ne1OFQ4Q==}
+  /naive-ui@2.38.1(vue@3.4.19):
+    resolution: {integrity: sha512-AnU1FQ7K/CbhguAX++V4kCFjk7h7RvWt4nvZPRjORMpq+fUIlzD+EcQ5Cv1VqDloNF8+eMv4Akc2Ogacc9S+5A==}
     peerDependencies:
       vue: ^3.0.0
     dependencies:
