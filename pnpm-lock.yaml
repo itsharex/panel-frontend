@@ -111,7 +111,7 @@ devDependencies:
     version: 5.12.0
   sass:
     specifier: ^1.69.5
-    version: 1.69.7
+    version: 1.71.1
   typescript:
     specifier: ^5.3.3
     version: 5.3.3
@@ -129,7 +129,7 @@ devDependencies:
     version: 0.26.0(vue@3.4.19)
   vite:
     specifier: ^5.0.6
-    version: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+    version: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
   vite-plugin-compression:
     specifier: ^0.5.1
     version: 0.5.1(vite@5.0.11)
@@ -1438,7 +1438,7 @@ packages:
       '@unocss/core': 0.58.3
       '@unocss/reset': 0.58.3
       '@unocss/vite': 0.58.3(vite@5.0.11)
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -1454,7 +1454,7 @@ packages:
       '@unocss/core': 0.58.3
       '@unocss/preset-uno': 0.58.3
       cac: 6.7.14
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       colorette: 2.0.20
       consola: 3.2.3
       fast-glob: 3.3.2
@@ -1659,10 +1659,10 @@ packages:
       '@unocss/inspector': 0.58.3
       '@unocss/scope': 0.58.3
       '@unocss/transformer-directives': 0.58.3
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       fast-glob: 3.3.2
       magic-string: 0.30.7
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     transitivePeerDependencies:
       - rollup
     dev: true
@@ -1674,7 +1674,7 @@ packages:
       vite: ^5.0.0
       vue: ^3.2.25
     dependencies:
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
       vue: 3.4.19(typescript@5.3.3)
     dev: true
 
@@ -2028,8 +2028,8 @@ packages:
       supports-color: 7.2.0
     dev: true
 
-  /chokidar@3.5.3:
-    resolution: {integrity: sha512-Dr3sfKRP6oTcjf2JmUmFJfeVMvXBdegxB0iVQ5eb2V10uFJUCAS8OByZdVAyVb8xXNz3GjjTgj9kLWsZTqE6kw==}
+  /chokidar@3.6.0:
+    resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
     engines: {node: '>= 8.10.0'}
     dependencies:
       anymatch: 3.1.3
@@ -2916,8 +2916,8 @@ packages:
     engines: {node: '>= 4'}
     dev: true
 
-  /immutable@4.3.4:
-    resolution: {integrity: sha512-fsXeu4J4i6WNWSikpI88v/PcVflZz+6kMhUfIwc5SY+poQRPnaf5V7qds6SUyUN3cVxEzuCab7QIoLOQ+DQ1wA==}
+  /immutable@4.3.5:
+    resolution: {integrity: sha512-8eabxkth9gZatlwl5TBuJnCsoTADlL6ftEr7A4qgdaTsPyreilDSnUk57SO+jfKcNtxPa22U5KK6DSeAYhpBJw==}
     dev: true
 
   /import-fresh@3.3.0:
@@ -3742,13 +3742,13 @@ packages:
       queue-microtask: 1.2.3
     dev: true
 
-  /sass@1.69.7:
-    resolution: {integrity: sha512-rzj2soDeZ8wtE2egyLXgOOHQvaC2iosZrkF6v3EUG+tBwEvhqUCzm0VP3k9gHF9LXbSrRhT5SksoI56Iw8NPnQ==}
+  /sass@1.71.1:
+    resolution: {integrity: sha512-wovtnV2PxzteLlfNzbgm1tFXPLoZILYAMJtvoXXkD7/+1uP41eKkIt1ypWq5/q2uT94qHjXehEYfmjKOvjL9sg==}
     engines: {node: '>=14.0.0'}
     hasBin: true
     dependencies:
-      chokidar: 3.5.3
-      immutable: 4.3.4
+      chokidar: 3.6.0
+      immutable: 4.3.5
       source-map-js: 1.0.2
     dev: true
 
@@ -4055,7 +4055,7 @@ packages:
       '@unocss/transformer-directives': 0.58.3
       '@unocss/transformer-variant-group': 0.58.3
       '@unocss/vite': 0.58.3(vite@5.0.11)
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     transitivePeerDependencies:
       - postcss
       - rollup
@@ -4138,7 +4138,7 @@ packages:
     dependencies:
       '@antfu/utils': 0.7.7
       '@rollup/pluginutils': 5.1.0
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       debug: 4.3.4
       fast-glob: 3.3.2
       local-pkg: 0.4.3
@@ -4156,7 +4156,7 @@ packages:
     resolution: {integrity: sha512-BfJEpWBu3aE/AyHx8VaNE/WgouoQxgH9baAiH82JjX8cqVyi3uJQstqwD5J+SZxIK326SZIhsSZlALXVBCknTQ==}
     dependencies:
       acorn: 8.11.3
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       webpack-sources: 3.2.3
       webpack-virtual-modules: 0.6.1
     dev: true
@@ -4204,7 +4204,7 @@ packages:
       chalk: 4.1.2
       debug: 4.3.4
       fs-extra: 10.1.0
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -4226,7 +4226,7 @@ packages:
       html-minifier-terser: 6.1.0
       node-html-parser: 5.4.2
       pathe: 0.2.0
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     dev: true
 
   /vite-plugin-mock@3.0.1(esbuild@0.20.1)(mockjs@1.1.0)(vite@5.0.11):
@@ -4238,20 +4238,20 @@ packages:
     dependencies:
       '@types/mockjs': 1.0.10
       bundle-require: 4.0.2(esbuild@0.20.1)
-      chokidar: 3.5.3
+      chokidar: 3.6.0
       connect: 3.7.0
       debug: 4.3.4
       fast-glob: 3.3.2
       mockjs: 1.1.0
       path-to-regexp: 6.2.1
       picocolors: 1.0.0
-      vite: 5.0.11(@types/node@20.11.20)(sass@1.69.7)
+      vite: 5.0.11(@types/node@20.11.20)(sass@1.71.1)
     transitivePeerDependencies:
       - esbuild
       - supports-color
     dev: true
 
-  /vite@5.0.11(@types/node@20.11.20)(sass@1.69.7):
+  /vite@5.0.11(@types/node@20.11.20)(sass@1.71.1):
     resolution: {integrity: sha512-XBMnDjZcNAw/G1gEiskiM1v6yzM4GE5aMGvhWTlHAYYhxb7S3/V1s3m2LDHa8Vh6yIWYYB0iJwsEaS523c4oYA==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -4283,7 +4283,7 @@ packages:
       esbuild: 0.19.11
       postcss: 8.4.35
       rollup: 4.9.3
-      sass: 1.69.7
+      sass: 1.71.1
     optionalDependencies:
       fsevents: 2.3.3
     dev: true
