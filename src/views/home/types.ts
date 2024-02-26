@@ -146,9 +146,9 @@ export interface NowMonitor {
   mem: VirtualMemoryStat
   swap: SwapMemoryStat
   net: IOCountersStat[]
-  disk_io: { [key: string]: DiskIOCountersStat }
+  disk_io: DiskIOCountersStat[]
   disk: PartitionStat[]
-  disk_usage: { [key: string]: DiskUsageStat }
+  disk_usage: DiskUsageStat[]
 }
 
 export interface SystemInfo {
