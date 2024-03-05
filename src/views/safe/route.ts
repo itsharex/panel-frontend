@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '安全',
+        title: '系统安全',
         icon: 'mdi:server-security',
         role: ['admin'],
         requireAuth: true

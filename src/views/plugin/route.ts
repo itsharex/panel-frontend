@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '插件',
+        title: '软件插件',
         icon: 'mdi:puzzle-outline',
         role: ['admin'],
         requireAuth: true

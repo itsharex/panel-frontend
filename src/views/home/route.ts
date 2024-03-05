@@ -28,7 +28,7 @@ export default {
       component: () => import('./UpdateView.vue'),
       isHidden: true,
       meta: {
-        title: '更新',
+        title: '更新面板',
         icon: 'mdi:archive-arrow-up-outline',
         role: ['admin'],
         requireAuth: true

@@ -277,7 +277,6 @@ const getDefaultPage = async () => {
 }
 const getBackupList = async (page: number, limit: number) => {
   const { data } = await website.backupList(page, limit)
-  console.log(data)
   return data
 }
 

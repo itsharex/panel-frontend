@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '证书',
+        title: '证书签发',
         icon: 'mdi:certificate',
         role: ['admin'],
         requireAuth: true

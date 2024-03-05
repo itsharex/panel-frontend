@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '任务',
+        title: '任务中心',
         icon: 'mdi:archive-sync-outline',
         role: ['admin'],
         requireAuth: true
