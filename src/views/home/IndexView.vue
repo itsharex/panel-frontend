@@ -58,9 +58,9 @@ const getNowMonitor = async () => {
     let diskTotalWriteTemp = 0
     let diskTotalReadOld = diskTotalRead.value
     let diskTotalWriteOld = diskTotalWrite.value
-    for (let i = 0; i < res.data.disk_usage.length; i++) {
-      diskTotalReadTemp += res.data.disk_usage[i].readBytes
-      diskTotalWriteTemp += res.data.disk_usage[i].writeBytes
+    for (let i = 0; i < res.data.disk_io.length; i++) {
+      diskTotalReadTemp += res.data.disk_io[i].readBytes
+      diskTotalWriteTemp += res.data.disk_io[i].writeBytes
     }
     diskTotalRead.value = diskTotalReadTemp
     diskTotalWrite.value = diskTotalWriteTemp
