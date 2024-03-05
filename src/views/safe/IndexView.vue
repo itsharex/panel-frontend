@@ -76,19 +76,19 @@ const addModel = ref({
   protocol: 'tcp'
 })
 
-const handleDelete = (row: any) => {
-  safe.deleteFirewallRule(row.port, row.protocol).then(() => {
+const handleDelete = async (row: any) => {
+  await safe.deleteFirewallRule(row.port, row.protocol).then(() => {
     window.$message.success('删除成功')
-    getFirewallRules(pagination.page, pagination.pageSize).then((res) => {
-      data.value = res.items
-      pagination.itemCount = res.total
-      pagination.pageCount = res.total / pagination.pageSize + 1
-    })
+  })
+  getFirewallRules(pagination.page, pagination.pageSize).then((res) => {
+    data.value = res.items
+    pagination.itemCount = res.total
+    pagination.pageCount = res.total / pagination.pageSize + 1
   })
 }
 
-const handleAdd = () => {
-  safe.addFirewallRule(addModel.value.port, addModel.value.protocol).then(() => {
+const handleAdd = async () => {
+  await safe.addFirewallRule(addModel.value.port, addModel.value.protocol).then(() => {
     window.$message.success('添加成功')
     addModel.value.port = ''
     addModel.value.protocol = 'tcp'
