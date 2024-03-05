@@ -540,7 +540,7 @@ onUnmounted(() => {
                 </template>
                 <n-space vertical :size="12">
                   <n-alert type="success">
-                    开发组祝大家 2024 新年快乐！永无Bug！永不宕机！
+                    树新蜂开发组祝大家 2024 立春快乐！永无Bug！永不宕机！
                   </n-alert>
                   <n-alert type="info">
                     欢迎使用耗子 Linux 面板。如遇到问题，可通过
@@ -550,6 +550,11 @@ onUnmounted(() => {
                     /
                     <a target="_blank" href="https://github.com/TheTNB/panel/issues"> GitHub </a>
                     寻求帮助
+                  </n-alert>
+                  <n-alert type="info">
+                    特别感谢
+                    <a target="_blank" href="https://www.weixiaoduo.com/">『薇晓朵』</a>
+                    对面板的大力支持！
                   </n-alert>
                 </n-space>
               </n-card>

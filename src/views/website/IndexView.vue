@@ -344,6 +344,9 @@ const handleSaveDefaultPage = () => {
 const handleAdd = async () => {
   buttonLoading.value = true
   buttonDisabled.value = true
+  // 去除空的域名和端口
+  addModel.value.domains = addModel.value.domains.filter((item) => item !== '')
+  addModel.value.ports = addModel.value.ports.filter((item) => item !== '')
   // 端口为空自动添加 80 端口
   if (addModel.value.ports.length === 0) {
     addModel.value.ports.push('80')
