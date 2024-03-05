@@ -225,7 +225,6 @@ onUnmounted(() => {
       theme="vs-dark"
       height="60vh"
       mt-8
-      :line="500"
       :options="{
         automaticLayout: true,
         formatOnType: true,

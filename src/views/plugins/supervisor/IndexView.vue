@@ -450,7 +450,6 @@ onUnmounted(() => {
           language="ini"
           theme="vs-dark"
           height="60vh"
-          :line="999999"
           mt-8
           :options="{
             automaticLayout: true,
@@ -529,7 +528,6 @@ onUnmounted(() => {
       language="ini"
       theme="vs-dark"
       height="60vh"
-      :line="999999"
       mt-8
       :options="{
         automaticLayout: true,

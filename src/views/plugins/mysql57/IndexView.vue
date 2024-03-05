@@ -701,7 +701,6 @@ onMounted(() => {
           language="ini"
           theme="vs-dark"
           height="60vh"
-          :line="999999"
           mt-8
           :options="{
             automaticLayout: true,
@@ -717,7 +716,6 @@ onMounted(() => {
           language="ini"
           theme="vs-dark"
           height="60vh"
-          :line="999999"
           mt-8
           :options="{
             automaticLayout: true,
