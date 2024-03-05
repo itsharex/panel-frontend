@@ -38,11 +38,11 @@ const installedDbAndPhp = ref({
   ]
 })
 
-const isMySQLInstalled = computed(() => {
+const mySQLInstalled = computed(() => {
   return installedDbAndPhp.value.db.find((item) => item.value === 'mysql')
 })
 
-const isPostgreSQLInstalled = computed(() => {
+const postgreSQLInstalled = computed(() => {
   return installedDbAndPhp.value.db.find((item) => item.value === 'postgresql')
 })
 
@@ -219,7 +219,7 @@ const handleShowLog = async (row: any) => {
 }
 
 const handleAdd = async () => {
-  cron.add(addModel.value).then(() => {
+  await cron.add(addModel.value).then(() => {
     window.$message.success('添加成功')
   })
   onPageChange(pagination.page)
@@ -236,7 +236,7 @@ const handleEdit = async (row: any) => {
 }
 
 const handleDelete = async (id: number) => {
-  cron.delete(id).then(() => {
+  await cron.delete(id).then(() => {
     window.$message.success('删除成功')
   })
   onPageChange(pagination.page)
@@ -314,8 +314,8 @@ onMounted(() => {
             <n-form-item v-if="addModel.type === 'backup'" label="备份类型">
               <n-radio-group v-model:value="addModel.backup_type">
                 <n-radio value="website">网站目录</n-radio>
-                <n-radio value="mysql" :disabled="!isMySQLInstalled"> MySQL 数据库</n-radio>
-                <n-radio value="postgresql" :disabled="!isPostgreSQLInstalled">
+                <n-radio value="mysql" :disabled="!mySQLInstalled"> MySQL 数据库</n-radio>
+                <n-radio value="postgresql" :disabled="!postgreSQLInstalled">
                   PostgreSQL 数据库
                 </n-radio>
               </n-radio-group>
