@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@guolao/vue-monaco-editor':
     specifier: ^1.5.1
-    version: 1.5.1(monaco-editor@0.46.0)(vue@3.4.21)
+    version: 1.5.1(monaco-editor@0.47.0)(vue@3.4.21)
   '@vueuse/core':
     specifier: ^10.9.0
     version: 10.9.0(vue@3.4.21)
@@ -31,7 +31,7 @@ dependencies:
     version: 4.17.21
   monaco-editor-nginx:
     specifier: ^1.0.16
-    version: 1.0.16(@babel/runtime@7.24.0)(monaco-editor@0.46.0)(react-dom@18.2.0)(react@18.2.0)
+    version: 1.0.16(@babel/runtime@7.24.0)(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0)
   pinia:
     specifier: ^2.1.7
     version: 2.1.7(typescript@5.4.2)(vue@3.4.21)
@@ -54,7 +54,7 @@ dependencies:
 devDependencies:
   '@iconify/json':
     specifier: ^2.2.189
-    version: 2.2.190
+    version: 2.2.191
   '@iconify/vue':
     specifier: ^4.1.1
     version: 4.1.1(vue@3.4.21)
@@ -961,7 +961,7 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@guolao/vue-monaco-editor@1.5.1(monaco-editor@0.46.0)(vue@3.4.21):
+  /@guolao/vue-monaco-editor@1.5.1(monaco-editor@0.47.0)(vue@3.4.21):
     resolution: {integrity: sha512-nhbQHDAwsxrdH/yitcrBgAkN8Cae0IEiYe/M3LWK8bSJRfapkbMyfTHE6Gcxsxa/6efSUZAPDo8dJWBDx5GZyA==}
     peerDependencies:
       '@vue/composition-api': ^1.7.1
@@ -971,8 +971,8 @@ packages:
       '@vue/composition-api':
         optional: true
     dependencies:
-      '@monaco-editor/loader': 1.4.0(monaco-editor@0.46.0)
-      monaco-editor: 0.46.0
+      '@monaco-editor/loader': 1.4.0(monaco-editor@0.47.0)
+      monaco-editor: 0.47.0
       vue: 3.4.21(typescript@5.4.2)
       vue-demi: 0.14.7(vue@3.4.21)
     dev: false
@@ -997,8 +997,8 @@ packages:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
 
-  /@iconify/json@2.2.190:
-    resolution: {integrity: sha512-ci0/3DQUoRNxuNC8s0rNke5JwsCzWuYfEl4BgOykx3EAWDWMvD8lCenrDiFa04mokzMwSF+jA6I1YjBRGWfyOw==}
+  /@iconify/json@2.2.191:
+    resolution: {integrity: sha512-s6gEvYgYCKce6qw6SXyLz7ChVKzhbCPiIsv3Fq/VLpYeYbU0ipFOeErIJP0dQwqTYydr9cxTvR6rPnHu6Sf3Fg==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -1071,12 +1071,12 @@ packages:
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
     dev: true
 
-  /@monaco-editor/loader@1.4.0(monaco-editor@0.46.0):
+  /@monaco-editor/loader@1.4.0(monaco-editor@0.47.0):
     resolution: {integrity: sha512-00ioBig0x642hytVspPl7DbQyaSWRaolYie/UFNjoTdvoKPzo6xrXLhTk9ixgIKcLH5b5vDOjVNiGyY+uDCUlg==}
     peerDependencies:
       monaco-editor: '>= 0.21.0 < 1'
     dependencies:
-      monaco-editor: 0.46.0
+      monaco-editor: 0.47.0
       state-local: 1.0.7
     dev: false
 
@@ -3254,7 +3254,7 @@ packages:
       commander: 12.0.0
     dev: true
 
-  /monaco-editor-nginx@1.0.16(@babel/runtime@7.24.0)(monaco-editor@0.46.0)(react-dom@18.2.0)(react@18.2.0):
+  /monaco-editor-nginx@1.0.16(@babel/runtime@7.24.0)(monaco-editor@0.47.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-YMPK1KUUM8YTnS21jSSLFkxp+ewDkRudZYJ7fNNqjK2LiGiL1uFU9iHSnUPgcpvL2UhQLXpHo6Cugf9ebN3jLQ==}
     peerDependencies:
       '@babel/runtime': '>=7.10.0'
@@ -3263,13 +3263,13 @@ packages:
       react-dom: '>=16.9.0'
     dependencies:
       '@babel/runtime': 7.24.0
-      monaco-editor: 0.46.0
+      monaco-editor: 0.47.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /monaco-editor@0.46.0:
-    resolution: {integrity: sha512-ADwtLIIww+9FKybWscd7OCfm9odsFYHImBRI1v9AviGce55QY8raT+9ihH8jX/E/e6QVSGM+pKj4jSUSRmALNQ==}
+  /monaco-editor@0.47.0:
+    resolution: {integrity: sha512-VabVvHvQ9QmMwXu4du008ZDuyLnHs9j7ThVFsiJoXSOQk18+LF89N4ADzPbFenm0W4V2bGHnFBztIRQTgBfxzw==}
     dev: false
 
   /mrmime@2.0.0:
