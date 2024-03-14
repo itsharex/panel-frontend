@@ -32,7 +32,7 @@ jobs:
           pnpm build
           zip -r dist.zip dist
       - name: Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: dist.zip
           body: ${{ github.event.head_commit.message }}
