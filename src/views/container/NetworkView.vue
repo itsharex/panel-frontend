@@ -45,7 +45,7 @@ const columns: any = [
   { type: 'selection', fixed: 'left' },
   { title: '名称', key: 'name', width: 150, resizable: true, ellipsis: { tooltip: true } },
   {
-    title: '模式',
+    title: '驱动',
     key: 'driver',
     width: 100,
     resizable: true,
@@ -172,7 +172,7 @@ const handleCreate = () => {
   container
     .networkCreate(createModel.value)
     .then(() => {
-      window.$message.success('拉取成功')
+      window.$message.success('创建成功')
       onPageChange(pagination.page)
     })
     .finally(() => {

@@ -87,7 +87,8 @@ export default {
   // 清理镜像
   imagePrune: (): Promise<AxiosResponse<any>> => request.post(`/panel/container/image/prune`),
   // 获取卷列表
-  volumeList: (): Promise<AxiosResponse<any>> => request.get(`/panel/container/volume/list`),
+  volumeList: (page: number, limit: number): Promise<AxiosResponse<any>> =>
+    request.get(`/panel/container/volume/list`, { params: { page, limit } }),
   // 创建卷
   volumeCreate: (config: any): Promise<AxiosResponse<any>> =>
     request.post(`/panel/container/volume/create`, config),
