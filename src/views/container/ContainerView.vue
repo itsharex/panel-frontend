@@ -415,7 +415,7 @@ onMounted(() => {
   <n-space vertical size="large">
     <n-card rounded-10>
       <n-space>
-        <n-button type="primary" @click="containerCreateModal = true"> 创建容器</n-button>
+        <n-button type="primary" @click="containerCreateModal = true">创建容器</n-button>
         <n-button type="primary" @click="handlePrune" ghost>清理容器</n-button>
         <n-button-group>
           <n-button @click="bulkStart">启动</n-button>
