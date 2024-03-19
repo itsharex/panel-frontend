@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import ContainerView from '@/views/container/ContainerView.vue'
 import ImageView from '@/views/container/ImageView.vue'
-import Network from '@/views/container/Network.vue'
+import NetworkView from '@/views/container/NetworkView.vue'
 import VolumeView from '@/views/container/VolumeView.vue'
 import SettingView from '@/views/container/SettingView.vue'
 
@@ -18,7 +18,7 @@ const currentTab = ref('container')
         <ImageView />
       </n-tab-pane>
       <n-tab-pane name="network" tab="网络">
-        <Network />
+        <NetworkView />
       </n-tab-pane>
       <n-tab-pane name="volume" tab="卷">
         <VolumeView />

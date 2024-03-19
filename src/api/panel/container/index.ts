@@ -47,7 +47,8 @@ export default {
   // 清理容器
   containerPrune: (): Promise<AxiosResponse<any>> => request.post(`/panel/container/prune`),
   // 获取网络列表
-  networkList: (): Promise<AxiosResponse<any>> => request.get(`/panel/container/network/list`),
+  networkList: (page: number, limit: number): Promise<AxiosResponse<any>> =>
+    request.get(`/panel/container/network/list`, { params: { page, limit } }),
   // 创建网络
   networkCreate: (config: any): Promise<AxiosResponse<any>> =>
     request.post(`/panel/container/network/create`, config),
