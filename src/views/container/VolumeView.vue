@@ -187,7 +187,7 @@ onMounted(() => {
     :segmented="false"
   >
     <n-form :model="createModel">
-      <n-form-item path="name" label="网络名">
+      <n-form-item path="name" label="卷名">
         <n-input v-model:value="createModel.name" type="text" @keydown.enter.prevent />
       </n-form-item>
       <n-form-item path="driver" label="驱动">
