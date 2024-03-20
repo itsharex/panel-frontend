@@ -21,7 +21,7 @@ const createModel = reactive({
       protocol: 'tcp'
     }
   ],
-  network: '',
+  network: 'bridge',
   volumes: [
     {
       host: '/www',
@@ -43,6 +43,7 @@ const createModel = reactive({
   privileged: false,
   open_stdin: false
 })
+const networks = ref<any>({})
 
 const restartPolicyOptions = [
   { label: '无', value: 'no' },
@@ -78,6 +79,16 @@ const removeVolumeRow = (index: number) => {
   createModel.volumes.splice(index, 1)
 }
 
+const getNetworks = async () => {
+  const { data } = await container.networkList(1, 1000)
+  networks.value = data.items.map((item: any) => {
+    return {
+      label: item.name,
+      value: item.id
+    }
+  })
+}
+
 const handleSubmit = () => {
   doSubmit.value = true
   container
@@ -99,6 +110,10 @@ const emit = defineEmits(['close'])
 const handleClose = () => {
   emit('close')
 }
+
+onMounted(() => {
+  getNetworks()
+})
 </script>
 
 <template>
@@ -213,12 +228,7 @@ const handleClose = () => {
         </n-space>
       </n-form-item>
       <n-form-item path="network" label="网络">
-        <n-input
-          v-model:value="createModel.network"
-          type="text"
-          @keydown.enter.prevent
-          placeholder="网站根目录（不填默认为建站目录/网站名）"
-        />
+        <n-select v-model:value="createModel.network" :options="networks" />
       </n-form-item>
       <n-form-item path="mount" label="挂载">
         <n-space vertical>
