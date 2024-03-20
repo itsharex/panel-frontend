@@ -122,7 +122,7 @@ const getImageList = async (page: number, pageSize: number) => {
 }
 
 const handleDelete = async (row: any) => {
-  container.imageRemove(row.id).then((res) => {
+  container.imageRemove(row.id).then(() => {
     window.$message.success('删除成功')
     onPageChange(pagination.page)
   })
