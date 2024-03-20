@@ -54,13 +54,13 @@ dependencies:
 devDependencies:
   '@iconify/json':
     specifier: ^2.2.192
-    version: 2.2.193
+    version: 2.2.194
   '@iconify/vue':
     specifier: ^4.1.1
     version: 4.1.1(vue@3.4.21)
   '@rushstack/eslint-patch':
     specifier: ^1.7.2
-    version: 1.7.2
+    version: 1.8.0
   '@tsconfig/node20':
     specifier: ^20.1.2
     version: 20.1.2
@@ -790,8 +790,8 @@ packages:
     resolution: {integrity: sha512-6EwiSjwWYP7pTckG6I5eyFANjPhmPjUX9JRLUSfNPC7FX7zK9gyZAfUEaECL6ALTpGX5AjnBq3C9XmVWPitNpw==}
     dev: true
 
-  /@iconify/json@2.2.193:
-    resolution: {integrity: sha512-1UuaDsCcm4LYzjul2QwHWe939RLYoaxJ1zDmnn+JWOaXW6tSMCdTWICaU5rCYjp//BQrhYY5ZorKKXPo7x5rUg==}
+  /@iconify/json@2.2.194:
+    resolution: {integrity: sha512-kt6oB8uvCfUAenD7BUN1Sf+coZvkLbXlT2wPcdurqVQrbL0SLNgiknxaV6RXVXXN7uE/BV239vRGfoHub4dBvA==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
@@ -1034,8 +1034,8 @@ packages:
     dev: true
     optional: true
 
-  /@rushstack/eslint-patch@1.7.2:
-    resolution: {integrity: sha512-RbhOOTCNoCrbfkRyoXODZp75MlpiHMgbE5MEBZAnnnLyQNgrigEj4p0lzsMDyc1zVsJDLrivB58tgg3emX0eEA==}
+  /@rushstack/eslint-patch@1.8.0:
+    resolution: {integrity: sha512-0HejFckBN2W+ucM6cUOlwsByTKt9/+0tWhqUffNIcHqCXkthY/mZ7AuYPK/2IIaGWhdl0h+tICDO0ssLMd6XMQ==}
     dev: true
 
   /@tsconfig/node20@20.1.2:

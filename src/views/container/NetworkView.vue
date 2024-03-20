@@ -154,7 +154,7 @@ const getNetworkList = async (page: number, pageSize: number) => {
 }
 
 const handleDelete = async (row: any) => {
-  container.networkRemove(row.id).then((res) => {
+  container.networkRemove(row.id).then(() => {
     window.$message.success('删除成功')
     onPageChange(pagination.page)
   })

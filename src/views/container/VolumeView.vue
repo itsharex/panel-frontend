@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NButton, NDataTable, NInput, NPopconfirm, NTag } from 'naive-ui'
+import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
 import type { VolumeList } from '@/views/container/types'
 import container from '@/api/panel/container'
 
@@ -121,7 +121,7 @@ const getVolumeList = async (page: number, pageSize: number) => {
 }
 
 const handleDelete = async (row: any) => {
-  container.volumeRemove(row.id).then((res) => {
+  container.volumeRemove(row.id).then(() => {
     window.$message.success('删除成功')
     onPageChange(pagination.page)
   })
@@ -187,7 +187,7 @@ onMounted(() => {
     :segmented="false"
   >
     <n-form :model="createModel">
-      <n-form-item path="name" label="网络名">
+      <n-form-item path="name" label="卷名">
         <n-input v-model:value="createModel.name" type="text" @keydown.enter.prevent />
       </n-form-item>
       <n-form-item path="driver" label="驱动">
