@@ -7,7 +7,7 @@ interface Props {
 
 withDefaults(defineProps<Props>(), {
   showFooter: false,
-  showHeader: false,
+  showHeader: true,
   title: undefined
 })
 
