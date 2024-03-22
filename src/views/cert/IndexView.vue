@@ -43,7 +43,6 @@ const addUserModel = ref<any>({
 })
 const addDNSModel = ref<any>({
   data: {
-    email: '',
     token: '',
     id: '',
     access_key: '',
@@ -70,7 +69,6 @@ const updateUserModel = ref<any>({
 })
 const updateDNSModel = ref<any>({
   data: {
-    email: '',
     token: '',
     id: '',
     access_key: '',
@@ -240,12 +238,8 @@ const certColumns: any = [
                           ]),
                           h(
                             'tbody',
-                            row.domains.map((item: any) =>
-                              h('tr', [
-                                h('td', data[item]?.key),
-                                h('td', 'TXT'),
-                                h('td', data[item]?.value)
-                              ])
+                            data.map((item: any) =>
+                              h('tr', [h('td', item?.key), h('td', 'TXT'), h('td', item?.value)])
                             )
                           )
                         ])
@@ -256,7 +250,8 @@ const certColumns: any = [
                         messageReactive = window.$message.loading('请稍后...', {
                           duration: 0
                         })
-                        await cert.obtain(row.id)
+                        await cert.obtain(row.id).finally()
+                        d.loading = false
                         messageReactive.destroy()
                         window.$message.success('签发成功')
                         onCertPageChange(1)
@@ -482,7 +477,6 @@ const dnsColumns: any = [
             style: 'margin-left: 15px;',
             onClick: () => {
               updateDNS.value = row.id
-              updateDNSModel.value.data.email = row.dns_param.email
               updateDNSModel.value.data.token = row.dns_param.token
               updateDNSModel.value.data.id = row.dns_param.id
               updateDNSModel.value.data.access_key = row.dns_param.access_key
@@ -654,7 +648,6 @@ const handleAddDNS = async () => {
   window.$message.success('添加成功')
   addDNSModal.value = false
   onDnsPageChange(1)
-  addDNSModel.value.data.email = ''
   addDNSModel.value.data.token = ''
   addDNSModel.value.data.id = ''
   addDNSModel.value.data.access_key = ''
@@ -698,7 +691,6 @@ const handleUpdateDNS = async () => {
   window.$message.success('更新成功')
   updateDNSModal.value = false
   onDnsPageChange(1)
-  updateDNSModel.value.data.email = ''
   updateDNSModel.value.data.token = ''
   updateDNSModel.value.data.id = ''
   updateDNSModel.value.data.access_key = ''
@@ -1031,14 +1023,6 @@ onMounted(() => {
             placeholder="输入阿里云 Secret Key"
           />
         </n-form-item>
-        <n-form-item v-if="addDNSModel.type == 'cloudflare'" path="email" label="邮箱">
-          <n-input
-            v-model:value="addDNSModel.data.email"
-            type="text"
-            @keydown.enter.prevent
-            placeholder="输入 Cloudflare 邮箱"
-          />
-        </n-form-item>
         <n-form-item v-if="addDNSModel.type == 'cloudflare'" path="api_key" label="API Key">
           <n-input
             v-model:value="addDNSModel.data.api_key"
@@ -1228,14 +1212,6 @@ onMounted(() => {
             type="text"
             @keydown.enter.prevent
             placeholder="输入阿里云 Secret Key"
-          />
-        </n-form-item>
-        <n-form-item v-if="updateDNSModel.type == 'cloudflare'" path="email" label="邮箱">
-          <n-input
-            v-model:value="updateDNSModel.data.email"
-            type="text"
-            @keydown.enter.prevent
-            placeholder="输入 Cloudflare 邮箱"
           />
         </n-form-item>
         <n-form-item v-if="updateDNSModel.type == 'cloudflare'" path="api_key" label="API Key">

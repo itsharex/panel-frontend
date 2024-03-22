@@ -37,7 +37,6 @@ export interface DNS {
     token: string
     access_key: string
     secret_key: string
-    email: string
     api_key: string
   }
   created_at: string
