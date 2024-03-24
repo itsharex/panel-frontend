@@ -1,15 +1,5 @@
 <script setup lang="ts">
-import {
-  type MessageReactive,
-  NButton,
-  NDataTable,
-  NInput,
-  NPopconfirm,
-  NSpace,
-  NSwitch,
-  NTable,
-  NTag
-} from 'naive-ui'
+import { NButton, NDataTable, NPopconfirm, NSpace, NSwitch, NTable, NTag } from 'naive-ui'
 import cert from '@/api/panel/cert'
 import type { Cert } from '@/views/cert/types'
 import website from '@/api/panel/website'
@@ -39,6 +29,11 @@ const showModal = ref(false)
 const showCertModel = ref<any>({
   cert: '',
   key: ''
+})
+const deployCertModal = ref(false)
+const deployCertModel = ref<any>({
+  id: null,
+  website_id: null
 })
 
 const algorithms = ref<any>([])
@@ -219,7 +214,7 @@ const certColumns: any = [
                         cert
                           .obtain(row.id)
                           .then(() => {
-                            window.$message.success('签发成功')
+                            window.$message.success('签发成功，请前往网站管理启用 SSL')
                             onCertPageChange(1)
                           })
                           .finally(() => {
@@ -232,7 +227,7 @@ const certColumns: any = [
                     cert
                       .obtain(row.id)
                       .then(() => {
-                        window.$message.success('签发成功')
+                        window.$message.success('签发成功，请前往网站管理启用 SSL')
                         onCertPageChange(1)
                       })
                       .finally(() => {
@@ -251,6 +246,27 @@ const certColumns: any = [
               NButton,
               {
                 size: 'small',
+                type: 'info',
+                onClick: () => {
+                  if (row.website_id != null) {
+                    deployCertModel.value.website_id = row.website_id
+                  } else {
+                    deployCertModel.value.website_id = null
+                  }
+                  deployCertModel.value.id = row.id
+                  deployCertModal.value = true
+                }
+              },
+              {
+                default: () => '部署'
+              }
+            )
+          : null,
+        row.cert != '' && row.key != ''
+          ? h(
+              NButton,
+              {
+                size: 'small',
                 type: 'success',
                 style: 'margin-left: 15px;',
                 onClick: async () => {
@@ -259,7 +275,7 @@ const certColumns: any = [
                   })
                   await cert.renew(row.id)
                   messageReactive.destroy()
-                  window.$message.success('续签成功')
+                  window.$message.success('续签成功，请前往网站管理启用 SSL')
                   onCertPageChange(1)
                 }
               },
@@ -396,6 +412,15 @@ const handleUpdateCert = async () => {
   updateCertModel.value.website_id = null
   updateCertModel.value.auto_renew = true
   await getAsyncData()
+}
+
+const handleDeployCert = async () => {
+  await cert.deploy(deployCertModel.value.id, deployCertModel.value.website_id)
+  window.$message.success('部署成功，请前往网站管理启用 SSL')
+  deployCertModal.value = false
+  deployCertModel.value.id = null
+  deployCertModel.value.website_id = null
+  onCertPageChange(1)
 }
 
 const getAsyncData = async () => {
@@ -594,6 +619,29 @@ onMounted(() => {
         </n-form-item>
       </n-form>
       <n-button type="info" block @click="handleUpdateCert">提交</n-button>
+    </n-space>
+  </n-modal>
+  <n-modal
+    v-model:show="deployCertModal"
+    preset="card"
+    title="部署证书"
+    style="width: 60vw"
+    size="huge"
+    :bordered="false"
+    :segmented="false"
+  >
+    <n-space vertical>
+      <n-form :model="deployCertModel">
+        <n-form-item path="website_id" label="网站">
+          <n-select
+            v-model:value="deployCertModel.website_id"
+            placeholder="选择需要部署证书的网站"
+            clearable
+            :options="websites"
+          />
+        </n-form-item>
+      </n-form>
+      <n-button type="info" block @click="handleDeployCert">提交</n-button>
     </n-space>
   </n-modal>
   <n-modal

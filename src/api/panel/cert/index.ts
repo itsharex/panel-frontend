@@ -52,5 +52,8 @@ export default {
   renew: (id: number): Promise<AxiosResponse<any>> => request.post(`/panel/cert/renew`, { id }),
   // 获取 DNS 记录
   manualDNS: (id: number): Promise<AxiosResponse<any>> =>
-    request.post(`/panel/cert/manualDNS`, { id })
+    request.post(`/panel/cert/manualDNS`, { id }),
+  // 部署
+  deploy: (id: number, website_id: number): Promise<AxiosResponse<any>> =>
+    request.post(`/panel/cert/deploy`, { id, website_id })
 }
