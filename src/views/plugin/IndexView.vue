@@ -200,10 +200,6 @@ const onPageSizeChange = (pageSize: number) => {
   onPageChange(1)
 }
 
-const toTask = () => {
-  router.push({ name: 'task-index' })
-}
-
 onMounted(() => {
   onPageChange(pagination.page)
 })

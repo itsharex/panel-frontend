@@ -9,8 +9,6 @@ import Editor from '@guolao/vue-monaco-editor'
 
 const router = useRouter()
 let messageReactive: MessageReactive | null = null
-
-const queryItems = ref<any>({})
 const selectedRowKeys = ref<any>([])
 
 const columns: any = [
