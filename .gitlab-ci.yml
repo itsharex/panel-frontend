@@ -1,4 +1,4 @@
-image: node:21-alpine
+image: node:lts-alpine
 
 .cache:
   cache:

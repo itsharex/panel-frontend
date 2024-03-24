@@ -189,6 +189,7 @@ onMounted(() => {
             />
           </n-form-item>
           <n-form-item label="端口">
+            <!-- TODO: 这里会报警告 Invalid prop: type check failed for prop "value". Expected String with value "80", got Number with value 80. 暂时不知道该怎么修 -->
             <n-dynamic-input
               v-model:value="setting.ports"
               placeholder="80"
