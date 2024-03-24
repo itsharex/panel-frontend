@@ -1,6 +1,6 @@
 import type { AxiosError, AxiosResponse } from 'axios'
 import { AxiosRejectError, resolveResError } from './helpers'
-import { getToken } from '~/src/utils/auth/token'
+import { getToken, setToken } from '~/src/utils/auth/token'
 import type { RequestConfig } from '~/types/axios'
 
 /** 请求拦截 */
@@ -46,6 +46,14 @@ export function resResolve(response: AxiosResponse) {
 
     return Promise.reject(new AxiosRejectError({ code, message, data: data || response }))
   }
+
+  // Token 更新
+  const token = response.headers?.authorization
+  if (token && token.startsWith('Bearer ') && token !== getToken()) {
+    const newToken = token.slice(7)
+    setToken(newToken)
+  }
+
   return Promise.resolve(data)
 }
 
