@@ -8,6 +8,7 @@ const currentTab = ref('status')
 const version = ref('8.1')
 const status = ref(false)
 const config = ref('')
+const fpmConfig = ref('')
 const errorLog = ref('')
 const slowLog = ref('')
 
@@ -125,10 +126,22 @@ const getConfig = async () => {
   })
 }
 
+const getFPMConfig = async () => {
+  php81.fpmConfig().then((res: any) => {
+    fpmConfig.value = res.data
+  })
+}
+
 const handleSaveConfig = async () => {
   await php81.saveConfig(config.value)
   window.$message.success('保存成功')
   await getErrorLog()
+}
+
+const handleSaveFPMConfig = async () => {
+  await php81.saveFPMConfig(fpmConfig.value)
+  window.$message.success('保存成功')
+  await getFPMConfig()
 }
 
 const handleClearErrorLog = async () => {
@@ -194,6 +207,7 @@ onMounted(() => {
   getErrorLog()
   getSlowLog()
   getConfig()
+  getFPMConfig()
 })
 </script>
 
@@ -205,6 +219,15 @@ onMounted(() => {
         class="ml-16"
         type="primary"
         @click="handleSaveConfig"
+      >
+        <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
+        保存
+      </n-button>
+      <n-button
+        v-if="currentTab == 'fpm-config'"
+        class="ml-16"
+        type="primary"
+        @click="handleSaveFPMConfig"
       >
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
         保存
@@ -291,6 +314,26 @@ onMounted(() => {
           <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
           <Editor
             v-model:value="config"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
+            mt-8
+            :options="{
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
+            }"
+          />
+        </n-space>
+      </n-tab-pane>
+      <n-tab-pane name="fpm-config" tab="FPM 配置">
+        <n-space vertical>
+          <n-alert type="warning">
+            此处修改的是 PHP {{ version }} FPM 配置文件，如果你不了解各参数的含义，请不要随意修改！
+          </n-alert>
+          <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
+          <Editor
+            v-model:value="fpmConfig"
             language="ini"
             theme="vs-dark"
             height="60vh"

@@ -19,6 +19,11 @@ export default {
   // 保存配置
   saveConfig: (config: string): Promise<AxiosResponse<any>> =>
     request.post('/plugins/php81/config', { config }),
+  // 获取FPM配置
+  fpmConfig: (): Promise<AxiosResponse<any>> => request.get('/plugins/php81/fpmConfig'),
+  // 保存FPM配置
+  saveFPMConfig: (config: string): Promise<AxiosResponse<any>> =>
+    request.post('/plugins/php81/fpmConfig', { config }),
   // 获取错误日志
   errorLog: (): Promise<AxiosResponse<any>> => request.get('/plugins/php81/errorLog'),
   // 清空错误日志
