@@ -1,4 +1,4 @@
-import { getLocal, getLocalExpire, removeLocal, setLocal } from '@/utils'
+import { getLocal, removeLocal, setLocal } from '@/utils'
 
 const TOKEN_CODE = 'access_token'
 /** token过期时间：2周 */

@@ -9,7 +9,6 @@ import {
   NTag
 } from 'naive-ui'
 import cert from '@/api/panel/cert'
-import { renderIcon } from '@/utils'
 import type { User } from '@/views/cert/types'
 
 let messageReactive: MessageReactive | null = null

@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import cert from '@/api/panel/cert'
-import { renderIcon } from '@/utils'
 import type { DNS } from '@/views/cert/types'
 
 const addDNSModel = ref<any>({
