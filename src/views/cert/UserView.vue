@@ -211,37 +211,25 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    border="1 solid #ccc"
-    bg="#fafafc"
-    mb-30
-    min-h-60
-    flex
-    items-start
-    justify-between
-    rounded-8
-    p-15
-    dark:bg-black
-  >
-    <n-space>
-      <n-button class="ml-16" type="primary" @click="addUserModal = true">
-        <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
-        添加账号
-      </n-button>
-    </n-space>
-  </div>
-  <n-data-table
-    striped
-    remote
-    :loading="false"
-    :scroll-x="1200"
-    :columns="userColumns"
-    :data="userData"
-    :row-key="(row: any) => row.id"
-    :pagination="userPagination"
-    @update:page="onUserPageChange"
-    @update:page-size="onUserPageSizeChange"
-  />
+  <n-space vertical size="large">
+    <n-card rounded-10>
+      <n-space>
+        <n-button type="primary" @click="addUserModal = true"> 添加账号 </n-button>
+      </n-space>
+    </n-card>
+    <n-data-table
+      striped
+      remote
+      :loading="false"
+      :scroll-x="1200"
+      :columns="userColumns"
+      :data="userData"
+      :row-key="(row: any) => row.id"
+      :pagination="userPagination"
+      @update:page="onUserPageChange"
+      @update:page-size="onUserPageSizeChange"
+    />
+  </n-space>
   <n-modal
     v-model:show="addUserModal"
     preset="card"

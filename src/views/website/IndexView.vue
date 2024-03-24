@@ -336,10 +336,6 @@ const handleDelete = (id: number) => {
   })
 }
 
-const handleSearch = () => {
-  window.$message.info('暂不支持')
-}
-
 const handleSaveDefaultPage = () => {
   website
     .saveDefaultConfig(editDefaultPageModel.value.index, editDefaultPageModel.value.stop)
@@ -472,29 +468,10 @@ onMounted(() => {
 
 <template>
   <CommonPage show-footer>
-    <template #action>
-      <div>
-        <n-button class="ml-16" type="primary" @click="addModal = true">
-          <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
-          新建网站
-        </n-button>
-      </div>
-    </template>
-
-    <div
-      border="1 solid #ccc"
-      bg="#fafafc"
-      mb-30
-      min-h-60
-      flex
-      items-start
-      justify-between
-      rounded-8
-      p-15
-      dark:bg-black
-    >
-      <n-space wrap :size="[35, 15]">
+    <n-space vertical size="large">
+      <n-card rounded-10>
         <n-space>
+          <n-button type="primary" @click="addModal = true"> 新建网站 </n-button>
           <n-popconfirm @positive-click="batchDelete">
             <template #trigger>
               <n-button type="error"> 批量删除 </n-button>
@@ -503,35 +480,21 @@ onMounted(() => {
           </n-popconfirm>
           <n-button type="warning" @click="editDefaultPageModal = true">修改默认页</n-button>
         </n-space>
-      </n-space>
-
-      <div flex-shrink-0>
-        <div flex items-center>
-          <div :style="{ width: '200px' }" flex-shrink-0>
-            <n-input
-              v-model:value="queryItems.title"
-              placeholder="请输入网站名"
-              type="text"
-              @keydown.enter="handleSearch"
-            />
-          </div>
-          <n-button ml-20 type="primary" @click="handleSearch">搜索</n-button>
-        </div>
-      </div>
-    </div>
-    <n-data-table
-      striped
-      remote
-      :loading="false"
-      :scroll-x="1200"
-      :columns="columns"
-      :data="data"
-      :row-key="(row: any) => row.id"
-      :pagination="pagination"
-      @update:checked-row-keys="onChecked"
-      @update:page="onPageChange"
-      @update:page-size="onPageSizeChange"
-    />
+      </n-card>
+      <n-data-table
+        striped
+        remote
+        :loading="false"
+        :scroll-x="1200"
+        :columns="columns"
+        :data="data"
+        :row-key="(row: any) => row.id"
+        :pagination="pagination"
+        @update:checked-row-keys="onChecked"
+        @update:page="onPageChange"
+        @update:page-size="onPageSizeChange"
+      />
+    </n-space>
   </CommonPage>
   <n-modal
     v-model:show="addModal"

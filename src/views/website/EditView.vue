@@ -166,7 +166,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer :title="title">
+  <CommonPage show-footer show-header :title="title">
     <template #action>
       <div flex items-center>
         <n-tag type="warning">如果你修改了原文，那么点击保存后，其余的修改将不会生效！</n-tag>

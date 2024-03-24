@@ -196,37 +196,25 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div
-    border="1 solid #ccc"
-    bg="#fafafc"
-    mb-30
-    min-h-60
-    flex
-    items-start
-    justify-between
-    rounded-8
-    p-15
-    dark:bg-black
-  >
-    <n-space>
-      <n-button class="ml-16" type="primary" @click="addDNSModal = true">
-        <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
-        添加 DNS
-      </n-button>
-    </n-space>
-  </div>
-  <n-data-table
-    striped
-    remote
-    :loading="false"
-    :scroll-x="1200"
-    :columns="dnsColumns"
-    :data="dnsData"
-    :row-key="(row: any) => row.id"
-    :pagination="dnsPagination"
-    @update:page="onDnsPageChange"
-    @update:page-size="onDnsPageSizeChange"
-  />
+  <n-space vertical size="large">
+    <n-card rounded-10>
+      <n-space>
+        <n-button type="primary" @click="addDNSModal = true"> 添加 DNS </n-button>
+      </n-space>
+    </n-card>
+    <n-data-table
+      striped
+      remote
+      :loading="false"
+      :scroll-x="1200"
+      :columns="dnsColumns"
+      :data="dnsData"
+      :row-key="(row: any) => row.id"
+      :pagination="dnsPagination"
+      @update:page="onDnsPageChange"
+      @update:page-size="onDnsPageSizeChange"
+    />
+  </n-space>
   <n-modal
     v-model:show="addDNSModal"
     preset="card"
