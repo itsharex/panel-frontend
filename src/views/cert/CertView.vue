@@ -11,9 +11,9 @@ import {
   NTag
 } from 'naive-ui'
 import cert from '@/api/panel/cert'
-import { renderIcon } from '@/utils'
 import type { Cert } from '@/views/cert/types'
 import website from '@/api/panel/website'
+import Editor from '@guolao/vue-monaco-editor'
 
 let messageReactive: any
 const addCertModel = ref<any>({
@@ -35,6 +35,11 @@ const updateCertModel = ref<any>({
 const addCertModal = ref(false)
 const updateCertModal = ref(false)
 const updateCert = ref<any>()
+const showModal = ref(false)
+const showCertModel = ref<any>({
+  cert: '',
+  key: ''
+})
 
 const algorithms = ref<any>([])
 const websites = ref<any>([])
@@ -45,7 +50,6 @@ const certColumns: any = [
   {
     title: '域名',
     key: 'domains',
-    width: 200,
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any) {
@@ -167,7 +171,7 @@ const certColumns: any = [
   {
     title: '操作',
     key: 'actions',
-    width: 420,
+    width: 350,
     align: 'center',
     fixed: 'right',
     hideInExcel: true,
@@ -238,8 +242,7 @@ const certColumns: any = [
                 }
               },
               {
-                default: () => '签发',
-                icon: renderIcon('material-symbols:rocket-launch-outline-rounded', { size: 14 })
+                default: () => '签发'
               }
             )
           : null,
@@ -261,8 +264,7 @@ const certColumns: any = [
                 }
               },
               {
-                default: () => '续签',
-                icon: renderIcon('material-symbols:autorenew-outline-rounded', { size: 14 })
+                default: () => '续签'
               }
             )
           : null,
@@ -273,11 +275,14 @@ const certColumns: any = [
                 size: 'small',
                 type: 'tertiary',
                 style: 'margin-left: 15px;',
-                onClick: () => window.$message.info('暂不支持')
+                onClick: () => {
+                  showCertModel.value.cert = row.cert
+                  showCertModel.value.key = row.key
+                  showModal.value = true
+                }
               },
               {
-                default: () => '查看',
-                icon: renderIcon('majesticons:eye-line', { size: 14 })
+                default: () => '查看'
               }
             )
           : null,
@@ -299,8 +304,7 @@ const certColumns: any = [
             }
           },
           {
-            default: () => '修改',
-            icon: renderIcon('material-symbols:edit-outline', { size: 14 })
+            default: () => '修改'
           }
         ),
         h(
@@ -325,8 +329,7 @@ const certColumns: any = [
                   style: 'margin-left: 15px;'
                 },
                 {
-                  default: () => '删除',
-                  icon: renderIcon('material-symbols:delete-outline', { size: 14 })
+                  default: () => '删除'
                 }
               )
             }
@@ -430,6 +433,11 @@ const getAsyncData = async () => {
       value: item.id
     })
   }
+}
+
+const handleShowModalClose = () => {
+  showCertModel.value.cert = ''
+  showCertModel.value.key = ''
 }
 
 onMounted(() => {
@@ -587,6 +595,43 @@ onMounted(() => {
       </n-form>
       <n-button type="info" block @click="handleUpdateCert">提交</n-button>
     </n-space>
+  </n-modal>
+  <n-modal
+    v-model:show="showModal"
+    preset="card"
+    title="查看证书"
+    style="width: 80vw"
+    size="huge"
+    :bordered="false"
+    :segmented="false"
+    @close="handleShowModalClose"
+  >
+    <n-tabs type="line" animated>
+      <n-tab-pane name="cert" tab="证书">
+        <Editor
+          v-model:value="showCertModel.cert"
+          theme="vs-dark"
+          height="60vh"
+          mt-8
+          :options="{
+            readOnly: true,
+            automaticLayout: true
+          }"
+        />
+      </n-tab-pane>
+      <n-tab-pane name="key" tab="密钥">
+        <Editor
+          v-model:value="showCertModel.key"
+          theme="vs-dark"
+          height="60vh"
+          mt-8
+          :options="{
+            readOnly: true,
+            automaticLayout: true
+          }"
+        />
+      </n-tab-pane>
+    </n-tabs>
   </n-modal>
 </template>
 

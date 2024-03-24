@@ -1,5 +1,13 @@
 <script setup lang="ts">
-import { type MessageReactive, NButton, NDataTable, NInput, NPopconfirm, NSpace } from 'naive-ui'
+import {
+  type MessageReactive,
+  NButton,
+  NDataTable,
+  NInput,
+  NPopconfirm,
+  NSpace,
+  NTag
+} from 'naive-ui'
 import cert from '@/api/panel/cert'
 import { renderIcon } from '@/utils'
 import type { User } from '@/views/cert/types'
@@ -27,13 +35,46 @@ const caProviders = ref<any>([])
 const algorithms = ref<any>([])
 
 const userColumns: any = [
-  { title: '邮箱', key: 'email', width: 150, resizable: true, ellipsis: { tooltip: true } },
-  { title: 'CA', key: 'ca', width: 150, resizable: true, ellipsis: { tooltip: true } },
+  { title: '邮箱', key: 'email', resizable: true, ellipsis: { tooltip: true } },
+  {
+    title: 'CA',
+    key: 'ca',
+    width: 150,
+    resizable: true,
+    ellipsis: { tooltip: true },
+    render(row: any) {
+      return h(
+        NTag,
+        {
+          type: 'info',
+          bordered: false
+        },
+        {
+          default: () => {
+            switch (row.ca) {
+              case 'letsencrypt':
+                return "Let's Encrypt"
+              case 'zerossl':
+                return 'ZeroSSL'
+              case 'sslcom':
+                return 'SSL.com'
+              case 'buypass':
+                return 'Buypass'
+              case 'google':
+                return 'Google'
+              default:
+                return '未知'
+            }
+          }
+        }
+      )
+    }
+  },
   { title: '密钥类型', key: 'key_type', width: 150, resizable: true, ellipsis: { tooltip: true } },
   {
     title: '操作',
     key: 'actions',
-    width: 240,
+    width: 200,
     align: 'center',
     fixed: 'right',
     hideInExcel: true,
@@ -43,21 +84,7 @@ const userColumns: any = [
           NButton,
           {
             size: 'small',
-            type: 'warning',
-            secondary: true,
-            onClick: () => window.$message.info('暂不支持')
-          },
-          {
-            default: () => '查看',
-            icon: renderIcon('majesticons:eye-line', { size: 14 })
-          }
-        ),
-        h(
-          NButton,
-          {
-            size: 'small',
             type: 'primary',
-            style: 'margin-left: 15px;',
             onClick: () => {
               updateUser.value = row.id
               updateUserModel.value.email = row.email
@@ -69,8 +96,7 @@ const userColumns: any = [
             }
           },
           {
-            default: () => '修改',
-            icon: renderIcon('material-symbols:edit-outline', { size: 14 })
+            default: () => '修改'
           }
         ),
         h(
@@ -95,8 +121,7 @@ const userColumns: any = [
                   style: 'margin-left: 15px;'
                 },
                 {
-                  default: () => '删除',
-                  icon: renderIcon('material-symbols:delete-outline', { size: 14 })
+                  default: () => '删除'
                 }
               )
             }

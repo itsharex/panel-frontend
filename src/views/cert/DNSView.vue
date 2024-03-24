@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NButton, NDataTable, NInput, NPopconfirm, NSpace } from 'naive-ui'
+import { NButton, NDataTable, NInput, NPopconfirm, NSpace, NTag } from 'naive-ui'
 import cert from '@/api/panel/cert'
 import { renderIcon } from '@/utils'
 import type { DNS } from '@/views/cert/types'
@@ -33,12 +33,41 @@ const updateDNS = ref<any>()
 const dnsProviders = ref<any>([])
 
 const dnsColumns: any = [
-  { title: '备注名称', key: 'name', width: 150, resizable: true, ellipsis: { tooltip: true } },
-  { title: '类型', key: 'type', width: 150, resizable: true, ellipsis: { tooltip: true } },
+  { title: '备注名称', key: 'name', resizable: true, ellipsis: { tooltip: true } },
+  {
+    title: '类型',
+    key: 'type',
+    width: 150,
+    resizable: true,
+    ellipsis: { tooltip: true },
+    render(row: any) {
+      return h(
+        NTag,
+        {
+          type: 'info',
+          bordered: false
+        },
+        {
+          default: () => {
+            switch (row.type) {
+              case 'dnspod':
+                return 'DnsPod'
+              case 'aliyun':
+                return '阿里云'
+              case 'cloudflare':
+                return 'Cloudflare'
+              default:
+                return '未知'
+            }
+          }
+        }
+      )
+    }
+  },
   {
     title: '操作',
     key: 'actions',
-    width: 100,
+    width: 200,
     align: 'center',
     fixed: 'right',
     hideInExcel: true,
@@ -48,21 +77,7 @@ const dnsColumns: any = [
           NButton,
           {
             size: 'small',
-            type: 'warning',
-            secondary: true,
-            onClick: () => window.$message.info('暂不支持')
-          },
-          {
-            default: () => '查看',
-            icon: renderIcon('majesticons:eye-line', { size: 14 })
-          }
-        ),
-        h(
-          NButton,
-          {
-            size: 'small',
             type: 'primary',
-            style: 'margin-left: 15px;',
             onClick: () => {
               updateDNS.value = row.id
               updateDNSModel.value.data.token = row.dns_param.token
@@ -76,8 +91,7 @@ const dnsColumns: any = [
             }
           },
           {
-            default: () => '修改',
-            icon: renderIcon('material-symbols:edit-outline', { size: 14 })
+            default: () => '修改'
           }
         ),
         h(
@@ -102,8 +116,7 @@ const dnsColumns: any = [
                   style: 'margin-left: 15px;'
                 },
                 {
-                  default: () => '删除',
-                  icon: renderIcon('material-symbols:delete-outline', { size: 14 })
+                  default: () => '删除'
                 }
               )
             }
