@@ -31,7 +31,19 @@ export function resResolve(response: AxiosResponse) {
     const code = data?.code ?? status
     const message = resolveResError(code, data?.message ?? statusText)
     const { noNeedTip } = config as RequestConfig
-    !noNeedTip && window.$message.error(message)
+
+    if (!noNeedTip) {
+      if (code == 422) {
+        window.$message.error(message)
+      } else {
+        window.$dialog.error({
+          title: '请求返回异常',
+          content: message,
+          maskClosable: false
+        })
+      }
+    }
+
     return Promise.reject(new AxiosRejectError({ code, message, data: data || response }))
   }
   return Promise.resolve(data)
@@ -43,7 +55,11 @@ export function resReject(error: AxiosError) {
     const code = error?.code
     /** 根据code处理对应的操作，并返回处理后的message */
     const message = resolveResError(code, error.message)
-    window.$message.error(message)
+    window.$dialog.error({
+      title: '请求出现异常',
+      content: message,
+      maskClosable: false
+    })
     return Promise.reject(new AxiosRejectError({ code, message, data: error }))
   }
   const { data, status, config } = error.response
@@ -54,7 +70,18 @@ export function resReject(error: AxiosError) {
   /** 需要错误提醒 */
   const { noNeedTip } = config as RequestConfig
 
-  !noNeedTip && window.$message.error(message)
+  if (!noNeedTip) {
+    if (code == 422) {
+      window.$message.error(message)
+    } else {
+      window.$dialog.error({
+        title: '请求返回异常',
+        content: message,
+        maskClosable: false
+      })
+    }
+  }
+
   return Promise.reject(
     new AxiosRejectError({
       code,
