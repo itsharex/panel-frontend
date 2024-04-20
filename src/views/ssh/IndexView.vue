@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import 'xterm/css/xterm.css'
-import { Terminal } from 'xterm'
-import { FitAddon } from 'xterm-addon-fit'
+import '@xterm/xterm/css/xterm.css'
+import { Terminal } from '@xterm/xterm'
+import { FitAddon } from '@xterm/addon-fit'
 import { getToken } from '@/utils'
 import CryptoJS from 'crypto-js'
 import ssh from '@/api/panel/ssh'
