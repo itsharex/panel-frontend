@@ -15,7 +15,9 @@
     "pnpmDedupe"
   ],
   "ignoreDeps": [
-    "eslint"
+    "eslint",
+    "unocss",
+    "@unocss/eslint-config"
   ],
   "packageRules": [
     {
