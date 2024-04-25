@@ -3,6 +3,7 @@ import type { MenuInst, MenuOption } from 'naive-ui'
 import type { Meta, RouteType } from '~/types/router'
 import { useAppStore, usePermissionStore, useThemeStore } from '@/store'
 import { isUrl, renderCustomIcon, renderIcon } from '@/utils'
+import type { VNodeChild } from 'vue'
 
 const router = useRouter()
 const currentRoute = useRoute()
@@ -79,9 +80,10 @@ function getMenuItem(route: RouteType, basePath = ''): MenuItem {
   return menuItem
 }
 
-function getIcon(meta?: Meta): (() => import('vue').VNodeChild) | undefined {
-  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, { size: 18 })
-  if (meta?.icon) return renderIcon(meta.icon, { size: 18 })
+function getIcon(meta?: Meta): (() => VNodeChild) | undefined {
+  if (meta?.customIcon)
+    return renderCustomIcon(meta.customIcon, { size: 14, class: `${meta.icon} text-14` })
+  if (meta?.icon) return renderIcon(meta.icon, { size: 14, class: `${meta.icon} text-14` })
   return undefined
 }
 
@@ -114,17 +116,20 @@ function handleMenuSelect(key: string, item: MenuOption) {
 </template>
 
 <style lang="scss">
-.side-menu:not(.n-menu--collapsed) {
-  .n-menu-item-content {
-    &::before {
-      left: 5px;
-      right: 5px;
-    }
+.side-menu {
+  .n-menu-item-content__icon {
+    border: 1px solid rgb(229, 231, 235);
+    border-radius: 4px;
+  }
 
-    &.n-menu-item-content--selected,
-    &:hover {
-      &::before {
-        border-left: 4px solid var(--primary-color);
+  .n-menu-item-content--child-active,
+  .n-menu-item-content--selected {
+    .n-menu-item-content__icon {
+      border-color: var(--primary-color);
+      background-color: var(--primary-color);
+
+      i {
+        color: #fff;
       }
     }
   }

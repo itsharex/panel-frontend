@@ -6,6 +6,7 @@ import SvgIcon from '@/components/custom/SvgIcon.vue'
 interface Props {
   size?: number
   color?: string
+  class?: string
 }
 
 export function renderIcon(icon: string, props: Props = { size: 12 }) {
