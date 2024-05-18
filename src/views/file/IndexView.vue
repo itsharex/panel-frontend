@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { router } from '@/router'
+import PathInput from '@/views/file/PathInput.vue'
+import ToolBar from '@/views/file/ToolBar.vue'
+import ListTable from '@/views/file/ListTable.vue'
 
-const goHome = () => {
-  router.push({ name: 'home-index' })
-}
+const path = ref('/www')
 </script>
 
 <template>
-  <CommonPage show-footer>
-    <n-result status="403" title="403 禁止访问" description="这里还在施工，暂时不能访问哦~">
-      <template #footer>
-        <n-button @click="goHome">回家</n-button>
-      </template>
-    </n-result>
-  </CommonPage>
+  <common-page show-footer>
+    <n-flex vertical :size="20">
+      <path-input v-model:path="path" />
+      <tool-bar v-model:path="path" />
+      <list-table v-model:path="path" />
+    </n-flex>
+  </common-page>
 </template>
