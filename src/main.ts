@@ -14,7 +14,7 @@ async function setupApp() {
   const app = createApp(App)
   app.use(VueMonacoEditorPlugin, {
     paths: {
-      vs: 'https://cdnjs.cdn.haozi.net/monaco-editor/0.47.0/min/vs'
+      vs: 'https://cdnjs.admincdn.com/monaco-editor/0.48.0/min/vs'
     },
     'vs/nls': {
       availableLanguages: { '*': 'zh-cn' }

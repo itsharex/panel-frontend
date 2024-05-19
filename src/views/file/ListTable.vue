@@ -4,9 +4,13 @@ import type { DataTableColumns } from 'naive-ui'
 import type { RowData } from 'naive-ui/es/data-table/src/interface'
 import file from '@/api/panel/file'
 import TheIcon from '@/components/custom/TheIcon.vue'
+import { getExt, getIconByExt } from '@/utils/file'
+import FileEdit from '@/views/file/FileEdit.vue'
 
 const loading = ref(false)
 const path = defineModel<string>('path', { type: String, required: true })
+const editorModal = ref(false)
+const editorFile = ref('')
 
 const columns: DataTableColumns<RowData> = [
   {
@@ -63,7 +67,8 @@ const columns: DataTableColumns<RowData> = [
                   if (row.dir) {
                     path.value = row.full
                   } else {
-                    // TODO 编辑文件
+                    editorFile.value = row.full
+                    editorModal.value = true
                   }
                 }
               },
@@ -195,79 +200,6 @@ const getList = async (path: string, page: number, limit: number) => {
   })
 }
 
-const getExt = (filename: string) => {
-  const dot = filename.lastIndexOf('.')
-  if (dot === -1 || dot === 0) {
-    return ''
-  }
-  return filename.slice(dot + 1)
-}
-
-const getIconByExt = (ext: string) => {
-  switch (ext) {
-    case 'png':
-    case 'jpg':
-    case 'jpeg':
-    case 'gif':
-      return 'bi:file-earmark-image'
-    case 'mp4':
-    case 'avi':
-    case 'mkv':
-    case 'rmvb':
-      return 'bi:file-earmark-play'
-    case 'mp3':
-    case 'flac':
-    case 'wav':
-    case 'ape':
-      return 'bi:file-earmark-music'
-    case 'zip':
-    case 'rar':
-    case '7z':
-    case 'tar':
-    case 'gz':
-      return 'bi:file-earmark-zip'
-    case 'doc':
-    case 'docx':
-    case 'xls':
-    case 'xlsx':
-      return 'bi:file-earmark-word'
-    case 'ppt':
-    case 'pptx':
-      return 'bi:file-earmark-ppt'
-    case 'pdf':
-      return 'bi:file-earmark-pdf'
-    case 'txt':
-    case 'md':
-    case 'log':
-    case 'conf':
-    case 'ini':
-    case 'yaml':
-    case 'yml':
-      return 'bi:file-earmark-text'
-    case 'html':
-    case 'htm':
-    case 'xml':
-    case 'json':
-    case 'js':
-    case 'css':
-    case 'ts':
-    case 'vue':
-    case 'jsx':
-    case 'tsx':
-    case 'php':
-    case 'java':
-    case 'py':
-    case 'go':
-    case 'rb':
-    case 'sh':
-      return 'bi:file-earmark-code'
-    case '':
-      return 'bi:file-earmark-binary'
-    default:
-      return 'bi:file-earmark'
-  }
-}
-
 onMounted(() => {
   watch(
     path,
@@ -286,7 +218,7 @@ onMounted(() => {
     :data="data"
     :loading="loading"
     :pagination="pagination"
-    :row-key="(row) => row.full"
+    :row-key="(row: any) => row.full"
     max-height="60vh"
     remote
     striped
@@ -294,6 +226,8 @@ onMounted(() => {
     @update:page="handlePageChange"
     @update:page-size="handlePageSizeChange"
   />
+
+  <file-edit v-model:show="editorModal" v-model:file="editorFile" />
 </template>
 
 <style scoped lang="scss"></style>
