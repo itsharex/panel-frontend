@@ -28,7 +28,7 @@ const handleNew = () => {
   file.create(fullPath, newModel.value.dir).then(() => {
     newModal.value = false
     window.$message.success('创建成功')
-    EventBus.emit('refresh')
+    EventBus.emit('file:refresh')
   })
 }
 </script>

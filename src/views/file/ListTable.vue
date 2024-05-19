@@ -33,6 +33,8 @@ const unArchiveModel = ref({
   file: ''
 })
 
+const messages = ref<any>({})
+
 const columns: DataTableColumns<RowData> = [
   {
     type: 'selection'
@@ -127,14 +129,12 @@ const columns: DataTableColumns<RowData> = [
                   if (row.dir) {
                     // TODO 压缩文件夹
                   } else {
-                    const messageReactive = window.$message.loading('开始下载...', {
+                    const timestamp = new Date().getTime()
+                    messages.value[timestamp] = window.$message.loading('开始下载...', {
                       duration: 0
                     })
-                    EventBus.on('download-progress', (progress) => {
-                      messageReactive.content = `${formatPercent(progress.progress * 100)}% | 总共 ${formatBytes(progress.total)} | 已下载 ${formatBytes(progress.loaded)} | 速度 ${formatBytes(progress.rate)}`
-                    })
 
-                    file.download(row.full).then((res: any) => {
+                    file.download(row.full, timestamp).then((res: any) => {
                       const blob = new Blob([res], { type: 'application/octet-stream' })
                       const downloadUrl = window.URL.createObjectURL(blob)
                       const a = document.createElement('a')
@@ -145,7 +145,7 @@ const columns: DataTableColumns<RowData> = [
 
                       // 清理
                       a.remove()
-                      messageReactive?.destroy()
+                      messages.value[timestamp]?.destroy()
                       window.URL.revokeObjectURL(downloadUrl)
                       window.$message.success('下载成功')
                     })
@@ -181,7 +181,7 @@ const columns: DataTableColumns<RowData> = [
                 onPositiveClick: () => {
                   file.delete(row.full).then(() => {
                     window.$message.success('删除成功')
-                    EventBus.emit('refresh')
+                    EventBus.emit('file:refresh')
                   })
                 },
                 onNegativeClick: () => {}
@@ -299,7 +299,7 @@ const handleRename = () => {
   file.move(source, target).then(() => {
     window.$message.success('重命名成功')
     renameModal.value = false
-    EventBus.emit('refresh')
+    EventBus.emit('file:refresh')
   })
 }
 
@@ -312,7 +312,7 @@ const handleUnArchive = () => {
   file.unArchive(unArchiveModel.value.file, unArchiveModel.value.path).then(() => {
     window.$message.success('解压成功')
     unArchiveModal.value = false
-    EventBus.emit('refresh')
+    EventBus.emit('file:refresh')
   })
 }
 
@@ -325,11 +325,15 @@ onMounted(() => {
     },
     { immediate: true }
   )
-  EventBus.on('refresh', handleRefresh)
+  EventBus.on('file:refresh', handleRefresh)
+  EventBus.on('file:download-progress', (data: any) => {
+    messages.value[data['timestamp']].content =
+      `${formatPercent(data['progress'].progress * 100)}% | 总共 ${formatBytes(data['progress'].total)} | 已下载 ${formatBytes(data['progress'].loaded)} | 速度 ${formatBytes(data['progress'].rate)}`
+  })
 })
 
 onUnmounted(() => {
-  EventBus.off('refresh', handleRefresh)
+  EventBus.off('file:refresh', handleRefresh)
 })
 </script>
 

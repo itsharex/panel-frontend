@@ -31,7 +31,7 @@ const handleBlur = () => {
 }
 
 const handleRefresh = () => {
-  EventBus.emit('refresh')
+  EventBus.emit('file:refresh')
 }
 
 const handleUp = () => {

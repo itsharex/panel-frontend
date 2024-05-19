@@ -31,12 +31,15 @@ export default {
   copy: (source: string, target: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/copy', { source, target }),
   // 下载文件
-  download: (path: string): Promise<AxiosResponse<any>> =>
+  download: (path: string, timestamp: number): Promise<AxiosResponse<any>> =>
     request.get('/panel/file/download', {
       params: { path },
       responseType: 'stream',
-      onDownloadProgress: (progressEvent) => {
-        EventBus.emit('download-progress', progressEvent)
+      onDownloadProgress: (progressEvent: any) => {
+        EventBus.emit('file:download-progress', {
+          progress: progressEvent,
+          timestamp: timestamp
+        })
       }
     }),
   // 远程下载
