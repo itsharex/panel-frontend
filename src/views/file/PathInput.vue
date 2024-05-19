@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import type { InputInst } from 'naive-ui'
+import EventBus from '@/views/file/event'
+import { onUnmounted } from 'vue'
 
 const path = defineModel<string>('path', { type: String, required: true })
 const isInput = ref(false)
 const pathInput = ref<InputInst | null>(null)
 const input = ref(path.value.slice(1))
+
+const history: string[] = []
+let current = -1
 
 const handleInput = () => {
   isInput.value = true
@@ -21,6 +26,32 @@ const handleBlur = () => {
 
   isInput.value = false
   path.value = '/' + input.value
+  handlePushHistory(path.value)
+}
+
+const handleRefresh = () => {
+  EventBus.emit('refresh')
+}
+
+const handleUp = () => {
+  const count = splitPath(path.value, '/').length
+  setPath(count - 2)
+}
+
+const handleBack = () => {
+  if (current > 0) {
+    current--
+    path.value = history[current]
+    input.value = path.value.slice(1)
+  }
+}
+
+const handleForward = () => {
+  if (current < history.length - 1) {
+    current++
+    path.value = history[current]
+    input.value = path.value.slice(1)
+  }
 }
 
 const splitPath = (str: string, delimiter: string) => {
@@ -34,24 +65,46 @@ const setPath = (index: number) => {
   const newPath = splitPath(path.value, '/')
     .slice(0, index + 1)
     .join('/')
-  console.log(newPath)
   path.value = '/' + newPath
   input.value = newPath
+  handlePushHistory(path.value)
 }
+
+const handlePushHistory = (path: string) => {
+  // 防止在前进后退时重复添加
+  if (current != history.length - 1) {
+    return
+  }
+
+  history.splice(current + 1)
+  history.push(path)
+  current = history.length - 1
+
+  console.log(current)
+  console.log(history)
+}
+
+onMounted(() => {
+  EventBus.on('push-history', handlePushHistory)
+})
+
+onUnmounted(() => {
+  EventBus.off('push-history', handlePushHistory)
+})
 </script>
 
 <template>
   <n-flex>
-    <n-button>
+    <n-button @click="handleBack">
       <icon-bi-arrow-left />
     </n-button>
-    <n-button>
+    <n-button @click="handleForward">
       <icon-bi-arrow-right />
     </n-button>
-    <n-button>
+    <n-button @click="handleUp">
       <icon-bi-arrow-up />
     </n-button>
-    <n-button>
+    <n-button @click="handleRefresh">
       <icon-bi-arrow-clockwise />
     </n-button>
     <n-input-group flex-1>

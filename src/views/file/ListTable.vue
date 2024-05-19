@@ -6,6 +6,7 @@ import file from '@/api/panel/file'
 import TheIcon from '@/components/custom/TheIcon.vue'
 import { getExt, getIconByExt } from '@/utils/file'
 import FileEdit from '@/views/file/FileEdit.vue'
+import EventBus from '@/views/file/event'
 
 const loading = ref(false)
 const path = defineModel<string>('path', { type: String, required: true })
@@ -39,7 +40,22 @@ const columns: DataTableColumns<RowData> = [
             }
           }
         },
-        () => [h(TheIcon, { icon }), h('p', {}, row.name)]
+        () => [
+          h(TheIcon, { icon }),
+          h(
+            'p',
+            {},
+            {
+              default: () => {
+                if (row.symlink) {
+                  return row.name + ' -> ' + row.link
+                } else {
+                  return row.name
+                }
+              }
+            }
+          )
+        ]
       )
     }
   },
@@ -64,20 +80,20 @@ const columns: DataTableColumns<RowData> = [
                 tertiary: true,
                 size: 'small',
                 onClick: () => {
-                  if (row.dir) {
-                    path.value = row.full
-                  } else {
+                  if (!row.dir && !row.symlink) {
                     editorFile.value = row.full
                     editorModal.value = true
+                  } else {
+                    path.value = row.full
                   }
                 }
               },
               {
                 default: () => {
-                  if (row.dir) {
-                    return '打开'
-                  } else {
+                  if (!row.dir && !row.symlink) {
                     return '编辑'
+                  } else {
+                    return '打开'
                   }
                 }
               }
@@ -187,8 +203,16 @@ const handlePageSizeChange = (pageSize: number) => {
 
 const handlePageChange = async (page: number) => {
   loading.value = true
-  await getList(path.value, page, pagination.pageSize!)
-  loading.value = false
+  await getList(path.value, page, pagination.pageSize!).finally(() => {
+    loading.value = false
+  })
+}
+
+const handleRefresh = async () => {
+  loading.value = true
+  await getList(path.value, pagination.page, pagination.pageSize!).finally(() => {
+    loading.value = false
+  })
 }
 
 const getList = async (path: string, page: number, limit: number) => {
@@ -205,9 +229,15 @@ onMounted(() => {
     path,
     () => {
       handlePageChange(1)
+      EventBus.emit('push-history', path.value)
     },
     { immediate: true }
   )
+  EventBus.on('refresh', handleRefresh)
+})
+
+onUnmounted(() => {
+  EventBus.off('refresh', handleRefresh)
 })
 </script>
 
