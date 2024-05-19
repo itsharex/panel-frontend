@@ -16,7 +16,7 @@ const EventBus: EventBusInterface = reactive({
       this.events[event].forEach((callback) => callback(data))
     }
   },
-  on<T>(event: string, callback: EventCallback<T> = (payload: T) => {}): void {
+  on<T>(event: string, callback: EventCallback<T> = () => {}): void {
     if (!this.events[event]) {
       this.events[event] = []
     }

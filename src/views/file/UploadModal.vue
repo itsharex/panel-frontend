@@ -35,8 +35,8 @@ const uploadRequest = ({ file, onFinish, onError, onProgress }: UploadCustomRequ
   >
     <n-upload
       ref="upload"
-      multiple
       directory-dnd
+      multiple
       action="/api/panel/file/upload"
       :custom-request="uploadRequest"
     >

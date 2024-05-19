@@ -3,7 +3,6 @@ import { NButton, NSpace } from 'naive-ui'
 import file from '@/api/panel/file'
 import EventBus from '@/utils/event'
 import { checkName } from '@/utils/file'
-import UploadModal from '@/views/file/UploadModal.vue'
 
 const path = defineModel<string>('path', { type: String, required: true })
 const selected = defineModel<any[]>('selected', { type: Array, default: () => [] })

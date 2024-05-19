@@ -269,7 +269,7 @@ const languageByPath = (path: string) => {
 }
 
 const checkName = (name: string) => {
-  return /^[a-zA-Z0-9_.@#$%\-\s\[\]()]+$/.test(name)
+  return /^[a-zA-Z0-9_.@#$%\-\s[\]()]+$/.test(name)
 }
 
 const checkPath = (path: string) => {
@@ -293,7 +293,7 @@ const formatPercent = (num: any) => {
 
 const formatBytes = (size: any) => {
   size = Number(size)
-  let units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  const units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
   let i = 0
 
   while (size >= 1024 && i < units.length) {
