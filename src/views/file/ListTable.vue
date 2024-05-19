@@ -14,11 +14,12 @@ import {
   getIconByExt,
   isArchive
 } from '@/utils/file'
-import FileEdit from '@/views/file/FileEdit.vue'
+import EditModal from '@/views/file/EditModal.vue'
 import EventBus from '@/utils/event'
 
 const loading = ref(false)
 const path = defineModel<string>('path', { type: String, required: true })
+const selected = defineModel<any[]>('selected', { type: Array, default: () => [] })
 const editorModal = ref(false)
 const editorFile = ref('')
 
@@ -37,7 +38,8 @@ const messages = ref<any>({})
 
 const columns: DataTableColumns<RowData> = [
   {
-    type: 'selection'
+    type: 'selection',
+    fixed: 'left'
   },
   {
     title: '名称',
@@ -316,6 +318,10 @@ const handleUnArchive = () => {
   })
 }
 
+const onChecked = (rowKeys: any) => {
+  selected.value = rowKeys
+}
+
 onMounted(() => {
   watch(
     path,
@@ -351,9 +357,10 @@ onUnmounted(() => {
     virtual-scroll
     @update:page="handlePageChange"
     @update:page-size="handlePageSizeChange"
+    @update:checked-row-keys="onChecked"
   />
 
-  <file-edit v-model:show="editorModal" v-model:file="editorFile" />
+  <edit-modal v-model:show="editorModal" v-model:file="editorFile" />
   <n-modal
     v-model:show="renameModal"
     preset="card"

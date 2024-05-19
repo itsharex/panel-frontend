@@ -16,12 +16,13 @@ export default {
   delete: (path: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/delete', { path }),
   // 上传文件
-  upload: (path: string, file: File): Promise<AxiosResponse<any>> => {
-    const formData = new FormData()
-    formData.append('file', file)
+  upload: (path: string, formData: FormData, onProgress: any): Promise<AxiosResponse<any>> => {
+    formData.append('path', path)
     return request.post('/panel/file/upload', formData, {
       headers: { 'Content-Type': 'multipart/form-data' },
-      params: { path }
+      onUploadProgress: (progressEvent: any) => {
+        onProgress({ percent: Math.ceil((progressEvent.loaded / progressEvent.total) * 100) })
+      }
     })
   },
   // 移动文件

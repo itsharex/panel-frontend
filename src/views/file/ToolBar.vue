@@ -3,9 +3,12 @@ import { NButton, NSpace } from 'naive-ui'
 import file from '@/api/panel/file'
 import EventBus from '@/utils/event'
 import { checkName } from '@/utils/file'
+import UploadModal from '@/views/file/UploadModal.vue'
 
 const path = defineModel<string>('path', { type: String, required: true })
+const selected = defineModel<any[]>('selected', { type: Array, default: () => [] })
 
+const uploadModal = ref(false)
 const newModal = ref(false)
 const newModel = ref({
   dir: false,
@@ -31,6 +34,20 @@ const handleNew = () => {
     EventBus.emit('file:refresh')
   })
 }
+
+const bulkDelete = () => {
+  if (!selected.value.length) {
+    window.$message.error('请选择要删除的文件/文件夹')
+    return
+  }
+
+  for (const path of selected.value) {
+    file.delete(path).then(() => {
+      window.$message.success(`删除 ${path} 成功`)
+      EventBus.emit('file:refresh')
+    })
+  }
+}
 </script>
 
 <template>
@@ -44,9 +61,9 @@ const handleNew = () => {
     >
       <n-button type="primary"> 新建 </n-button>
     </n-popselect>
-    <n-button> 上传 </n-button>
+    <n-button @click="uploadModal = true"> 上传 </n-button>
     <n-button> 远程下载 </n-button>
-    <div ml-auto>
+    <div ml-auto v-if="selected.length">
       <n-flex>
         <n-button secondary type="primary"> 粘贴 </n-button>
         <n-button-group>
@@ -54,7 +71,12 @@ const handleNew = () => {
           <n-button> 移动 </n-button>
           <n-button> 压缩 </n-button>
           <n-button> 权限 </n-button>
-          <n-button> 删除 </n-button>
+          <n-popconfirm @positive-click="bulkDelete">
+            <template #trigger>
+              <n-button>删除</n-button>
+            </template>
+            确定要批量删除吗？
+          </n-popconfirm>
         </n-button-group>
       </n-flex>
     </div>
@@ -77,6 +99,7 @@ const handleNew = () => {
       <n-button type="info" block @click="handleNew">提交</n-button>
     </n-space>
   </n-modal>
+  <upload-modal v-model:show="uploadModal" v-model:path="path" />
 </template>
 
 <style scoped lang="scss"></style>
