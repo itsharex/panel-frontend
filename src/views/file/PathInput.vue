@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type { InputInst } from 'naive-ui'
-import EventBus from '@/views/file/event'
+import EventBus from '@/utils/event'
 import { onUnmounted } from 'vue'
+import { checkPath } from '@/utils/file'
 
 const path = defineModel<string>('path', { type: String, required: true })
 const isInput = ref(false)
@@ -19,7 +20,7 @@ const handleInput = () => {
 }
 
 const handleBlur = () => {
-  if (!/^(?!\/)(?!.*\/$)(?!.*\/\/)(?!.*\s).*$/.test(input.value)) {
+  if (!checkPath(input.value)) {
     window.$message.error('路径不合法')
     return
   }
@@ -79,9 +80,6 @@ const handlePushHistory = (path: string) => {
   history.splice(current + 1)
   history.push(path)
   current = history.length - 1
-
-  console.log(current)
-  console.log(history)
 }
 
 onMounted(() => {

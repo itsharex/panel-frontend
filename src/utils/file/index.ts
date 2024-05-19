@@ -268,4 +268,50 @@ const languageByPath = (path: string) => {
   }
 }
 
-export { getExt, getIconByExt, languageByPath }
+const checkName = (name: string) => {
+  return /^[a-zA-Z0-9._-]+$/.test(name)
+}
+
+const checkPath = (path: string) => {
+  return /^(?!\/)(?!.*\/$)(?!.*\/\/)(?!.*\s).*$/.test(path)
+}
+
+const getFilename = (path: string) => {
+  const parts = path.split('/')
+  return parts.pop()!
+}
+
+const isArchive = (name: string) => {
+  const ext = getExt(name)
+  return ['zip', 'rar', '7z', 'tar', 'gz'].includes(ext)
+}
+
+const formatPercent = (num: any) => {
+  num = Number(num)
+  return Number(num.toFixed(2))
+}
+
+const formatBytes = (size: any) => {
+  size = Number(size)
+  let units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB']
+  let i = 0
+
+  while (size >= 1024 && i < units.length) {
+    size /= 1024
+    i++
+  }
+
+  return size.toFixed(2) + ' ' + units[i]
+}
+
+export {
+  getExt,
+  getIconByExt,
+  languageByPath,
+  checkName,
+  checkPath,
+  getFilename,
+  isArchive,
+  formatPercent,
+  formatBytes
+}

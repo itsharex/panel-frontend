@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { NButton, NSpace } from 'naive-ui'
 import file from '@/api/panel/file'
-import EventBus from '@/views/file/event'
+import EventBus from '@/utils/event'
+import { checkName } from '@/utils/file'
 
 const path = defineModel<string>('path', { type: String, required: true })
 
@@ -18,7 +19,7 @@ const showNew = (value: string) => {
 }
 
 const handleNew = () => {
-  if (!/^[a-zA-Z0-9._-]+$/.test(newModel.value.path)) {
+  if (!checkName(newModel.value.path)) {
     window.$message.error('名称不合法')
     return
   }
@@ -47,7 +48,7 @@ const handleNew = () => {
     <n-button> 远程下载 </n-button>
     <div ml-auto>
       <n-flex>
-        <n-button> 粘贴 </n-button>
+        <n-button secondary type="primary"> 粘贴 </n-button>
         <n-button-group>
           <n-button> 复制 </n-button>
           <n-button> 移动 </n-button>

@@ -1,5 +1,6 @@
 import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
+import EventBus from '@/utils/event'
 
 export default {
   // 创建文件/文件夹
@@ -31,7 +32,13 @@ export default {
     request.post('/panel/file/copy', { source, target }),
   // 下载文件
   download: (path: string): Promise<AxiosResponse<any>> =>
-    request.get('/panel/file/download', { params: { path } }),
+    request.get('/panel/file/download', {
+      params: { path },
+      responseType: 'stream',
+      onDownloadProgress: (progressEvent) => {
+        EventBus.emit('download-progress', progressEvent)
+      }
+    }),
   // 远程下载
   remoteDownload: (url: string, path: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/remoteDownload', { url, path }),
@@ -42,11 +49,11 @@ export default {
   permission: (path: string, mode: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/permission', { path, mode }),
   // 压缩文件
-  archive: (source: string, target: string): Promise<AxiosResponse<any>> =>
-    request.post('/panel/file/archive', { source, target }),
+  archive: (file: string, paths: string[]): Promise<AxiosResponse<any>> =>
+    request.post('/panel/file/archive', { file, paths }),
   // 解压文件
-  unArchive: (source: string, target: string): Promise<AxiosResponse<any>> =>
-    request.post('/panel/file/unArchive', { source, target }),
+  unArchive: (file: string, path: string): Promise<AxiosResponse<any>> =>
+    request.post('/panel/file/unArchive', { file, path }),
   // 搜索文件
   search: (keyword: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/search', { keyword }),
