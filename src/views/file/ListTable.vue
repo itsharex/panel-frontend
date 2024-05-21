@@ -333,16 +333,29 @@ const handleRename = () => {
 }
 
 const handleUnArchive = () => {
-  if (!checkPath(unArchiveModel.value.path)) {
+  // 移除首位的 / 去检测
+  if (
+    !unArchiveModel.value.path.startsWith('/') ||
+    !checkPath(unArchiveModel.value.path.slice(1))
+  ) {
     window.$message.error('路径不合法')
     return
   }
-
-  file.unArchive(unArchiveModel.value.file, unArchiveModel.value.path).then(() => {
-    window.$message.success('解压成功')
-    unArchiveModal.value = false
-    EventBus.emit('file:refresh')
+  const message = window.$message.loading('正在解压中...', {
+    duration: 0
   })
+  file
+    .unArchive(unArchiveModel.value.file, unArchiveModel.value.path)
+    .then(() => {
+      message?.destroy()
+      window.$message.success('解压成功')
+      unArchiveModal.value = false
+      EventBus.emit('file:refresh')
+    })
+    .catch(() => {
+      message?.destroy()
+      window.$message.error('解压失败')
+    })
 }
 
 const onChecked = (rowKeys: any) => {
