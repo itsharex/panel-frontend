@@ -53,8 +53,8 @@ export default {
   permission: (path: string, mode: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/permission', { path, mode }),
   // 压缩文件
-  archive: (file: string, paths: string[]): Promise<AxiosResponse<any>> =>
-    request.post('/panel/file/archive', { file, paths }),
+  archive: (paths: string[], file: string): Promise<AxiosResponse<any>> =>
+    request.post('/panel/file/archive', { paths, file }),
   // 解压文件
   unArchive: (file: string, path: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/unArchive', { file, path }),

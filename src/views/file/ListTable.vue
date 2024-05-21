@@ -16,10 +16,13 @@ import {
 } from '@/utils/file'
 import EditModal from '@/views/file/EditModal.vue'
 import EventBus from '@/utils/event'
+import type { Marked } from '@/views/file/types'
 
 const loading = ref(false)
 const path = defineModel<string>('path', { type: String, required: true })
 const selected = defineModel<any[]>('selected', { type: Array, default: () => [] })
+const marked = defineModel<Marked[]>('marked', { type: Array, default: () => [] })
+const archive = defineModel<boolean>('archive', { type: Boolean, required: true })
 const editorModal = ref(false)
 const editorFile = ref('')
 
@@ -129,7 +132,8 @@ const columns: DataTableColumns<RowData> = [
                 size: 'small',
                 onClick: () => {
                   if (row.dir) {
-                    // TODO 压缩文件夹
+                    selected.value = [row.full]
+                    archive.value = true
                   } else {
                     const timestamp = new Date().getTime()
                     messages.value[timestamp] = window.$message.loading('开始下载...', {
@@ -211,21 +215,44 @@ const columns: DataTableColumns<RowData> = [
                 options: [
                   { label: '复制', value: 'copy' },
                   { label: '移动', value: 'move' },
-                  { label: '权限', value: 'mode' },
+                  { label: '权限', value: 'permission' },
                   { label: '压缩', value: 'archive' },
                   { label: '解压', value: 'unarchive', disabled: !isArchive(row.name) }
                 ],
                 onUpdateValue: (value) => {
-                  if (value === 'mode') {
-                    window.$message.error('暂不支持修改权限')
-                    // TODO 修改权限
-                  } else if (value === 'archive') {
-                    window.$message.error('暂不支持压缩')
-                    // TODO 压缩文件
-                  } else if (value === 'unarchive') {
-                    unArchiveModel.value.file = row.full
-                    unArchiveModel.value.path = path.value
-                    unArchiveModal.value = true
+                  switch (value) {
+                    case 'copy':
+                      marked.value = [
+                        {
+                          name: row.name,
+                          source: row.full,
+                          type: 'copy'
+                        }
+                      ]
+                      window.$message.success('标记成功，请前往目标路径粘贴')
+                      break
+                    case 'move':
+                      marked.value = [
+                        {
+                          name: row.name,
+                          source: row.full,
+                          type: 'move'
+                        }
+                      ]
+                      window.$message.success('标记成功，请前往目标路径粘贴')
+                      break
+                    case 'permission':
+                      window.$message.error('暂不支持修改权限')
+                      break
+                    case 'archive':
+                      selected.value = [row.full]
+                      archive.value = true
+                      break
+                    case 'unarchive':
+                      unArchiveModel.value.file = row.full
+                      unArchiveModel.value.path = path.value
+                      unArchiveModal.value = true
+                      break
                   }
                 }
               },
@@ -351,6 +378,7 @@ onUnmounted(() => {
     :loading="loading"
     :pagination="pagination"
     :row-key="(row: any) => row.full"
+    :checked-row-keys="selected"
     max-height="60vh"
     remote
     striped
