@@ -18,7 +18,7 @@ const checkbox = ref({
 const handlePermission = async () => {
   for (const path of selected.value) {
     await file
-      .permission(path, mode.value, owner.value, group.value)
+      .permission(path, `0${mode.value}`, owner.value, group.value)
       .then(() => {
         window.$message.success(`修改 ${path} 成功`)
         show.value = false
