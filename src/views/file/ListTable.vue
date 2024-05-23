@@ -23,6 +23,7 @@ const path = defineModel<string>('path', { type: String, required: true })
 const selected = defineModel<any[]>('selected', { type: Array, default: () => [] })
 const marked = defineModel<Marked[]>('marked', { type: Array, default: () => [] })
 const archive = defineModel<boolean>('archive', { type: Boolean, required: true })
+const permission = defineModel<boolean>('permission', { type: Boolean, required: true })
 const editorModal = ref(false)
 const editorFile = ref('')
 
@@ -242,7 +243,8 @@ const columns: DataTableColumns<RowData> = [
                       window.$message.success('标记成功，请前往目标路径粘贴')
                       break
                     case 'permission':
-                      window.$message.error('暂不支持修改权限')
+                      selected.value = [row.full]
+                      permission.value = true
                       break
                     case 'archive':
                       selected.value = [row.full]

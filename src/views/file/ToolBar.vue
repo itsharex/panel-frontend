@@ -10,6 +10,7 @@ const path = defineModel<string>('path', { type: String, required: true })
 const selected = defineModel<string[]>('selected', { type: Array, default: () => [] })
 const marked = defineModel<Marked[]>('marked', { type: Array, default: () => [] })
 const archive = defineModel<boolean>('archive', { type: Boolean, required: true })
+const permission = defineModel<boolean>('permission', { type: Boolean, required: true })
 
 const upload = ref(false)
 const newModal = ref(false)
@@ -125,7 +126,7 @@ const bulkDelete = () => {
           <n-button @click="handleCopy"> 复制 </n-button>
           <n-button @click="handleMove"> 移动 </n-button>
           <n-button @click="archive = true"> 压缩 </n-button>
-          <n-button> 权限 </n-button>
+          <n-button @click="permission = true"> 权限 </n-button>
           <n-popconfirm @positive-click="bulkDelete">
             <template #trigger>
               <n-button>删除</n-button>
