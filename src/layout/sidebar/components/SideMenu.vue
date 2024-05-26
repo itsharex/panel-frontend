@@ -4,7 +4,9 @@ import type { Meta, RouteType } from '~/types/router'
 import { useAppStore, usePermissionStore, useThemeStore } from '@/store'
 import { isUrl, renderCustomIcon, renderIcon } from '@/utils'
 import type { VNodeChild } from 'vue'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const router = useRouter()
 const currentRoute = useRoute()
 const permissionStore = usePermissionStore()
@@ -56,7 +58,7 @@ function getMenuItem(route: RouteType, basePath = ''): MenuItem {
     // 单个子路由处理
     const singleRoute = visibleChildren[0]
     menuItem = {
-      label: singleRoute.meta?.title || singleRoute.name,
+      label: t(singleRoute.meta?.title || singleRoute.name),
       key: singleRoute.name,
       path: resolvePath(menuItem.path, singleRoute.path),
       icon: getIcon(singleRoute.meta),

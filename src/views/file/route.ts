@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '文件管理',
+        title: 'fileIndex.title',
         icon: 'mdi:file-tree',
         role: ['admin'],
         requireAuth: true

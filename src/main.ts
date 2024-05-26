@@ -4,8 +4,9 @@ import 'uno.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import { setupStore } from './store'
+import { setupStore, useThemeStore } from './store'
 import { setupRouter } from './router'
+import { setupI18n } from '@/i18n/i18n'
 import { setupNaiveDiscreteApi } from './utils'
 import { install as VueMonacoEditorPlugin } from '@guolao/vue-monaco-editor'
 import info from '@/api/panel/info'
@@ -20,22 +21,25 @@ async function setupApp() {
       availableLanguages: { '*': 'zh-cn' }
     }
   })
-  setupStore(app)
-  setupNaiveDiscreteApi()
+  await setupStore(app)
+  await setupNaiveDiscreteApi()
+  await setupPanel().then(() => {
+    setupI18n(app)
+  })
   await setupRouter(app)
   app.mount('#app')
 }
 
 const title = ref('')
 
-function setupTitle() {
-  if (title.value !== '') {
-    return
-  }
-  info
-    .name()
-    .then((res) => {
-      title.value = res.data.name || import.meta.env.VITE_APP_TITLE
+const setupPanel = async () => {
+  const themeStore = useThemeStore()
+  await info
+    .panel()
+    .then((response) => response.json())
+    .then((data) => {
+      title.value = data.data.name || import.meta.env.VITE_APP_TITLE
+      themeStore.setLanguage(data.data.language || 'zh_CN')
     })
     .catch((err) => {
       console.error(err)
@@ -43,6 +47,5 @@ function setupTitle() {
 }
 
 setupApp()
-setupTitle()
 
 export { title }

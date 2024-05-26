@@ -15,7 +15,7 @@ export default {
       path: '',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '资源监控',
+        title: 'monitorIndex.title',
         icon: 'mdi:monitor',
         role: ['admin'],
         requireAuth: true

@@ -4,7 +4,9 @@ import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import { renderIcon } from '@/utils'
 import task from '@/api/panel/task'
 import Editor from '@guolao/vue-monaco-editor'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const taskLogModal = ref(false)
 const taskLog = ref('')
 
@@ -13,26 +15,41 @@ const currentTaskId = ref(0)
 
 const columns: any = [
   { type: 'selection', fixed: 'left' },
-  { title: '任务名', key: 'name', resizable: true, ellipsis: { tooltip: true } },
   {
-    title: '状态',
+    title: t('taskIndex.columns.name'),
+    key: 'name',
+    resizable: true,
+    ellipsis: { tooltip: true }
+  },
+  {
+    title: t('taskIndex.columns.status'),
     key: 'status',
     width: 100,
     ellipsis: { tooltip: true },
     render(row: any) {
       return row.status === 'finished'
-        ? '已完成'
+        ? t('taskIndex.options.status.finished')
         : row.status === 'waiting'
-          ? '等待中'
+          ? t('taskIndex.options.status.waiting')
           : row.status === 'failed'
-            ? '已失败'
-            : '运行中'
+            ? t('taskIndex.options.status.failed')
+            : t('taskIndex.options.status.running')
     }
   },
-  { title: '创建时间', key: 'created_at', width: 160, ellipsis: { tooltip: true } },
-  { title: '更新时间', key: 'updated_at', width: 160, ellipsis: { tooltip: true } },
   {
-    title: '操作',
+    title: t('taskIndex.columns.createdAt'),
+    key: 'created_at',
+    width: 160,
+    ellipsis: { tooltip: true }
+  },
+  {
+    title: t('taskIndex.columns.updatedAt'),
+    key: 'updated_at',
+    width: 160,
+    ellipsis: { tooltip: true }
+  },
+  {
+    title: t('taskIndex.columns.actions'),
     key: 'actions',
     width: 200,
     align: 'center',
@@ -54,7 +71,7 @@ const columns: any = [
                 }
               },
               {
-                default: () => '日志',
+                default: () => t('taskIndex.buttons.log'),
                 icon: renderIcon('material-symbols:visibility', { size: 14 })
               }
             )
@@ -65,12 +82,12 @@ const columns: any = [
               {
                 onPositiveClick: () => handleDelete(row.id),
                 onNegativeClick: () => {
-                  window.$message.info('取消删除')
+                  window.$message.info(t('taskIndex.buttons.undelete'))
                 }
               },
               {
                 default: () => {
-                  return '确定删除此任务记录吗？'
+                  return t('taskIndex.confirm.delete')
                 },
                 trigger: () => {
                   return h(
@@ -81,7 +98,7 @@ const columns: any = [
                       style: 'margin-left: 15px;'
                     },
                     {
-                      default: () => '删除',
+                      default: () => t('taskIndex.buttons.delete'),
                       icon: renderIcon('material-symbols:delete-outline', { size: 14 })
                     }
                   )
@@ -110,7 +127,7 @@ const pagination = reactive({
 
 const handleDelete = (id: number) => {
   task.delete(id).then(() => {
-    window.$message.success('任务已删除')
+    window.$message.success(t('taskIndex.alerts.delete'))
     onPageChange(pagination.page)
   })
 }
@@ -195,7 +212,7 @@ onUnmounted(() => {
   <n-modal
     v-model:show="taskLogModal"
     preset="card"
-    title="任务日志"
+    :title="$t('taskIndex.logModal.title')"
     style="width: 80vw"
     size="huge"
     :bordered="false"
@@ -215,8 +232,8 @@ onUnmounted(() => {
   >
     <template #header-extra>
       <n-switch v-model:value="autoRefresh" style="margin-right: 10px">
-        <template #checked>自动刷新开启</template>
-        <template #unchecked>自动刷新关闭</template>
+        <template #checked>{{ $t('taskIndex.logModal.autoRefresh.on') }}</template>
+        <template #unchecked>{{ $t('taskIndex.logModal.autoRefresh.off') }}</template>
       </n-switch>
     </template>
     <Editor

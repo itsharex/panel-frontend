@@ -16,7 +16,7 @@ export default {
       path: 'home',
       component: () => import('./IndexView.vue'),
       meta: {
-        title: '仪表盘',
+        title: 'homeIndex.title',
         icon: 'mdi:monitor-dashboard',
         role: ['admin'],
         requireAuth: true
@@ -28,7 +28,7 @@ export default {
       component: () => import('./UpdateView.vue'),
       isHidden: true,
       meta: {
-        title: '更新面板',
+        title: 'homeUpdate.title',
         icon: 'mdi:archive-arrow-up-outline',
         role: ['admin'],
         requireAuth: true

@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import setting from '@/api/panel/setting'
+import { useI18n } from 'vue-i18n'
+import { useThemeStore } from '@/store'
+
+const { t } = useI18n()
+const themeStore = useThemeStore()
 
 const model = ref({
   name: '',
+  language: '',
   username: '',
   password: '',
   email: '',
@@ -13,6 +19,11 @@ const model = ref({
   backup_path: ''
 })
 
+const languages = [
+  { label: '简体中文', value: 'zh_CN' },
+  { label: 'English', value: 'en' }
+]
+
 const getSetting = () => {
   setting.list().then((res) => {
     model.value = res.data
@@ -21,8 +32,17 @@ const getSetting = () => {
 
 const handleSave = () => {
   setting.update(model.value).then(() => {
-    window.$message.success('保存成功')
+    window.$message.success(t('settingIndex.edit.toasts.success'))
+    setTimeout(() => {
+      maybeHardReload()
+    }, 1000)
   })
+}
+
+const maybeHardReload = () => {
+  if (model.value.language !== themeStore.language) {
+    window.location.reload()
+  }
 }
 
 onMounted(() => {
@@ -34,41 +54,68 @@ onMounted(() => {
   <CommonPage show-footer>
     <n-space vertical>
       <n-alert type="info">
-        修改面板端口 / SSL / 入口后，需要在浏览器地址栏做相应修改方可打开面板！
+        {{ $t('settingIndex.info') }}
       </n-alert>
       <n-form>
-        <n-form-item label="面板名称">
-          <n-input v-model:value="model.name" placeholder="耗子 Linux 面板" />
+        <n-form-item :label="$t('settingIndex.edit.fields.name.label')">
+          <n-input
+            v-model:value="model.name"
+            :placeholder="$t('settingIndex.edit.fields.name.placeholder')"
+          />
         </n-form-item>
-        <n-form-item label="用户名">
-          <n-input v-model:value="model.username" placeholder="admin" />
+        <n-form-item :label="$t('settingIndex.edit.fields.language.label')">
+          <n-select v-model:value="model.language" :options="languages"> </n-select>
         </n-form-item>
-        <n-form-item label="密码">
-          <n-input v-model:value="model.password" placeholder="admin" />
+        <n-form-item :label="$t('settingIndex.edit.fields.username.label')">
+          <n-input
+            v-model:value="model.username"
+            :placeholder="$t('settingIndex.edit.fields.username.placeholder')"
+          />
         </n-form-item>
-        <n-form-item label="邮箱（以后可能会有用）">
-          <n-input v-model:value="model.email" placeholder="admin@example.com" />
+        <n-form-item :label="$t('settingIndex.edit.fields.password.label')">
+          <n-input
+            v-model:value="model.password"
+            :placeholder="$t('settingIndex.edit.fields.password.placeholder')"
+          />
         </n-form-item>
-        <n-form-item label="端口（保存后需要重启面板并修改浏览器地址栏的端口为新端口以访问面板）">
-          <n-input v-model:value="model.port" placeholder="8888" />
+        <n-form-item :label="$t('settingIndex.edit.fields.email.label')">
+          <n-input
+            v-model:value="model.email"
+            :placeholder="$t('settingIndex.edit.fields.email.placeholder')"
+          />
         </n-form-item>
-        <n-form-item
-          label="安全入口（保存后需要重启面板并修改浏览器地址栏的入口为新入口以访问面板）"
-        >
-          <n-input v-model:value="model.entrance" placeholder="admin" />
+        <n-form-item :label="$t('settingIndex.edit.fields.port.label')">
+          <n-input
+            v-model:value="model.port"
+            :placeholder="$t('settingIndex.edit.fields.port.placeholder')"
+          />
         </n-form-item>
-        <n-form-item label="面板 SSL">
+        <n-form-item :label="$t('settingIndex.edit.fields.entrance.label')">
+          <n-input
+            v-model:value="model.entrance"
+            :placeholder="$t('settingIndex.edit.fields.entrance.placeholder')"
+          />
+        </n-form-item>
+        <n-form-item :label="$t('settingIndex.edit.fields.ssl.label')">
           <n-switch v-model:value="model.ssl" />
         </n-form-item>
-        <n-form-item label="默认建站目录">
-          <n-input v-model:value="model.website_path" placeholder="/www/wwwroot" />
+        <n-form-item :label="$t('settingIndex.edit.fields.path.label')">
+          <n-input
+            v-model:value="model.website_path"
+            :placeholder="$t('settingIndex.edit.fields.path.placeholder')"
+          />
         </n-form-item>
-        <n-form-item label="默认备份目录">
-          <n-input v-model:value="model.backup_path" placeholder="/www/backup" />
+        <n-form-item :label="$t('settingIndex.edit.fields.backup.label')">
+          <n-input
+            v-model:value="model.backup_path"
+            :placeholder="$t('settingIndex.edit.fields.backup.placeholder')"
+          />
         </n-form-item>
       </n-form>
     </n-space>
-    <n-button type="primary" @click="handleSave"> 保存 </n-button>
+    <n-button type="primary" @click="handleSave">
+      {{ $t('settingIndex.edit.actions.submit') }}
+    </n-button>
   </CommonPage>
 </template>
 
