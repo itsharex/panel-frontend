@@ -92,9 +92,8 @@
     },
     "about": {
       "title": "关于面板",
-      "tnb": "树新蜂开发组祝大家 2024 立春快乐！永无Bug！永不宕机！",
-      "specialThanks": "特别感谢 {supporter} 对面板的大力支持！",
-      "welcomeMessage": "欢迎使用耗子 Linux 面板。如遇到问题，可通过 {group} / {channel} / {github} 寻求帮助",
+      "tnb": "树新蜂开发组祝大家 2024 端午安康！永不宕机！",
+      "specialThanks": "特别感谢以下赞助者和 {supporter} 的支持！",
       "links": {
         "group": "群",
         "channel": "频道",

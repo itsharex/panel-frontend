@@ -620,18 +620,6 @@ onUnmounted(() => {
                   <n-alert type="info">
                     <span
                       v-html="
-                        $t('homeIndex.about.welcomeMessage', {
-                          group: `<a target='_blank' href='https://jq.qq.com/?_wv=1027&k=I1oJKSTH'> QQ ${$t('homeIndex.about.links.group')} <\/a>`,
-                          channel: `<a target='_blank' href='https://pd.qq.com/s/fyol46wfy'> QQ ${$t('homeIndex.about.links.channel')} <\/a>`,
-                          github: `<a target='_blank' href='https://github.com/TheTNB/panel/issues'> GitHub <\/a>`
-                        })
-                      "
-                    >
-                    </span>
-                  </n-alert>
-                  <n-alert type="info">
-                    <span
-                      v-html="
                         $t('homeIndex.about.specialThanks', {
                           supporter: `<a target='_blank' href='https://www.weixiaoduo.com/'>「薇晓朵」<\/a>`
                         })
@@ -639,6 +627,12 @@ onUnmounted(() => {
                     >
                     </span>
                   </n-alert>
+                  <n-image
+                    src="https://mirror.ghproxy.com/https://raw.githubusercontent.com/TheTNB/sponsor/main/sponsors.svg"
+                    width="100%"
+                    preview-disabled
+                    lazy
+                  />
                 </n-space>
               </n-card>
             </div>

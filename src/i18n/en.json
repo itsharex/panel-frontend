@@ -92,9 +92,8 @@
     },
     "about": {
       "title": "About the panel",
-      "tnb": "The TNB development team wishes everyone a happy 2024 Beginning of Spring! No bugs ever! Never downtime!",
-      "specialThanks": "Special thanks to {supporter} for their strong support of the panel!",
-      "welcomeMessage": "Welcome to the HaoZi Linux Panel. If you encounter any issues, you can seek help through the {group} / {channel} / {github}.",
+      "tnb": "The TNB development team wishes everyone a happy Dragon Boat Festival in 2024! Never downtime!",
+      "specialThanks": "Special thanks to the following sponsors and {supporter} for their support!",
       "links": {
         "group": "group",
         "channel": "channel",
