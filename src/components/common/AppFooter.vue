@@ -12,11 +12,11 @@
       All Rights Reserved.
     </p>
     <p>
-      <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">交流 QQ 群 12370907</a>
+      <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">Q群 12370907</a>
       /
-      <a target="_blank" href="https://pd.qq.com/s/fyol46wfy">QQ 频道 haoziofficial1</a>
+      <a target="_blank" href="https://github.com/TheTNB/panel/issues">Bug 反馈</a>
       /
-      <a target="_blank" href="https://github.com/TheTNB/panel/issues">问题反馈</a>
+      <a target="_blank" href="https://afdian.net/a/TheTNB">赞助支持</a>
     </p>
   </footer>
 </template>

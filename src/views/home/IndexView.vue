@@ -633,7 +633,7 @@ onUnmounted(() => {
                     <span
                       v-html="
                         $t('homeIndex.about.specialThanks', {
-                          supporter: `<a target='_blank' href='https://www.weixiaoduo.com/'>『薇晓朵』<\/a>`
+                          supporter: `<a target='_blank' href='https://www.weixiaoduo.com/'>「薇晓朵」<\/a>`
                         })
                       "
                     >
