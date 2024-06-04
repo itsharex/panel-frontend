@@ -17,7 +17,8 @@
     "website": "Website",
     "database": "Database",
     "cron": "Scheduled Tasks",
-    "jihu": "Open Source",
+    "sponsor": "Sponsor",
+    "git": "Open Source",
     "resources": {
       "title": "Resource Usage",
       "cpu": {

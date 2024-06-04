@@ -17,7 +17,8 @@
     "website": "网站",
     "database": "数据库",
     "cron": "计划任务",
-    "jihu": "开源地址",
+    "sponsor": "赞助支持",
+    "git": "开源地址",
     "resources": {
       "title": "资源使用",
       "cpu": {

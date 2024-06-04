@@ -7,7 +7,7 @@ import { useAppStore } from '@/store'
 import { useI18n } from 'vue-i18n'
 import { formatBytes, formatPercent } from '@/utils/file'
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const appStore = useAppStore()
 const nowMonitor = ref<NowMonitor | null>(null)
 const systemInfo = ref<SystemInfo | null>(null)
@@ -123,13 +123,25 @@ const getEgg = () => {
   }
 }
 
-const toJiHu = () => {
+const toSponsor = () => {
+  if (locale.value === 'en') {
+    window.open('https://opencollective.com/tnb')
+  } else {
+    window.open('https://afdian.net/a/TheTNB')
+  }
+}
+
+const toGit = () => {
   window.open('https://git.haozi.net/opensource/panel')
 }
 
 const handleManagePlugin = (slug: string) => {
   router.push({ name: 'plugins-' + slug + '-index' })
 }
+
+const quantifier = computed(() => {
+  return locale.value === 'en' ? '' : ' 个'
+})
 
 let homeInterval: any = null
 
@@ -157,22 +169,31 @@ onUnmounted(() => {
             <n-page-header :subtitle="systemInfo?.panel_version">
               <n-grid :cols="4">
                 <n-gi>
-                  <n-statistic :label="$t('homeIndex.website')" :value="countInfo.website" />
+                  <n-statistic
+                    :label="$t('homeIndex.website')"
+                    :value="countInfo.website + quantifier"
+                  />
                 </n-gi>
                 <n-gi>
-                  <n-statistic :label="$t('homeIndex.database')" :value="countInfo.database" />
+                  <n-statistic
+                    :label="$t('homeIndex.database')"
+                    :value="countInfo.database + quantifier"
+                  />
                 </n-gi>
                 <n-gi>
-                  <n-statistic label="FTP" :value="countInfo.ftp" />
+                  <n-statistic label="FTP" :value="countInfo.ftp + quantifier" />
                 </n-gi>
                 <n-gi>
-                  <n-statistic :label="$t('homeIndex.cron')" :value="countInfo.cron" />
+                  <n-statistic :label="$t('homeIndex.cron')" :value="countInfo.cron + quantifier" />
                 </n-gi>
               </n-grid>
               <template #title>{{ $t('name') }}</template>
               <template #extra>
                 <n-space>
-                  <n-button @click="toJiHu">{{ $t('homeIndex.jihu') }}</n-button>
+                  <n-button type="primary" @click="toSponsor">{{
+                    $t('homeIndex.sponsor')
+                  }}</n-button>
+                  <n-button @click="toGit">{{ $t('homeIndex.git') }}</n-button>
                 </n-space>
               </template>
             </n-page-header>
