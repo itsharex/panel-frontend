@@ -93,7 +93,7 @@
     "about": {
       "title": "关于面板",
       "tnb": "树新蜂开发组祝大家 2024 端午安康！永不宕机！",
-      "specialThanks": "特别感谢以下赞助者和 {supporter} 的支持！",
+      "specialThanks": "特别感谢以下支持者和 {supporter}！",
       "links": {
         "group": "群",
         "channel": "频道",

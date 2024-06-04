@@ -93,7 +93,7 @@
     "about": {
       "title": "About the panel",
       "tnb": "The TNB development team wishes everyone a happy Dragon Boat Festival in 2024! Never downtime!",
-      "specialThanks": "Special thanks to the following sponsors and {supporter} for their support!",
+      "specialThanks": "Special thanks to the following supporters and {supporter}!",
       "links": {
         "group": "group",
         "channel": "channel",

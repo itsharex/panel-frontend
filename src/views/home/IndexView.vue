@@ -190,9 +190,9 @@ onUnmounted(() => {
               <template #title>{{ $t('name') }}</template>
               <template #extra>
                 <n-space>
-                  <n-button type="primary" @click="toSponsor">{{
-                    $t('homeIndex.sponsor')
-                  }}</n-button>
+                  <n-button type="primary" @click="toSponsor">
+                    {{ $t('homeIndex.sponsor') }}
+                  </n-button>
                   <n-button @click="toGit">{{ $t('homeIndex.git') }}</n-button>
                 </n-space>
               </template>
@@ -632,6 +632,7 @@ onUnmounted(() => {
                     width="100%"
                     preview-disabled
                     lazy
+                    @click="toSponsor"
                   />
                 </n-space>
               </n-card>
