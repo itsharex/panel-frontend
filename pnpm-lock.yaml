@@ -49,7 +49,7 @@ importers:
         version: 3.4.27(typescript@5.4.5)
       vue-echarts:
         specifier: ^6.6.9
-        version: 6.7.2(@vue/runtime-core@3.4.27)(echarts@5.5.0)(vue@3.4.27(typescript@5.4.5))
+        version: 6.7.3(@vue/runtime-core@3.4.27)(echarts@5.5.0)(vue@3.4.27(typescript@5.4.5))
       vue-i18n:
         specifier: ^9.13.1
         version: 9.13.1(vue@3.4.27(typescript@5.4.5))
@@ -2497,8 +2497,8 @@ packages:
       '@vue/composition-api':
         optional: true
 
-  vue-echarts@6.7.2:
-    resolution: {integrity: sha512-SG8Vmszhx24KjtySsk361DogZLRkPCyLhgoyh7iN1eH3WGJ0kyl3k0g4QiSJqK0+F1Ej0HDopq4A5OGcBlAwzw==}
+  vue-echarts@6.7.3:
+    resolution: {integrity: sha512-vXLKpALFjbPphW9IfQPOVfb1KjGZ/f8qa/FZHi9lZIWzAnQC1DgnmEK3pJgEkyo6EP7UnX6Bv/V3Ke7p+qCNXA==}
     peerDependencies:
       '@vue/composition-api': ^1.0.5
       '@vue/runtime-core': ^3.0.0
@@ -4977,7 +4977,7 @@ snapshots:
     dependencies:
       vue: 3.4.27(typescript@5.4.5)
 
-  vue-echarts@6.7.2(@vue/runtime-core@3.4.27)(echarts@5.5.0)(vue@3.4.27(typescript@5.4.5)):
+  vue-echarts@6.7.3(@vue/runtime-core@3.4.27)(echarts@5.5.0)(vue@3.4.27(typescript@5.4.5)):
     dependencies:
       echarts: 5.5.0
       resize-detector: 0.3.0
