@@ -240,7 +240,7 @@
           "placeholder": "admin"
         },
         "email": {
-          "label": "邮箱（以后可能会有用",
+          "label": "邮箱（以后可能会有用）",
           "placeholder": "admin{'@'}example.com"
         },
         "port": {
