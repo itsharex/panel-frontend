@@ -67,6 +67,7 @@ const columns: any = [
                 onClick: () => {
                   handleShowLog(row.id)
                   currentTaskId.value = row.id
+                  taskLogModal.value = true
                   autoRefresh.value = true
                 }
               },
@@ -136,7 +137,6 @@ const handleShowLog = (id: number) => {
   task
     .log(id)
     .then((res) => {
-      taskLogModal.value = true
       taskLog.value = res.data
     })
     .catch(() => {
