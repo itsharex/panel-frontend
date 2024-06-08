@@ -1,7 +1,7 @@
 {
   "name": "耗子 Linux 面板",
   "certIndex": {
-    "title": "TLS证书"
+    "title": "TLS 证书"
   },
   "containerIndex": {
     "title": "容器管理"
@@ -269,7 +269,7 @@
     }
   },
   "sshIndex": {
-    "title": "SSH终端",
+    "title": "SSH 终端",
     "alerts": {
       "save": "保存成功"
     },
