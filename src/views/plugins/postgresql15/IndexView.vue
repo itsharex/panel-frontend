@@ -613,7 +613,6 @@ onMounted(() => {
           <n-alert type="warning">
             此处修改的是 PostgreSQL 主配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
-          <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
           <Editor
             v-model:value="config"
             language="ini"
@@ -633,7 +632,6 @@ onMounted(() => {
           <n-alert type="warning">
             此处修改的是 PostgreSQL 用户配置文件，如果你不了解各参数的含义，请不要随意修改！
           </n-alert>
-          <n-alert type="info">提示：Ctrl+F 搜索关键字，Ctrl+S 保存，Ctrl+H 查找替换！</n-alert>
           <Editor
             v-model:value="userConfig"
             language="ini"

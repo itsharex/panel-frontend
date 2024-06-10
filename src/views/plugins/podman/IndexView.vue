@@ -1,64 +1,73 @@
 <script setup lang="ts">
 import { NButton, NPopconfirm } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
-import gitea from '@/api/plugins/gitea'
+import podman from '@/api/plugins/podman'
 
 const currentTab = ref('status')
 const status = ref(false)
 const isEnabled = ref(false)
-const config = ref('')
+const registryConfig = ref('')
+const storageConfig = ref('')
 
 const statusStr = computed(() => {
   return status.value ? '正常运行中' : '已停止运行'
 })
 
 const getStatus = async () => {
-  await gitea.status().then((res: any) => {
+  await podman.status().then((res: any) => {
     status.value = res.data
   })
 }
 
 const getIsEnabled = async () => {
-  await gitea.isEnabled().then((res: any) => {
+  await podman.isEnabled().then((res: any) => {
     isEnabled.value = res.data
   })
 }
 
 const getConfig = async () => {
-  gitea.config().then((res: any) => {
-    config.value = res.data
+  podman.registryConfig().then((res: any) => {
+    registryConfig.value = res.data
+  })
+  podman.storageConfig().then((res: any) => {
+    storageConfig.value = res.data
   })
 }
 
-const handleSaveConfig = async () => {
-  await gitea.saveConfig(config.value)
+const handleSaveRegistryConfig = async () => {
+  await podman.saveRegistryConfig(registryConfig.value)
+  window.$message.success('保存成功')
+}
+
+const handleSaveStorageConfig = async () => {
+  await podman.saveStorageConfig(storageConfig.value)
   window.$message.success('保存成功')
 }
 
 const handleStart = async () => {
-  await gitea.start()
+  await podman.start()
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await gitea.stop()
+  await podman.stop()
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await gitea.restart()
+  await podman.restart()
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleIsEnabled = async () => {
   if (isEnabled.value) {
-    await gitea.enable()
+    await podman.enable()
     window.$message.success('开启自启动成功')
   } else {
-    await gitea.disable()
+    await podman.disable()
     window.$message.success('禁用自启动成功')
   }
   await getIsEnabled()
@@ -75,10 +84,19 @@ onMounted(() => {
   <CommonPage show-footer show-header>
     <template #action>
       <n-button
-        v-if="currentTab == 'config'"
+        v-if="currentTab == 'registryConfig'"
         class="ml-16"
         type="primary"
-        @click="handleSaveConfig"
+        @click="handleSaveRegistryConfig"
+      >
+        <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
+        保存
+      </n-button>
+      <n-button
+        v-if="currentTab == 'storageConfig'"
+        class="ml-16"
+        type="primary"
+        @click="handleSaveStorageConfig"
       >
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
         保存
@@ -113,7 +131,7 @@ onMounted(() => {
                     停止
                   </n-button>
                 </template>
-                确定要停止 Gitea 吗？
+                确定要停止 Podman 吗？
               </n-popconfirm>
               <n-button type="warning" @click="handleRestart">
                 <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
@@ -123,13 +141,32 @@ onMounted(() => {
           </n-space>
         </n-card>
       </n-tab-pane>
-      <n-tab-pane name="config" tab="修改配置">
+      <n-tab-pane name="registryConfig" tab="注册表配置">
         <n-space vertical>
           <n-alert type="warning">
-            此处修改的是 Gitea 配置文件，如果你不了解各参数的含义，请不要随意修改！
+            此处修改的是 Podman 注册表配置文件（/etc/containers/registries.conf）
           </n-alert>
           <Editor
-            v-model:value="config"
+            v-model:value="registryConfig"
+            language="ini"
+            theme="vs-dark"
+            height="60vh"
+            mt-8
+            :options="{
+              automaticLayout: true,
+              formatOnType: true,
+              formatOnPaste: true
+            }"
+          />
+        </n-space>
+      </n-tab-pane>
+      <n-tab-pane name="storageConfig" tab="存储配置">
+        <n-space vertical>
+          <n-alert type="warning">
+            此处修改的是 Podman 存储配置文件（/etc/containers/storage.conf）
+          </n-alert>
+          <Editor
+            v-model:value="storageConfig"
             language="ini"
             theme="vs-dark"
             height="60vh"
