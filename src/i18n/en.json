@@ -111,7 +111,7 @@
       "success": "Panel update successful",
       "info": "The panel is already the latest version"
     },
-    "buttons": {
+    "button": {
       "update": "Update"
     },
     "confirm": {
