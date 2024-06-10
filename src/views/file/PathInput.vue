@@ -7,7 +7,7 @@ import { checkPath } from '@/utils/file'
 const path = defineModel<string>('path', { type: String, required: true })
 const isInput = ref(false)
 const pathInput = ref<InputInst | null>(null)
-const input = ref(path.value.slice(1))
+const input = ref('www')
 
 const history: string[] = []
 let current = -1
@@ -85,6 +85,14 @@ const handlePushHistory = (path: string) => {
 const handleSearch = () => {
   window.$message.info('搜索功能暂未实现')
 }
+
+watch(
+  path,
+  (value) => {
+    input.value = value.slice(1)
+  },
+  { immediate: true }
+)
 
 onMounted(() => {
   EventBus.on('push-history', handlePushHistory)
