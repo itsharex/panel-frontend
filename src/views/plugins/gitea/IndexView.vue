@@ -72,7 +72,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button
         v-if="currentTab == 'config'"
@@ -143,5 +143,5 @@ onMounted(() => {
         </n-space>
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
 </template>

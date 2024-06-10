@@ -198,7 +198,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button v-if="currentTab == 'status'" class="ml-16" type="primary" @click="handleSavePort">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
@@ -272,7 +272,7 @@ onMounted(() => {
         </n-card>
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
   <n-modal v-model:show="addUserModal" title="新建用户">
     <n-card closable @close="() => (addUserModal = false)" title="新建用户" style="width: 60vw">
       <n-form :model="addUserModel">

@@ -215,7 +215,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical>
       <n-card flex-1 rounded-10>
         <n-form inline>
@@ -288,7 +288,7 @@ onMounted(() => {
         @update:page-size="onPageSizeChange"
       />
     </n-space>
-  </CommonPage>
+  </common-page>
 </template>
 
 <style scoped lang="scss"></style>

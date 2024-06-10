@@ -342,7 +342,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button
         v-if="currentTab == 'config'"
@@ -459,7 +459,7 @@ onUnmounted(() => {
         />
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
   <n-modal
     v-model:show="addProcessModal"
     preset="card"

@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <div>
         <n-button v-if="versions" class="ml-16" type="primary" @click="handleUpdate">
@@ -77,5 +77,5 @@ onMounted(() => {
     <div v-else pt-40>
       <n-result status="418" title="Loading..." :description="$t('homeUpdate.loading')"> </n-result>
     </div>
-  </CommonPage>
+  </common-page>
 </template>

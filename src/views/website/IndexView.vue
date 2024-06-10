@@ -479,7 +479,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical size="large">
       <n-card rounded-10>
         <n-space>
@@ -511,7 +511,7 @@ onMounted(() => {
         @update:page-size="onPageSizeChange"
       />
     </n-space>
-  </CommonPage>
+  </common-page>
   <n-modal
     v-model:show="addModal"
     :title="$t('websiteIndex.create.title')"

@@ -30,7 +30,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button class="ml-16" type="primary" @click="handleSave">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
@@ -48,5 +48,5 @@ onMounted(() => {
         修改 phpMyAdmin 访问端口
       </n-card>
     </n-space>
-  </CommonPage>
+  </common-page>
 </template>

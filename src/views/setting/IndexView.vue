@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical>
       <n-alert type="info">
         {{ $t('settingIndex.info') }}
@@ -116,7 +116,7 @@ onMounted(() => {
     <n-button type="primary" @click="handleSave">
       {{ $t('settingIndex.edit.actions.submit') }}
     </n-button>
-  </CommonPage>
+  </common-page>
 </template>
 
 <style scoped lang="scss"></style>

@@ -7,7 +7,7 @@ const currentTab = ref('cert')
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-tabs v-model:value="currentTab" type="line" animated>
       <n-tab-pane name="cert" tab="证书列表">
         <CertView />
@@ -19,5 +19,5 @@ const currentTab = ref('cert')
         <DNSView />
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
 </template>

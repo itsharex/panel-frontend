@@ -267,7 +267,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical>
       <n-card flex-1 rounded-10 title="添加计划任务">
         <n-space vertical>
@@ -364,7 +364,7 @@ onMounted(() => {
         />
       </n-card>
     </n-space>
-  </CommonPage>
+  </common-page>
   <n-modal
     v-model:show="cronSelectModal"
     preset="card"

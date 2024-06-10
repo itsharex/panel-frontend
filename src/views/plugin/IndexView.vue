@@ -230,7 +230,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical>
       <n-alert type="info">{{ $t('pluginIndex.alerts.info') }}</n-alert>
       <n-alert type="warning">{{ $t('pluginIndex.alerts.warning') }}</n-alert>
@@ -247,5 +247,5 @@ onMounted(() => {
         @update:page-size="onPageSizeChange"
       />
     </n-space>
-  </CommonPage>
+  </common-page>
 </template>

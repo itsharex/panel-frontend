@@ -555,7 +555,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-space v-if="currentTab == 'manage'">
         <n-button class="ml-16" type="info" @click="addUserModal = true">
@@ -725,7 +725,7 @@ onMounted(() => {
         />
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
   <n-modal v-model:show="addDatabaseModal" title="新建数据库">
     <n-card
       closable

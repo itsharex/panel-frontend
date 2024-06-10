@@ -89,7 +89,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-tabs v-model:value="currentTab" type="line" animated>
       <n-tab-pane name="frps" tab="Frps">
         <n-space vertical>
@@ -220,5 +220,5 @@ onMounted(() => {
         </n-space>
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
 </template>

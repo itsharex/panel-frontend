@@ -78,7 +78,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button v-if="currentTab == 'dns'" class="ml-16" type="primary" @click="handleSaveDNS">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />
@@ -169,5 +169,5 @@ onMounted(() => {
         </n-form>
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
 </template>

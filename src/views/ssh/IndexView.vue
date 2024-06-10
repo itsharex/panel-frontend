@@ -116,7 +116,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-space vertical>
       <n-form inline>
         <n-form-item :label="$t('sshIndex.save.fields.host.label')">
@@ -162,5 +162,5 @@ onMounted(() => {
         style="width: 100%; height: 70vh; background-color: #000000; margin-top: 20px"
       ></div>
     </n-space>
-  </CommonPage>
+  </common-page>
 </template>

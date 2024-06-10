@@ -8,7 +8,7 @@ const currentTab = ref('container')
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-tabs v-model:value="currentTab" type="line" animated size="large">
       <n-tab-pane name="container" tab="容器">
         <ContainerView />
@@ -23,5 +23,5 @@ const currentTab = ref('container')
         <VolumeView />
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
 </template>

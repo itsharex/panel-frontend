@@ -280,7 +280,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button
         v-if="currentTab == 'status'"
@@ -367,7 +367,7 @@ onMounted(() => {
         </n-card>
       </n-tab-pane>
     </n-tabs>
-  </CommonPage>
+  </common-page>
   <n-modal v-model:show="addJailModal" title="添加规则">
     <n-card closable @close="() => (addJailModal = false)" title="添加规则" style="width: 60vw">
       <n-space vertical>

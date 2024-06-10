@@ -112,7 +112,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <template #action>
       <n-button class="ml-16" type="primary" @click="addMountModal = true">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
@@ -131,7 +131,7 @@ onMounted(() => {
         @update:page-size="onPageSizeChange"
       />
     </n-card>
-  </CommonPage>
+  </common-page>
   <n-modal v-model:show="addMountModal" title="添加挂载">
     <n-card closable @close="() => (addMountModal = false)" title="添加挂载" style="width: 60vw">
       <n-form :model="addMountModel">

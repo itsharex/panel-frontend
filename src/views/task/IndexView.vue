@@ -195,7 +195,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer>
+  <common-page show-footer show-header>
     <n-data-table
       striped
       remote
@@ -208,7 +208,7 @@ onUnmounted(() => {
       @update:page="onPageChange"
       @update:page-size="onPageSizeChange"
     />
-  </CommonPage>
+  </common-page>
   <n-modal
     v-model:show="taskLogModal"
     preset="card"
