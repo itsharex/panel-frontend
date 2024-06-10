@@ -198,7 +198,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer show-header>
+  <CommonPage show-footer>
     <template #action>
       <n-button v-if="currentTab == 'status'" class="ml-16" type="primary" @click="handleSavePort">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />

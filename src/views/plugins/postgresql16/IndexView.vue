@@ -502,7 +502,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer show-header>
+  <CommonPage show-footer>
     <template #action>
       <n-space v-if="currentTab == 'manage'">
         <n-button class="ml-16" type="info" @click="addUserModal = true">

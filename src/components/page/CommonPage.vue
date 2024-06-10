@@ -1,4 +1,8 @@
 <script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 interface Props {
   showFooter?: boolean
   showHeader?: boolean
@@ -22,7 +26,7 @@ const route = useRoute()
         <div flex items-center>
           <slot v-if="$slots['title-prefix']" name="title-prefix" />
           <div mr-12 h-16 w-4 rounded-l-2 bg-primary></div>
-          <h2 font-normal>{{ title ?? route.meta?.title }}</h2>
+          <h2 font-normal>{{ t(title || String(route.meta.title)) }}</h2>
           <slot name="title-suffix" />
         </div>
         <slot name="action" />

@@ -342,7 +342,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <CommonPage show-footer show-header>
+  <CommonPage show-footer>
     <template #action>
       <n-button
         v-if="currentTab == 'config'"
