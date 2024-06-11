@@ -215,7 +215,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <template #action>
       <n-button
         v-if="currentTab == 'config'"

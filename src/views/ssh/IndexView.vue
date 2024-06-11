@@ -116,7 +116,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-space vertical>
       <n-form inline>
         <n-form-item :label="$t('sshIndex.save.fields.host.label')">

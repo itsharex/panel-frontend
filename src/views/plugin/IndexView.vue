@@ -230,7 +230,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-space vertical>
       <n-alert type="info">{{ $t('pluginIndex.alerts.info') }}</n-alert>
       <n-alert type="warning">{{ $t('pluginIndex.alerts.warning') }}</n-alert>

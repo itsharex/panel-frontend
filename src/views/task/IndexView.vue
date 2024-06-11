@@ -195,7 +195,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-data-table
       striped
       remote

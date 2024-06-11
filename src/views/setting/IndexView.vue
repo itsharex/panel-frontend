@@ -51,7 +51,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-space vertical>
       <n-alert type="info">
         {{ $t('settingIndex.info') }}

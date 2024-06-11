@@ -267,7 +267,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-space vertical>
       <n-card flex-1 rounded-10 title="添加计划任务">
         <n-space vertical>

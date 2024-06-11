@@ -15,7 +15,7 @@ const permission = ref(false)
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-flex vertical :size="20">
       <path-input v-model:path="path" />
       <tool-bar

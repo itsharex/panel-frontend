@@ -112,7 +112,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <template #action>
       <n-button class="ml-16" type="primary" @click="addMountModal = true">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />

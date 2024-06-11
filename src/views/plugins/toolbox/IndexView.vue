@@ -78,7 +78,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <template #action>
       <n-button v-if="currentTab == 'dns'" class="ml-16" type="primary" @click="handleSaveDNS">
         <TheIcon :size="18" class="mr-5" icon="material-symbols:save-outline" />

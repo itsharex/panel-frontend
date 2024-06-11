@@ -50,7 +50,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <template #action>
       <div>
         <n-button v-if="versions" class="ml-16" type="primary" @click="handleUpdate">

@@ -474,7 +474,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-card :segmented="true" size="small" flex items-center rounded-10>
       <n-form
         inline

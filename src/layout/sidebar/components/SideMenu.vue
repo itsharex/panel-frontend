@@ -41,7 +41,7 @@ type MenuItem = MenuOption & {
 
 function getMenuItem(route: RouteType, basePath = ''): MenuItem {
   let menuItem: MenuItem = {
-    label: (route.meta && route.meta.title) || route.name,
+    label: t(route.meta?.title || route.name),
     key: route.name,
     path: resolvePath(basePath, route.path),
     icon: getIcon(route.meta),

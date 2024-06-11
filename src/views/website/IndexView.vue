@@ -479,7 +479,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <common-page show-footer show-header>
+  <common-page show-footer>
     <n-space vertical size="large">
       <n-card rounded-10>
         <n-space>
