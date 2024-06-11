@@ -1,5 +1,5 @@
 {
-  "name": "HaoZi Linux Panel",
+  "name": "Rat Panel",
   "certIndex": {
     "title": "Certificates"
   },
@@ -225,7 +225,7 @@
       "fields": {
         "name": {
           "label": "Panel name",
-          "placeholder": "HaoZi Linux Panel"
+          "placeholder": "Rat Panel"
         },
         "language": {
           "label": "Language",

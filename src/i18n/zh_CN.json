@@ -1,5 +1,5 @@
 {
-  "name": "耗子 Linux 面板",
+  "name": "耗子面板",
   "certIndex": {
     "title": "TLS 证书"
   },
@@ -225,7 +225,7 @@
       "fields": {
         "name": {
           "label": "面板名称",
-          "placeholder": "耗子 Linux 面板"
+          "placeholder": "耗子面板"
         },
         "language": {
           "label": "语言",
