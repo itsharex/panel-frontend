@@ -65,7 +65,11 @@ const columns: any = [
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any): any {
-      return row.ipam.config.map((tag: any) => h(NTag, tag.subnet))
+      return row.ipam.config.map((tag: any) =>
+        h(NTag, null, {
+          default: () => tag.subnet
+        })
+      )
     }
   },
   {
@@ -75,7 +79,11 @@ const columns: any = [
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any): any {
-      return row.ipam.config.map((tag: any) => h(NTag, tag.gateway))
+      return row.ipam.config.map((tag: any) =>
+        h(NTag, null, {
+          default: () => tag.gateway
+        })
+      )
     }
   },
   {

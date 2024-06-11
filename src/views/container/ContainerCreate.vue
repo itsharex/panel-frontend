@@ -21,7 +21,7 @@ const createModel = reactive({
       protocol: 'tcp'
     }
   ],
-  network: 'bridge',
+  network: '',
   volumes: [
     {
       host: '/www',
@@ -87,6 +87,9 @@ const getNetworks = async () => {
       value: item.id
     }
   })
+  if (networks.value.length > 0) {
+    createModel.network = networks.value[0].value
+  }
 }
 
 const handleSubmit = () => {
@@ -138,14 +141,14 @@ onMounted(() => {
         <n-radio
           :checked="!createModel.publish_all_ports"
           :value="false"
-          @update:value="createModel.publish_all_ports = !$event.target.value"
+          @change="createModel.publish_all_ports = !$event.target.value"
         >
           映射端口
         </n-radio>
         <n-radio
           :checked="createModel.publish_all_ports"
           :value="true"
-          @update:value="createModel.publish_all_ports = $event.target.value"
+          @change="createModel.publish_all_ports = !!$event.target.value"
         >
           暴露所有
         </n-radio>
@@ -207,7 +210,7 @@ onMounted(() => {
                     :checked="item.protocol === 'tcp'"
                     value="tcp"
                     name="protocol"
-                    @update:value="item.protocol = $event.target.value"
+                    @change="item.protocol = $event.target.value"
                   >
                     TCP
                   </n-radio>
@@ -215,7 +218,7 @@ onMounted(() => {
                     :checked="item.protocol === 'udp'"
                     value="udp"
                     name="protocol"
-                    @update:value="item.protocol = $event.target.value"
+                    @change="item.protocol = $event.target.value"
                   >
                     UDP
                   </n-radio>
@@ -254,7 +257,7 @@ onMounted(() => {
                     :checked="item.mode === 'rw'"
                     value="rw"
                     name="mode"
-                    @update:value="item.mode = $event.target.value"
+                    @change="item.mode = $event.target.value"
                   >
                     读写
                   </n-radio>
@@ -262,7 +265,7 @@ onMounted(() => {
                     :checked="item.mode === 'ro'"
                     value="ro"
                     name="mode"
-                    @update:value="item.mode = $event.target.value"
+                    @change="item.mode = $event.target.value"
                   >
                     只读
                   </n-radio>

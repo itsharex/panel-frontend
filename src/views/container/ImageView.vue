@@ -36,7 +36,11 @@ const columns: any = [
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any): any {
-      return row.repo_tags.map((tag: any) => h(NTag, tag))
+      return row.repo_tags.map((tag: any) =>
+        h(NTag, null, {
+          default: () => tag
+        })
+      )
     }
   },
   {
