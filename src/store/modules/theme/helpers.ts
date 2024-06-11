@@ -23,7 +23,7 @@ export function initThemeSettings(): Theme.Setting {
   }
   const header = themeSetting.header || { visible: true, height: 60 }
   const tab = themeSetting.tab || { visible: true, height: 50 }
-  const primaryColor = themeSetting.primaryColor || '#316C72'
+  const primaryColor = themeSetting.primaryColor || '#66CCFF'
   const otherColor = themeSetting.otherColor || {
     info: '#0099ad',
     success: '#52c41a',
