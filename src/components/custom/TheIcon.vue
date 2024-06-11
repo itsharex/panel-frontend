@@ -3,16 +3,13 @@ import { renderIcon } from '@/utils'
 
 const props = withDefaults(defineProps<Props>(), {
   size: 14,
-  color: undefined,
-  type: 'iconify'
+  color: undefined
 })
 
 interface Props {
   icon: string
   size?: number
   color?: string
-  /** iconify | custom */
-  type?: string
 }
 </script>
 
