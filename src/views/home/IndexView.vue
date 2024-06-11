@@ -132,7 +132,7 @@ const toSponsor = () => {
 }
 
 const toGit = () => {
-  window.open('https://git.haozi.net/opensource/panel')
+  window.open('https://github.com/TheTNB/panel')
 }
 
 const handleManagePlugin = (slug: string) => {

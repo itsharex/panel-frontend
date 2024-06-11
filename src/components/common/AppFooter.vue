@@ -1,22 +1,44 @@
 <template>
   <footer color="#6a6a6a" f-c-c flex-col text-14>
     <p>
-      Copyright © 2022 - {{ year }}
+      © 2022 - {{ year }}
       <a
-        hover="decoration-underline color-primary"
-        href="https://git.haozi.net/opensource/panel"
+        hover="decoration-primary color-primary"
         target="__blank"
+        href="https://github.com/TheTNB/panel"
       >
-        耗子 Linux 面板
+        耗子面板
       </a>
       All Rights Reserved.
     </p>
     <p>
-      <a target="_blank" href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH">Q群 12370907</a>
-      /
-      <a target="_blank" href="https://github.com/TheTNB/panel/issues">Bug 反馈</a>
-      /
-      <a target="_blank" href="https://afdian.net/a/TheTNB">赞助支持</a>
+      <a
+        hover="decoration-primary color-primary"
+        target="_blank"
+        href="https://jq.qq.com/?_wv=1027&k=I1oJKSTH"
+      >
+        Q群 12370907
+      </a>
+      <n-divider vertical />
+      <a hover="decoration-primary color-primary" target="_blank" href="https://tom.moe/docs">
+        使用文档
+      </a>
+      <n-divider vertical />
+      <a
+        hover="decoration-primary color-primary"
+        target="_blank"
+        href="https://tom.moe/c/technical/panel"
+      >
+        交流社区
+      </a>
+      <n-divider vertical />
+      <a
+        hover="decoration-primary color-primary"
+        target="_blank"
+        href="https://afdian.net/a/TheTNB"
+      >
+        赞助支持
+      </a>
     </p>
   </footer>
 </template>

@@ -2,7 +2,7 @@
   "private": true,
   "type": "module",
   "repository": {
-    "url": "https://git.haozi.net/opensource/panel-frontend"
+    "url": "https://github.com/TheTNB/panel-frontend"
   },
   "license": "MIT",
   "author": {
