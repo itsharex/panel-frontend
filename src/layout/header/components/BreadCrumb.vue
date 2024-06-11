@@ -1,7 +1,9 @@
 <script lang="ts" setup>
 import { renderIcon } from '@/utils'
 import type { Meta } from '~/types/router'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
 
@@ -9,8 +11,8 @@ const generator: any = (routerMap: any) => {
   return routerMap.map((item: any) => {
     const currentMenu = {
       ...item,
-      label: item.meta.title,
-      key: item.name,
+      label: t(String(item.meta.title)),
+      key: item.path,
       disabled: item.path === '/',
       icon: getIcon(item.meta)
     }

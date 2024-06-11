@@ -95,14 +95,17 @@ async function handleContextMenu(e: MouseEvent, tabItem: TabItem) {
     background: transparent !important;
     border-radius: 4px !important;
     margin-right: 4px;
+
     &:hover {
       border: 1px solid var(--primary-color) !important;
     }
   }
+
   .n-tabs-tab--active {
     border: 1px solid var(--primary-color) !important;
     background-color: var(--selected-bg) !important;
   }
+
   .n-tabs-pad,
   .n-tabs-tab-pad,
   .n-tabs-scroll-padding {
