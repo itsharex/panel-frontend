@@ -16,8 +16,6 @@
   ],
   "ignoreDeps": [
     "eslint",
-    "unocss",
-    "@unocss/eslint-config"
   ],
   "packageRules": [
     {

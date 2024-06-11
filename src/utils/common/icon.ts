@@ -1,7 +1,6 @@
 import { h } from 'vue'
 import { Icon } from '@iconify/vue'
 import { NIcon } from 'naive-ui'
-import SvgIcon from '@/components/custom/SvgIcon.vue'
 
 interface Props {
   size?: number
@@ -11,8 +10,4 @@ interface Props {
 
 export function renderIcon(icon: string, props: Props = { size: 12 }) {
   return () => h(NIcon, props, { default: () => h(Icon, { icon }) })
-}
-
-export function renderCustomIcon(icon: string, props: Props = { size: 12 }) {
-  return () => h(NIcon, props, { default: () => h(SvgIcon, { icon }) })
 }

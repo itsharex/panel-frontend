@@ -2,7 +2,7 @@
 import type { MenuInst, MenuOption } from 'naive-ui'
 import type { Meta, RouteType } from '~/types/router'
 import { useAppStore, usePermissionStore, useThemeStore } from '@/store'
-import { isUrl, renderCustomIcon, renderIcon } from '@/utils'
+import { isUrl, renderIcon } from '@/utils'
 import type { VNodeChild } from 'vue'
 import { useI18n } from 'vue-i18n'
 
@@ -83,8 +83,6 @@ function getMenuItem(route: RouteType, basePath = ''): MenuItem {
 }
 
 function getIcon(meta?: Meta): (() => VNodeChild) | undefined {
-  if (meta?.customIcon)
-    return renderCustomIcon(meta.customIcon, { size: 14, class: `${meta.icon} text-14` })
   if (meta?.icon) return renderIcon(meta.icon, { size: 14, class: `${meta.icon} text-14` })
   return undefined
 }

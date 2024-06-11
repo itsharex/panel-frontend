@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { renderCustomIcon, renderIcon } from '@/utils'
+import { renderIcon } from '@/utils'
 import type { Meta } from '~/types/router'
 
 const router = useRouter()
@@ -32,7 +32,6 @@ function handleBreadClick(path: string) {
 }
 
 function getIcon(meta?: Meta, size = 16) {
-  if (meta?.customIcon) return renderCustomIcon(meta.customIcon, { size })
   if (meta?.icon) return renderIcon(meta.icon, { size })
   return ''
 }
