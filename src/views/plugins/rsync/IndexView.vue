@@ -4,6 +4,7 @@ import { generateRandomString, renderIcon } from '@/utils'
 import Editor from '@guolao/vue-monaco-editor'
 import type { Module } from '@/views/plugins/rsync/types'
 import rsync from '@/api/plugins/rsync'
+import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -132,7 +133,7 @@ const onPageSizeChange = (pageSize: number) => {
 }
 
 const getStatus = async () => {
-  await rsync.status().then((res: any) => {
+  await service.status('rsyncd').then((res: any) => {
     status.value = res.data
   })
 }
@@ -150,19 +151,19 @@ const handleSaveConfig = async () => {
 }
 
 const handleStart = async () => {
-  await rsync.start()
+  await service.start('rsyncd')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await rsync.stop()
+  await service.stop('rsyncd')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await rsync.restart()
+  await service.restart('rsyncd')
   window.$message.success('重启成功')
   await getStatus()
 }

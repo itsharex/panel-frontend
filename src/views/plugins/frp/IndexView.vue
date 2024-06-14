@@ -2,6 +2,7 @@
 import { NButton, NPopconfirm } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
 import frp from '@/api/plugins/frp'
+import service from '@/api/panel/system/service'
 
 const currentTab = ref('frps')
 const status = ref({
@@ -25,16 +26,20 @@ const statusStr = computed(() => {
 })
 
 const getStatus = async () => {
-  await frp.status().then((res: any) => {
-    status.value.frps = res.data.frps
-    status.value.frpc = res.data.frpc
+  await service.status('frps').then((res: any) => {
+    status.value.frps = res.data
+  })
+  await service.status('frpc').then((res: any) => {
+    status.value.frpc = res.data
   })
 }
 
 const getIsEnabled = async () => {
-  await frp.isEnabled().then((res: any) => {
-    isEnabled.value.frps = res.data.frps
-    isEnabled.value.frpc = res.data.frpc
+  await service.isEnabled('frps').then((res: any) => {
+    isEnabled.value.frps = res.data
+  })
+  await service.isEnabled('frpc').then((res: any) => {
+    isEnabled.value.frpc = res.data
   })
 }
 
@@ -52,30 +57,30 @@ const handleSaveConfig = async (service: string) => {
   window.$message.success('保存成功')
 }
 
-const handleStart = async (service: string) => {
-  await frp.start(service)
+const handleStart = async (name: string) => {
+  await service.start(name)
   window.$message.success('启动成功')
   await getStatus()
 }
 
-const handleStop = async (service: string) => {
-  await frp.stop(service)
+const handleStop = async (name: string) => {
+  await service.stop(name)
   window.$message.success('停止成功')
   await getStatus()
 }
 
-const handleRestart = async (service: string) => {
-  await frp.restart(service)
+const handleRestart = async (name: string) => {
+  await service.restart(name)
   window.$message.success('重启成功')
   await getStatus()
 }
 
-const handleIsEnabled = async (service: string) => {
-  if (isEnabled.value[service as keyof typeof isEnabled.value]) {
-    await frp.enable(service)
+const handleIsEnabled = async (name: string) => {
+  if (isEnabled.value[name as keyof typeof isEnabled.value]) {
+    await service.enable(name)
     window.$message.success('开启自启动成功')
   } else {
-    await frp.disable(service)
+    await service.disable(name)
     window.$message.success('禁用自启动成功')
   }
   await getIsEnabled()

@@ -6,8 +6,8 @@ export default {
   status: (service: string): Promise<AxiosResponse<any>> =>
     request.get('/panel/system/service/status', { params: { service } }),
   // 是否启用服务
-  isEnable: (service: string): Promise<AxiosResponse<any>> =>
-    request.get('/panel/system/service/isEnable', { params: { service } }),
+  isEnabled: (service: string): Promise<AxiosResponse<any>> =>
+    request.get('/panel/system/service/isEnabled', { params: { service } }),
   // 启用服务
   enable: (service: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/system/service/enable', { service }),

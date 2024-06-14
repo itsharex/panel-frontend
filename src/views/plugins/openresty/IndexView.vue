@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
 import openresty from '@/api/plugins/openresty'
+import service from '@/api/panel/system/service'
 import Editor from '@guolao/vue-monaco-editor'
 import { themeConfig, themeDarkConfig, tokenConf } from 'monaco-editor-nginx/cjs/conf'
 import suggestions from 'monaco-editor-nginx/cjs/suggestions'
@@ -32,7 +33,7 @@ const getLoad = async () => {
 }
 
 const getStatus = async () => {
-  openresty.status().then((res: any) => {
+  service.status('openrsty').then((res: any) => {
     status.value = res.data
   })
 }
@@ -61,25 +62,25 @@ const handleClearErrorLog = async () => {
 }
 
 const handleStart = async () => {
-  await openresty.start()
+  await service.start('openresty')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await openresty.stop()
+  await service.stop('openresty')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await openresty.restart()
+  await service.restart('openresty')
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleReload = async () => {
-  await openresty.reload()
+  await service.reload('openresty')
   window.$message.success('重载成功')
   await getStatus()
 }

@@ -2,6 +2,7 @@
 import { NButton, NPopconfirm } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
 import gitea from '@/api/plugins/gitea'
+import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -13,13 +14,13 @@ const statusStr = computed(() => {
 })
 
 const getStatus = async () => {
-  await gitea.status().then((res: any) => {
+  await service.status('gitea').then((res: any) => {
     status.value = res.data
   })
 }
 
 const getIsEnabled = async () => {
-  await gitea.isEnabled().then((res: any) => {
+  await service.isEnabled('gitea').then((res: any) => {
     isEnabled.value = res.data
   })
 }
@@ -36,29 +37,29 @@ const handleSaveConfig = async () => {
 }
 
 const handleStart = async () => {
-  await gitea.start()
+  await service.start('gitea')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await gitea.stop()
+  await service.stop('gitea')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await gitea.restart()
+  await service.restart('gitea')
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleIsEnabled = async () => {
   if (isEnabled.value) {
-    await gitea.enable()
+    await service.enable('gitea')
     window.$message.success('开启自启动成功')
   } else {
-    await gitea.disable()
+    await service.disable('gitea')
     window.$message.success('禁用自启动成功')
   }
   await getIsEnabled()
