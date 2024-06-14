@@ -2,16 +2,6 @@ import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
 
 export default {
-  // 运行状态
-  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/mysql84/status'),
-  // 重载
-  reload: (): Promise<AxiosResponse<any>> => request.post('/plugins/mysql84/reload'),
-  // 重启
-  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/mysql84/restart'),
-  // 启动
-  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/mysql84/start'),
-  // 停止
-  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/mysql84/stop'),
   // 负载状态
   load: (): Promise<AxiosResponse<any>> => request.get('/plugins/mysql84/load'),
   // 获取配置

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm, NSwitch } from 'naive-ui'
 import fail2ban from '@/api/plugins/fail2ban'
+import service from '@/api/panel/system/service'
 import { renderIcon } from '@/utils'
 import type { Jail } from '@/views/plugins/fail2ban/types'
 import website from '@/api/panel/website'
@@ -216,31 +217,31 @@ const onPageSizeChange = (pageSize: number) => {
 }
 
 const getStatus = async () => {
-  await fail2ban.status().then((res: any) => {
+  await service.status('fail2ban').then((res: any) => {
     status.value = res.data
   })
 }
 
 const handleStart = async () => {
-  await fail2ban.start()
+  await service.start('fail2ban')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await fail2ban.stop()
+  await service.stop('fail2ban')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await fail2ban.restart()
+  await service.restart('fail2ban')
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleReload = async () => {
-  await fail2ban.reload()
+  await service.reload('fail2ban')
   window.$message.success('重载成功')
   await getStatus()
 }

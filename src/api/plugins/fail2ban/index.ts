@@ -2,16 +2,6 @@ import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
 
 export default {
-  // 运行状态
-  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/fail2ban/status'),
-  // 重载
-  reload: (): Promise<AxiosResponse<any>> => request.post('/plugins/fail2ban/reload'),
-  // 重启
-  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/fail2ban/restart'),
-  // 启动
-  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/fail2ban/start'),
-  // 停止
-  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/fail2ban/stop'),
   // 保护列表
   jails: (page: number, limit: number): Promise<AxiosResponse<any>> =>
     request.get('/plugins/fail2ban/jails', { params: { page, limit } }),

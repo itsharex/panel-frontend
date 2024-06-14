@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
 import mysql80 from '@/api/plugins/mysql80'
+import service from '@/api/panel/system/service'
 import { generateRandomString, renderIcon } from '@/utils'
 import type { Backup, Database, User } from '@/views/plugins/mysql80/types'
 import type { UploadFileInfo, MessageReactive } from 'naive-ui'
@@ -357,7 +358,7 @@ const showChangePrivilegesModal = (user: string) => {
 }
 
 const getStatus = async () => {
-  await mysql80.status().then((res: any) => {
+  await service.status('mysqld').then((res: any) => {
     status.value = res.data
   })
 }
@@ -405,25 +406,25 @@ const handleClearSlowLog = async () => {
 }
 
 const handleStart = async () => {
-  await mysql80.start()
+  await service.start('mysqld')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await mysql80.stop()
+  await service.stop('mysqld')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await mysql80.restart()
+  await service.restart('mysqld')
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleReload = async () => {
-  await mysql80.reload()
+  await service.reload('mysqld')
   window.$message.success('重载成功')
   await getStatus()
 }

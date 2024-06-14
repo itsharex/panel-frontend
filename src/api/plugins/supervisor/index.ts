@@ -2,16 +2,8 @@ import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
 
 export default {
-  // 运行状态
-  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/supervisor/status'),
-  // 重载
-  reload: (): Promise<AxiosResponse<any>> => request.post('/plugins/supervisor/reload'),
-  // 重启
-  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/supervisor/restart'),
-  // 启动
-  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/supervisor/start'),
-  // 停止
-  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/supervisor/stop'),
+  // 服务名称
+  service: (): Promise<AxiosResponse<any>> => request.get('/plugins/supervisor/service'),
   // 负载状态
   load: (): Promise<AxiosResponse<any>> => request.get('/plugins/supervisor/load'),
   // 获取错误日志

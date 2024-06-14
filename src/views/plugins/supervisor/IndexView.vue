@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
 import supervisor from '@/api/plugins/supervisor'
+import service from '@/api/panel/system/service'
 import { renderIcon } from '@/utils'
 import type { Process } from '@/views/plugins/supervisor/types'
 import Editor from '@guolao/vue-monaco-editor'
 
 const currentTab = ref('status')
+const serviceName = ref('supervisor')
 const status = ref(false)
 const config = ref('')
 const log = ref('')
@@ -213,7 +215,7 @@ const onPageSizeChange = (pageSize: number) => {
 }
 
 const getStatus = async () => {
-  await supervisor.status().then((res: any) => {
+  await service.status(serviceName.value).then((res: any) => {
     status.value = res.data
   })
 }
@@ -242,28 +244,28 @@ const handleClearLog = async () => {
 }
 
 const handleStart = async () => {
-  await supervisor.start()
+  await service.start(serviceName.value)
   window.$message.success('启动成功')
   await getStatus()
   await getLog()
 }
 
 const handleStop = async () => {
-  await supervisor.stop()
+  await service.stop(serviceName.value)
   window.$message.success('停止成功')
   await getStatus()
   await getLog()
 }
 
 const handleRestart = async () => {
-  await supervisor.restart()
+  await service.restart(serviceName.value)
   window.$message.success('重启成功')
   await getStatus()
   await getLog()
 }
 
 const handleReload = async () => {
-  await supervisor.reload()
+  await service.reload(serviceName.value)
   window.$message.success('重载成功')
   await getStatus()
   await getLog()
@@ -327,13 +329,9 @@ onMounted(() => {
   getStatus()
   onPageChange(1)
   getConfig()
-  timer = setInterval(() => {
-    getProcesses(pagination.page, pagination.pageSize).then((res) => {
-      processes.value = res.items
-      pagination.itemCount = res.total
-      pagination.pageCount = res.total / pagination.pageSize + 1
-    })
-  }, 5000)
+  supervisor.service().then((res: any) => {
+    serviceName.value = res.data
+  })
 })
 
 onUnmounted(() => {
