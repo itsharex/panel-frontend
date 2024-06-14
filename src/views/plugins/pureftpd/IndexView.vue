@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
-import pureftpd from '@/api/plugins/pureftpd'
 import { generateRandomString, renderIcon } from '@/utils'
 import type { User } from '@/views/plugins/pureftpd/types'
+import pureftpd from '@/api/plugins/pureftpd'
+import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -107,7 +108,7 @@ const userColumns: any = [
 const users = ref<User[]>([] as User[])
 
 const getStatus = async () => {
-  await pureftpd.status().then((res: any) => {
+  await service.status('pure-ftpd').then((res: any) => {
     status.value = res.data
   })
 }
@@ -124,19 +125,19 @@ const handleSavePort = async () => {
 }
 
 const handleStart = async () => {
-  await pureftpd.start()
+  await service.start('pure-ftpd')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await pureftpd.stop()
+  await service.stop('pure-ftpd')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await pureftpd.restart()
+  await service.restart('pure-ftpd')
   window.$message.success('重启成功')
   await getStatus()
 }

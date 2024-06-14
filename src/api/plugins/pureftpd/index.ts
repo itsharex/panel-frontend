@@ -2,14 +2,6 @@ import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
 
 export default {
-  // 运行状态
-  status: (): Promise<AxiosResponse<any>> => request.get('/plugins/pureftpd/status'),
-  // 重启
-  restart: (): Promise<AxiosResponse<any>> => request.post('/plugins/pureftpd/restart'),
-  // 启动
-  start: (): Promise<AxiosResponse<any>> => request.post('/plugins/pureftpd/start'),
-  // 停止
-  stop: (): Promise<AxiosResponse<any>> => request.post('/plugins/pureftpd/stop'),
   // 列表
   list: (page: number, limit: number): Promise<AxiosResponse<any>> =>
     request.get('/plugins/pureftpd/list', { params: { page, limit } }),

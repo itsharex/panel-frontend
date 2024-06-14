@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
-import redis from '@/api/plugins/redis'
 import Editor from '@guolao/vue-monaco-editor'
+import redis from '@/api/plugins/redis'
+import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
@@ -27,7 +28,7 @@ const getLoad = async () => {
 }
 
 const getStatus = async () => {
-  await redis.status().then((res: any) => {
+  await service.status('redis').then((res: any) => {
     status.value = res.data
   })
 }
@@ -44,19 +45,19 @@ const handleSaveConfig = async () => {
 }
 
 const handleStart = async () => {
-  await redis.start()
+  await service.start('redis')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await redis.stop()
+  await service.stop('redis')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await redis.restart()
+  await service.restart('redis')
   window.$message.success('重启成功')
   await getStatus()
 }
