@@ -105,42 +105,51 @@ onMounted(() => {
     </template>
     <n-tabs v-model:value="currentTab" type="line" animated>
       <n-tab-pane name="status" tab="运行状态">
-        <n-card title="运行状态" rounded-10>
-          <template #header-extra>
-            <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
-              <template #checked> 自启动开 </template>
-              <template #unchecked> 自启动关 </template>
-            </n-switch>
-          </template>
-          <n-space vertical>
-            <n-alert :type="status ? 'success' : 'error'">
-              {{ statusStr }}
-            </n-alert>
-            <n-space>
-              <n-button type="success" @click="handleStart">
-                <TheIcon
-                  :size="24"
-                  class="mr-5"
-                  icon="material-symbols:play-arrow-outline-rounded"
-                />
-                启动
-              </n-button>
-              <n-popconfirm @positive-click="handleStop">
-                <template #trigger>
-                  <n-button type="error">
-                    <TheIcon :size="24" class="mr-5" icon="material-symbols:stop-outline-rounded" />
-                    停止
-                  </n-button>
-                </template>
-                确定要停止 Podman 吗？
-              </n-popconfirm>
-              <n-button type="warning" @click="handleRestart">
-                <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
-                重启
-              </n-button>
+        <n-flex vertical>
+          <n-alert type="info">
+            Podman 是一个无守护进程的容器管理工具，处于停止状态为正常现象且不会影响使用！
+          </n-alert>
+          <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
+            <n-space vertical>
+              <n-alert :type="status ? 'success' : 'error'">
+                {{ statusStr }}
+              </n-alert>
+              <n-space>
+                <n-button type="success" @click="handleStart">
+                  <TheIcon
+                    :size="24"
+                    class="mr-5"
+                    icon="material-symbols:play-arrow-outline-rounded"
+                  />
+                  启动
+                </n-button>
+                <n-popconfirm @positive-click="handleStop">
+                  <template #trigger>
+                    <n-button type="error">
+                      <TheIcon
+                        :size="24"
+                        class="mr-5"
+                        icon="material-symbols:stop-outline-rounded"
+                      />
+                      停止
+                    </n-button>
+                  </template>
+                  确定要停止 Podman 吗？
+                </n-popconfirm>
+                <n-button type="warning" @click="handleRestart">
+                  <TheIcon :size="18" class="mr-5" icon="material-symbols:replay-rounded" />
+                  重启
+                </n-button>
+              </n-space>
             </n-space>
-          </n-space>
-        </n-card>
+          </n-card>
+        </n-flex>
       </n-tab-pane>
       <n-tab-pane name="registryConfig" tab="注册表配置">
         <n-space vertical>
