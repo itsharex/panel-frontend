@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { NButton, NDataTable, NInput, NPopconfirm, NTag } from 'naive-ui'
+import { NButton, NDataTable, NFlex, NInput, NPopconfirm, NTag } from 'naive-ui'
 import type { NetworkList } from '@/views/container/types'
 import container from '@/api/panel/container'
 
@@ -65,11 +65,14 @@ const columns: any = [
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any): any {
-      return row.ipam.config.map((tag: any) =>
-        h(NTag, null, {
-          default: () => tag.subnet
-        })
-      )
+      return h(NFlex, null, {
+        default: () =>
+          row.ipam.config.map((tag: any) =>
+            h(NTag, null, {
+              default: () => tag.subnet
+            })
+          )
+      })
     }
   },
   {
@@ -79,11 +82,14 @@ const columns: any = [
     resizable: true,
     ellipsis: { tooltip: true },
     render(row: any): any {
-      return row.ipam.config.map((tag: any) =>
-        h(NTag, null, {
-          default: () => tag.gateway
-        })
-      )
+      return h(NFlex, null, {
+        default: () =>
+          row.ipam.config.map((tag: any) =>
+            h(NTag, null, {
+              default: () => tag.gateway
+            })
+          )
+      })
     }
   },
   {
