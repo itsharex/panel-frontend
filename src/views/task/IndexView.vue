@@ -196,18 +196,21 @@ onUnmounted(() => {
 
 <template>
   <common-page show-footer>
-    <n-data-table
-      striped
-      remote
-      :loading="false"
-      :columns="columns"
-      :data="tasks"
-      :row-key="(row: any) => row.id"
-      :pagination="pagination"
-      @update:checked-row-keys="onChecked"
-      @update:page="onPageChange"
-      @update:page-size="onPageSizeChange"
-    />
+    <n-flex vertical>
+      <n-alert type="info">若日志无法加载，请关闭广告拦截插件！</n-alert>
+      <n-data-table
+        striped
+        remote
+        :loading="false"
+        :columns="columns"
+        :data="tasks"
+        :row-key="(row: any) => row.id"
+        :pagination="pagination"
+        @update:checked-row-keys="onChecked"
+        @update:page="onPageChange"
+        @update:page-size="onPageSizeChange"
+      />
+    </n-flex>
   </common-page>
   <n-modal
     v-model:show="taskLogModal"
