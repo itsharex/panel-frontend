@@ -11,7 +11,7 @@ export default {
     {
       name: 'plugins-mysql57-index',
       path: '',
-      component: () => import('./IndexView.vue'),
+      component: () => import('../mysql/IndexView.vue'),
       meta: {
         title: 'MySQL 5.7',
         icon: 'mdi:database',

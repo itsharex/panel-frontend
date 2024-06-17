@@ -11,7 +11,7 @@ export default {
     {
       name: 'plugins-mysql84-index',
       path: '',
-      component: () => import('./IndexView.vue'),
+      component: () => import('../mysql/IndexView.vue'),
       meta: {
         title: 'MySQL 8.4',
         icon: 'mdi:database',
