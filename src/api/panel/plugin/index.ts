@@ -16,5 +16,8 @@ export default {
     request.post('/panel/plugin/update', { slug }),
   // 设置首页显示
   updateShow: (slug: string, show: boolean): Promise<AxiosResponse<any>> =>
-    request.post('/panel/plugin/updateShow', { slug, show })
+    request.post('/panel/plugin/updateShow', { slug, show }),
+  // 插件是否已安装
+  isInstalled: (slug: string): Promise<AxiosResponse<any>> =>
+    request.get('/panel/plugin/isInstalled', { params: { slug } })
 }
