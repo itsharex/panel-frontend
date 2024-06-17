@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { NButton, NDataTable, NPopconfirm } from 'naive-ui'
-import php80 from '@/api/plugins/php80'
+import php from '@/api/plugins/php'
+import service from '@/api/panel/system/service'
 import { renderIcon } from '@/utils'
 import Editor from '@guolao/vue-monaco-editor'
 
+const route = useRoute()
 const currentTab = ref('status')
-const version = ref('8.0')
+const version = Number(route.meta.php)
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 const fpmConfig = ref('')
 const errorLog = ref('')
@@ -93,111 +96,129 @@ const extensions = ref<any[]>([])
 const load = ref<any[]>([])
 
 const getLoad = async () => {
-  const { data } = await php80.load()
+  const { data } = await php.load(version)
   return data
 }
 
 const getExtensions = async () => {
-  const { data } = await php80.extensions()
+  const { data } = await php.extensions(version)
   return data
 }
 
 const getStatus = async () => {
-  await php80.status().then((res: any) => {
+  await service.status(`php-fpm-${version}`).then((res: any) => {
     status.value = res.data
   })
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled(`php-fpm-${version}`).then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getErrorLog = async () => {
-  php80.errorLog().then((res: any) => {
+  php.errorLog(version).then((res: any) => {
     errorLog.value = res.data
   })
 }
 
 const getSlowLog = async () => {
-  php80.slowLog().then((res: any) => {
+  php.slowLog(version).then((res: any) => {
     slowLog.value = res.data
   })
 }
 
 const getConfig = async () => {
-  php80.config().then((res: any) => {
+  php.config(version).then((res: any) => {
     config.value = res.data
   })
 }
 
 const getFPMConfig = async () => {
-  php80.fpmConfig().then((res: any) => {
+  php.fpmConfig(version).then((res: any) => {
     fpmConfig.value = res.data
   })
 }
 
 const handleSaveConfig = async () => {
-  await php80.saveConfig(config.value)
+  await php.saveConfig(version, config.value)
   window.$message.success('保存成功')
   await getErrorLog()
 }
 
 const handleSaveFPMConfig = async () => {
-  await php80.saveFPMConfig(fpmConfig.value)
+  await php.saveFPMConfig(version, fpmConfig.value)
   window.$message.success('保存成功')
   await getFPMConfig()
 }
 
 const handleClearErrorLog = async () => {
-  await php80.clearErrorLog()
+  await php.clearErrorLog(version)
   await getErrorLog()
   window.$message.success('清空成功')
 }
 
 const handleClearSlowLog = async () => {
-  await php80.clearSlowLog()
+  await php.clearSlowLog(version)
   await getSlowLog()
   window.$message.success('清空成功')
 }
 
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable(`php-fpm-${version}`)
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable(`php-fpm-${version}`)
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
+}
+
 const handleStart = async () => {
-  await php80.start()
+  await service.start(`php-fpm-${version}`)
   window.$message.success('启动成功')
   await getStatus()
   await getErrorLog()
 }
 
 const handleStop = async () => {
-  await php80.stop()
+  await service.stop(`php-fpm-${version}`)
   window.$message.success('停止成功')
   await getStatus()
   await getErrorLog()
 }
 
 const handleRestart = async () => {
-  await php80.restart()
+  await service.restart(`php-fpm-${version}`)
   window.$message.success('重启成功')
   await getStatus()
   await getErrorLog()
 }
 
 const handleReload = async () => {
-  await php80.reload()
+  await service.reload(`php-fpm-${version}`)
   window.$message.success('重载成功')
   await getStatus()
   await getErrorLog()
 }
 
 const handleInstallExtension = async (slug: string) => {
-  await php80.installExtension(slug).then(() => {
+  await php.installExtension(version, slug).then(() => {
     window.$message.success('任务已提交，请稍后查看任务进度')
   })
 }
 
 const handleUninstallExtension = async (name: string) => {
-  await php80.uninstallExtension(name).then(() => {
+  await php.uninstallExtension(version, name).then(() => {
     window.$message.success('任务已提交，请稍后查看任务进度')
   })
 }
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   getExtensions().then((res) => {
     extensions.value = res
   })
@@ -255,6 +276,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}

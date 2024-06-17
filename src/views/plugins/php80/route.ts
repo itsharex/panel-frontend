@@ -11,12 +11,13 @@ export default {
     {
       name: 'plugins-php80-index',
       path: '',
-      component: () => import('./IndexView.vue'),
+      component: () => import('../php/IndexView.vue'),
       meta: {
         title: 'PHP 8.0',
         icon: 'mdi:language-php',
         role: ['admin'],
-        requireAuth: true
+        requireAuth: true,
+        php: 80
       }
     }
   ]

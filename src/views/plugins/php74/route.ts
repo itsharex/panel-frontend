@@ -11,12 +11,13 @@ export default {
     {
       name: 'plugins-php74-index',
       path: '',
-      component: () => import('./IndexView.vue'),
+      component: () => import('../php/IndexView.vue'),
       meta: {
         title: 'PHP 7.4',
         icon: 'mdi:language-php',
         role: ['admin'],
-        requireAuth: true
+        requireAuth: true,
+        php: 74
       }
     }
   ]
