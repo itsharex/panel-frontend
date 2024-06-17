@@ -2,9 +2,9 @@ export interface Database {
   name: string
 }
 
-export interface User {
-  user: string
+export interface Role {
   role: string
+  attributes: string[]
 }
 
 export interface Backup {

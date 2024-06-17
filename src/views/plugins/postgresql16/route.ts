@@ -11,7 +11,7 @@ export default {
     {
       name: 'plugins-postgresql16-index',
       path: '',
-      component: () => import('./IndexView.vue'),
+      component: () => import('../postgresql/IndexView.vue'),
       meta: {
         title: 'PostgreSQL 16',
         icon: 'mdi:database',

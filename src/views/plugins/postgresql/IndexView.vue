@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { NButton, NDataTable, NInput, NPopconfirm } from 'naive-ui'
-import postgresql15 from '@/api/plugins/postgresql15'
+import { NButton, NDataTable, NFlex, NInput, NPopconfirm, NTag } from 'naive-ui'
+import postgresql from '@/api/plugins/postgresql'
+import service from '@/api/panel/system/service'
 import { generateRandomString, renderIcon } from '@/utils'
-import type { Backup, Database, User } from '@/views/plugins/postgresql15/types'
+import type { Backup, Database, Role } from '@/views/plugins/postgresql/types'
 import type { UploadFileInfo, MessageReactive } from 'naive-ui'
 import Editor from '@guolao/vue-monaco-editor'
 
@@ -11,6 +12,7 @@ let messageReactive: MessageReactive | null = null
 const currentTab = ref('status')
 const currentDatabase = ref('')
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 const userConfig = ref('')
 const log = ref('')
@@ -27,7 +29,7 @@ const addDatabaseModel = ref({
   user: '',
   password: generateRandomString(16)
 })
-const addUserModel = ref({
+const addRoleModel = ref({
   database: '',
   user: '',
   password: generateRandomString(16)
@@ -38,7 +40,7 @@ const changePasswordModel = ref({
 })
 
 const addDatabaseModal = ref(false)
-const addUserModal = ref(false)
+const addRoleModal = ref(false)
 const changePasswordModal = ref(false)
 const backupModal = ref(false)
 
@@ -101,9 +103,24 @@ const databaseColumns: any = [
   }
 ]
 
-const userColumns: any = [
-  { title: '用户名', key: 'user', fixed: 'left', resizable: true, ellipsis: { tooltip: true } },
-  { title: '角色权限', key: 'role', resizable: true, ellipsis: { tooltip: true } },
+const roleColumns: any = [
+  { title: '角色名', key: 'role', fixed: 'left', resizable: true, ellipsis: { tooltip: true } },
+  {
+    title: '权限',
+    key: 'attributes',
+    resizable: true,
+    ellipsis: { tooltip: true },
+    render(row: any) {
+      return h(NFlex, null, {
+        default: () =>
+          row.attributes.map((perm: any) =>
+            h(NTag, null, {
+              default: () => perm
+            })
+          )
+      })
+    }
+  },
   {
     title: '操作',
     key: 'actions',
@@ -129,11 +146,11 @@ const userColumns: any = [
         h(
           NPopconfirm,
           {
-            onPositiveClick: () => handleDeleteUser(row.user)
+            onPositiveClick: () => handleDeleteRole(row.user)
           },
           {
             default: () => {
-              return '确定删除用户吗？'
+              return '确定删除角色吗？'
             },
             trigger: () => {
               return h(
@@ -217,7 +234,7 @@ const backupColumns: any = [
 ]
 
 const databases = ref<Database[]>([] as Database[])
-const users = ref<User[]>([] as User[])
+const roles = ref<Role[]>([] as Role[])
 const backup = ref<Backup[]>([])
 const load = ref<any[]>([])
 
@@ -231,7 +248,7 @@ const databasePagination = reactive({
   pageSizes: [10, 20, 50, 100]
 })
 
-const userPagination = reactive({
+const rolePagination = reactive({
   page: 1,
   pageCount: 1,
   pageSize: 10,
@@ -252,22 +269,22 @@ const backupPagination = reactive({
 })
 
 const getLoad = async () => {
-  const { data } = await postgresql15.load()
+  const { data } = await postgresql.load()
   return data
 }
 
 const getDatabaseList = async (page: number, limit: number) => {
-  const { data } = await postgresql15.databases(page, limit)
+  const { data } = await postgresql.databases(page, limit)
   return data
 }
 
-const getUserList = async (page: number, limit: number) => {
-  const { data } = await postgresql15.users(page, limit)
+const getRoleList = async (page: number, limit: number) => {
+  const { data } = await postgresql.roles(page, limit)
   return data
 }
 
 const getBackupList = async (page: number, limit: number) => {
-  const { data } = await postgresql15.backups(page, limit)
+  const { data } = await postgresql.backups(page, limit)
   return data
 }
 
@@ -280,12 +297,12 @@ const onDatabasePageChange = (page: number) => {
   })
 }
 
-const onUserPageChange = (page: number) => {
-  userPagination.page = page
-  getUserList(page, userPagination.pageSize).then((res) => {
-    users.value = res.items
-    userPagination.itemCount = res.total
-    userPagination.pageCount = res.total / userPagination.pageSize + 1
+const onRolePageChange = (page: number) => {
+  rolePagination.page = page
+  getRoleList(page, rolePagination.pageSize).then((res) => {
+    roles.value = res.items
+    rolePagination.itemCount = res.total
+    rolePagination.pageCount = res.total / rolePagination.pageSize + 1
   })
 }
 
@@ -303,9 +320,9 @@ const onDatabasePageSizeChange = (pageSize: number) => {
   onDatabasePageChange(1)
 }
 
-const onUserPageSizeChange = (pageSize: number) => {
-  userPagination.pageSize = pageSize
-  onUserPageChange(1)
+const onRolePageSizeChange = (pageSize: number) => {
+  rolePagination.pageSize = pageSize
+  onRolePageChange(1)
 }
 
 const onBackupPageSizeChange = (pageSize: number) => {
@@ -314,17 +331,17 @@ const onBackupPageSizeChange = (pageSize: number) => {
 }
 
 const handleDeleteDatabase = async (name: string) => {
-  postgresql15.deleteDatabase(name).then(() => {
+  postgresql.deleteDatabase(name).then(() => {
     window.$message.success('删除成功')
     onDatabasePageChange(databasePagination.page)
     getUserConfig()
   })
 }
 
-const handleDeleteUser = async (user: string) => {
-  postgresql15.deleteUser(user).then(() => {
+const handleDeleteRole = async (user: string) => {
+  postgresql.deleteRole(user).then(() => {
     window.$message.success('删除成功')
-    onUserPageChange(userPagination.page)
+    onRolePageChange(rolePagination.page)
   })
 }
 
@@ -333,73 +350,90 @@ const showChangePasswordModal = (user: string) => {
   changePasswordModal.value = true
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled('postgresql').then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getStatus = async () => {
-  await postgresql15.status().then((res: any) => {
+  await service.status('postgresql').then((res: any) => {
     status.value = res.data
   })
 }
 
 const getLog = async () => {
-  const { data } = await postgresql15.log()
+  const { data } = await postgresql.log()
   return data
 }
 
 const getConfig = async () => {
-  postgresql15.config().then((res: any) => {
+  postgresql.config().then((res: any) => {
     config.value = res.data
   })
 }
 
 const getUserConfig = async () => {
-  postgresql15.userConfig().then((res: any) => {
+  postgresql.userConfig().then((res: any) => {
     userConfig.value = res.data
   })
 }
 
 const handleSaveConfig = async () => {
-  await postgresql15.saveConfig(config.value)
+  await postgresql.saveConfig(config.value)
   window.$message.success('保存成功')
 }
 
 const handleSaveUserConfig = async () => {
-  await postgresql15.saveUserConfig(userConfig.value)
+  await postgresql.saveUserConfig(userConfig.value)
   window.$message.success('保存成功')
 }
 
 const handleClearLog = async () => {
-  await postgresql15.clearLog()
+  await postgresql.clearLog()
   getLog().then((res) => {
     log.value = res
   })
   window.$message.success('清空成功')
 }
 
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable('postgresql')
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable('postgresql')
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
+}
+
 const handleStart = async () => {
-  await postgresql15.start()
+  await service.start('postgresql')
   window.$message.success('启动成功')
   await getStatus()
 }
 
 const handleStop = async () => {
-  await postgresql15.stop()
+  await service.stop('postgresql')
   window.$message.success('停止成功')
   await getStatus()
 }
 
 const handleRestart = async () => {
-  await postgresql15.restart()
+  await service.restart('postgresql')
   window.$message.success('重启成功')
   await getStatus()
 }
 
 const handleReload = async () => {
-  await postgresql15.reload()
+  await service.reload('postgresql')
   window.$message.success('重载成功')
   await getStatus()
 }
 
 const handleAddDatabase = async () => {
-  postgresql15.addDatabase(addDatabaseModel.value).then(() => {
+  postgresql.addDatabase(addDatabaseModel.value).then(() => {
     window.$message.success('添加成功')
     addDatabaseModal.value = false
     addDatabaseModel.value = {
@@ -408,27 +442,27 @@ const handleAddDatabase = async () => {
       password: generateRandomString(16)
     }
     onDatabasePageChange(databasePagination.page)
-    onUserPageChange(userPagination.page)
+    onRolePageChange(rolePagination.page)
     getUserConfig()
   })
 }
 
-const handleAddUser = async () => {
-  postgresql15.addUser(addUserModel.value).then(() => {
+const handleAddRole = async () => {
+  postgresql.addRole(addRoleModel.value).then(() => {
     window.$message.success('添加成功')
-    addUserModal.value = false
+    addRoleModal.value = false
     addDatabaseModel.value = {
       user: '',
       password: generateRandomString(16),
       database: ''
     }
-    onUserPageChange(userPagination.page)
+    onRolePageChange(rolePagination.page)
   })
 }
 
 const handleChangePassword = async () => {
-  postgresql15
-    .setUserPassword(changePasswordModel.value.user, changePasswordModel.value.password)
+  postgresql
+    .setRolePassword(changePasswordModel.value.user, changePasswordModel.value.password)
     .then(() => {
       window.$message.success('修改成功')
       changePasswordModal.value = false
@@ -436,7 +470,7 @@ const handleChangePassword = async () => {
         user: '',
         password: generateRandomString(16)
       }
-      onUserPageChange(userPagination.page)
+      onRolePageChange(rolePagination.page)
     })
 }
 
@@ -448,7 +482,7 @@ const handleUploadBackup = async (files: UploadFileInfo[]) => {
     const file = files[i]
     const formData = new FormData()
     formData.append('file', file.file as Blob, file.name)
-    await postgresql15.uploadBackup(formData).then(() => {
+    await postgresql.uploadBackup(formData).then(() => {
       messageReactive?.destroy()
       window.$message.success('上传成功')
       onBackupPageChange(backupPagination.page)
@@ -460,7 +494,7 @@ const handleCreateBackup = async () => {
   messageReactive = window.$message.loading('创建中...', {
     duration: 0
   })
-  await postgresql15.createBackup(currentDatabase.value).then(() => {
+  await postgresql.createBackup(currentDatabase.value).then(() => {
     messageReactive?.destroy()
     window.$message.success('创建成功')
     onBackupPageChange(backupPagination.page)
@@ -471,7 +505,7 @@ const handleRestoreBackup = async (row: any) => {
   messageReactive = window.$message.loading('恢复中...', {
     duration: 0
   })
-  await postgresql15.restoreBackup(row.name, currentDatabase.value).then(() => {
+  await postgresql.restoreBackup(row.name, currentDatabase.value).then(() => {
     messageReactive?.destroy()
     window.$message.success('恢复成功')
     onBackupPageChange(backupPagination.page)
@@ -479,7 +513,7 @@ const handleRestoreBackup = async (row: any) => {
 }
 
 const handleDeleteBackup = async (name: string) => {
-  await postgresql15.deleteBackup(name).then(() => {
+  await postgresql.deleteBackup(name).then(() => {
     window.$message.success('删除成功')
     onBackupPageChange(backupPagination.page)
   })
@@ -487,8 +521,9 @@ const handleDeleteBackup = async (name: string) => {
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   onDatabasePageChange(databasePagination.page)
-  onUserPageChange(userPagination.page)
+  onRolePageChange(rolePagination.page)
   onBackupPageChange(backupPagination.page)
   getLoad().then((res) => {
     load.value = res
@@ -505,9 +540,9 @@ onMounted(() => {
   <common-page show-footer>
     <template #action>
       <n-space v-if="currentTab == 'manage'">
-        <n-button class="ml-16" type="info" @click="addUserModal = true">
+        <n-button class="ml-16" type="info" @click="addRoleModal = true">
           <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
-          新建用户
+          新建角色
         </n-button>
         <n-button class="ml-16" type="primary" @click="addDatabaseModal = true">
           <TheIcon :size="18" class="mr-5" icon="material-symbols:add" />
@@ -541,6 +576,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}
@@ -594,16 +635,16 @@ onMounted(() => {
               @update:page-size="onDatabasePageSizeChange"
             />
           </n-card>
-          <n-card title="用户" :segmented="true" rounded-10>
+          <n-card title="角色" :segmented="true" rounded-10>
             <n-data-table
               striped
               remote
               :loading="false"
-              :columns="userColumns"
-              :data="users"
+              :columns="roleColumns"
+              :data="roles"
               :row-key="(row: any) => row.user"
-              @update:page="onUserPageChange"
-              @update:page-size="onUserPageSizeChange"
+              @update:page="onRolePageChange"
+              @update:page-size="onRolePageSizeChange"
             />
           </n-card>
         </n-space>
@@ -682,12 +723,12 @@ onMounted(() => {
             placeholder="输入数据库名"
           />
         </n-form-item>
-        <n-form-item path="user" label="用户名">
+        <n-form-item path="user" label="角色名">
           <n-input
             v-model:value="addDatabaseModel.user"
             type="text"
             @keydown.enter.prevent
-            placeholder="输入用户名"
+            placeholder="输入角色名"
           />
         </n-form-item>
         <n-form-item path="password" label="密码">
@@ -706,20 +747,20 @@ onMounted(() => {
       </n-row>
     </n-card>
   </n-modal>
-  <n-modal v-model:show="addUserModal" title="新建用户">
-    <n-card closable @close="() => (addUserModal = false)" title="新建用户" style="width: 60vw">
-      <n-form :model="addUserModel">
-        <n-form-item path="user" label="用户名">
+  <n-modal v-model:show="addRoleModal" title="新建角色">
+    <n-card closable @close="() => (addRoleModal = false)" title="新建角色" style="width: 60vw">
+      <n-form :model="addRoleModel">
+        <n-form-item path="user" label="角色名">
           <n-input
-            v-model:value="addUserModel.user"
+            v-model:value="addRoleModel.user"
             type="text"
             @keydown.enter.prevent
-            placeholder="输入用户名"
+            placeholder="输入角色名"
           />
         </n-form-item>
         <n-form-item path="password" label="密码">
           <n-input
-            v-model:value="addUserModel.password"
+            v-model:value="addRoleModel.password"
             type="text"
             @keydown.enter.prevent
             placeholder="建议使用生成器生成随机密码"
@@ -727,16 +768,16 @@ onMounted(() => {
         </n-form-item>
         <n-form-item path="database" label="数据库名">
           <n-input
-            v-model:value="addUserModel.database"
+            v-model:value="addRoleModel.database"
             type="text"
             @keydown.enter.prevent
-            placeholder="输入授权给该用户的数据库名"
+            placeholder="输入授权给该角色的数据库名"
           />
         </n-form-item>
       </n-form>
       <n-row :gutter="[0, 24]">
         <n-col :span="24">
-          <n-button type="info" block @click="handleAddUser">提交</n-button>
+          <n-button type="info" block @click="handleAddRole">提交</n-button>
         </n-col>
       </n-row>
     </n-card>
