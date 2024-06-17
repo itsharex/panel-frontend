@@ -6,6 +6,7 @@ import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 
 const statusType = computed(() => {
@@ -33,6 +34,12 @@ const getStatus = async () => {
   })
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled('redis').then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getConfig = async () => {
   redis.config().then((res: any) => {
     config.value = res.data
@@ -50,6 +57,17 @@ const handleStart = async () => {
   await getStatus()
 }
 
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable('redis')
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable('redis')
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
+}
+
 const handleStop = async () => {
   await service.stop('redis')
   window.$message.success('停止成功')
@@ -64,6 +82,7 @@ const handleRestart = async () => {
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   getLoad().then((res) => {
     load.value = res
   })
@@ -88,6 +107,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}

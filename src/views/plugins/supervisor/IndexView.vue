@@ -9,6 +9,7 @@ import Editor from '@guolao/vue-monaco-editor'
 const currentTab = ref('status')
 const serviceName = ref('supervisor')
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 const log = ref('')
 const processLog = ref('')
@@ -220,6 +221,12 @@ const getStatus = async () => {
   })
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled(serviceName.value).then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getLog = async () => {
   supervisor.log().then((res: any) => {
     log.value = res.data
@@ -248,6 +255,17 @@ const handleStart = async () => {
   window.$message.success('启动成功')
   await getStatus()
   await getLog()
+}
+
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable(serviceName.value)
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable(serviceName.value)
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
 }
 
 const handleStop = async () => {
@@ -327,6 +345,7 @@ let timer: any = null
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   onPageChange(1)
   getConfig()
   supervisor.service().then((res: any) => {
@@ -369,6 +388,12 @@ onUnmounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}

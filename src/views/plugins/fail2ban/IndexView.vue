@@ -8,6 +8,7 @@ import website from '@/api/panel/website'
 
 const currentTab = ref('status')
 const status = ref(false)
+const isEnabled = ref(false)
 const white = ref('')
 
 const addJailModal = ref(false)
@@ -222,10 +223,27 @@ const getStatus = async () => {
   })
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled('fail2ban').then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const handleStart = async () => {
   await service.start('fail2ban')
   window.$message.success('启动成功')
   await getStatus()
+}
+
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable('fail2ban')
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable('fail2ban')
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
 }
 
 const handleStop = async () => {
@@ -274,6 +292,7 @@ const handleUnBan = async (name: string, ip: string) => {
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   getWhiteList()
   onPageChange(1)
   getWebsiteList(1, 10000)
@@ -306,6 +325,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}

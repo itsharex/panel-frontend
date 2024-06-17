@@ -12,6 +12,7 @@ let messageReactive: MessageReactive | null = null
 const currentTab = ref('status')
 const currentDatabase = ref('')
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 const errorLog = ref('')
 const slowLog = ref('')
@@ -357,6 +358,12 @@ const showChangePrivilegesModal = (user: string) => {
   changePrivilegesModal.value = true
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled('mysqld').then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getStatus = async () => {
   await service.status('mysqld').then((res: any) => {
     status.value = res.data
@@ -403,6 +410,17 @@ const handleClearSlowLog = async () => {
     slowLog.value = res
   })
   window.$message.success('清空成功')
+}
+
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable('mysqld')
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable('mysqld')
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
 }
 
 const handleStart = async () => {
@@ -536,6 +554,7 @@ const handleDeleteBackup = async (name: string) => {
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   getRootPassword()
   onDatabasePageChange(databasePagination.page)
   onUserPageChange(userPagination.page)
@@ -600,6 +619,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}

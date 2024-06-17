@@ -8,6 +8,7 @@ import service from '@/api/panel/system/service'
 
 const currentTab = ref('status')
 const status = ref(false)
+const isEnabled = ref(false)
 const config = ref('')
 
 const addModuleModal = ref(false)
@@ -138,6 +139,12 @@ const getStatus = async () => {
   })
 }
 
+const getIsEnabled = async () => {
+  await service.isEnabled('rsyncd').then((res: any) => {
+    isEnabled.value = res.data
+  })
+}
+
 const getConfig = async () => {
   rsync.config().then((res: any) => {
     config.value = res.data
@@ -154,6 +161,17 @@ const handleStart = async () => {
   await service.start('rsyncd')
   window.$message.success('启动成功')
   await getStatus()
+}
+
+const handleIsEnabled = async () => {
+  if (isEnabled.value) {
+    await service.enable('rsyncd')
+    window.$message.success('开启自启动成功')
+  } else {
+    await service.disable('rsyncd')
+    window.$message.success('禁用自启动成功')
+  }
+  await getIsEnabled()
 }
 
 const handleStop = async () => {
@@ -210,6 +228,7 @@ const handleSaveModuleConfig = async () => {
 
 onMounted(() => {
   getStatus()
+  getIsEnabled()
   onPageChange(1)
   getConfig()
 })
@@ -241,6 +260,12 @@ onMounted(() => {
       <n-tab-pane name="status" tab="运行状态">
         <n-space vertical>
           <n-card title="运行状态" rounded-10>
+            <template #header-extra>
+              <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
+                <template #checked> 自启动开 </template>
+                <template #unchecked> 自启动关 </template>
+              </n-switch>
+            </template>
             <n-space vertical>
               <n-alert :type="statusType">
                 {{ statusStr }}
