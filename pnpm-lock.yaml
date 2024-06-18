@@ -40,7 +40,7 @@ importers:
         version: 4.17.21
       monaco-editor-nginx:
         specifier: ^1.0.16
-        version: 1.0.16(@babel/runtime@7.24.6)(monaco-editor@0.49.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 1.1.0(@babel/runtime@7.24.6)(monaco-editor@0.49.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       pinia:
         specifier: ^2.1.7
         version: 2.1.7(typescript@5.4.5)(vue@3.4.29(typescript@5.4.5))
@@ -1748,8 +1748,8 @@ packages:
     resolution: {integrity: sha512-eQsKcWzIaZzEZ07NuEyO4Nw65g0hdWAyurVol1IPl1gahRwY+svqzfgfey8U8dahLwG44d6/RwEzuK52rSa/JQ==}
     hasBin: true
 
-  monaco-editor-nginx@1.0.16:
-    resolution: {integrity: sha512-YMPK1KUUM8YTnS21jSSLFkxp+ewDkRudZYJ7fNNqjK2LiGiL1uFU9iHSnUPgcpvL2UhQLXpHo6Cugf9ebN3jLQ==}
+  monaco-editor-nginx@1.1.0:
+    resolution: {integrity: sha512-vre/S3cqBP9/dyS/FFBHSl1yAvxoar/tvNpCEzLqwR/nT0lNkBwJjkRDCD70/2/M4h8A9Yvy6t7dhw4b1JY2/Q==}
     peerDependencies:
       '@babel/runtime': '>=7.10.0'
       monaco-editor: '>=0.22.3'
@@ -4136,7 +4136,7 @@ snapshots:
     dependencies:
       commander: 12.1.0
 
-  monaco-editor-nginx@1.0.16(@babel/runtime@7.24.6)(monaco-editor@0.49.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  monaco-editor-nginx@1.1.0(@babel/runtime@7.24.6)(monaco-editor@0.49.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.6
       monaco-editor: 0.49.0
