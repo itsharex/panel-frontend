@@ -5,7 +5,7 @@ import service from '@/api/panel/system/service'
 import Editor from '@guolao/vue-monaco-editor'
 import { themeConfig, themeDarkConfig, tokenConf } from 'monaco-editor-nginx/cjs/conf'
 import suggestions from 'monaco-editor-nginx/cjs/suggestions'
-import directives from 'monaco-editor-nginx/cjs/directives.json'
+import { directives } from 'monaco-editor-nginx/cjs/directives'
 
 const currentTab = ref('status')
 const status = ref(false)
