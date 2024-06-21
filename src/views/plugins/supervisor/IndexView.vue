@@ -343,14 +343,14 @@ const handleSaveProcessConfig = async () => {
 
 let timer: any = null
 
-onMounted(() => {
-  getStatus()
-  getIsEnabled()
-  onPageChange(1)
-  getConfig()
-  supervisor.service().then((res: any) => {
+onMounted(async () => {
+  await supervisor.service().then((res: any) => {
     serviceName.value = res.data
   })
+  await getStatus()
+  await getIsEnabled()
+  await getConfig()
+  onPageChange(1)
 })
 
 onUnmounted(() => {
@@ -390,8 +390,8 @@ onUnmounted(() => {
           <n-card title="运行状态" rounded-10>
             <template #header-extra>
               <n-switch v-model:value="isEnabled" @update:value="handleIsEnabled">
-                <template #checked> 自启动开 </template>
-                <template #unchecked> 自启动关 </template>
+                <template #checked> 自启动开</template>
+                <template #unchecked> 自启动关</template>
               </n-switch>
             </template>
             <n-space vertical>
