@@ -8,18 +8,18 @@ import Editor from '@guolao/vue-monaco-editor'
 let messageReactive: any
 const addCertModel = ref<any>({
   domains: [],
-  dns_id: null,
+  dns_id: 0,
   type: 'P256',
   user_id: null,
-  website_id: null,
+  website_id: 0,
   auto_renew: true
 })
 const updateCertModel = ref<any>({
   domains: [],
-  dns_id: null,
+  dns_id: 0,
   type: 'P256',
   user_id: null,
-  website_id: null,
+  website_id: 0,
   auto_renew: true
 })
 const addCertModal = ref(false)
@@ -32,8 +32,8 @@ const showCertModel = ref<any>({
 })
 const deployCertModal = ref(false)
 const deployCertModel = ref<any>({
-  id: null,
-  website_id: null
+  id: 0,
+  website_id: 0
 })
 
 const algorithms = ref<any>([])
@@ -173,7 +173,7 @@ const certColumns: any = [
     resizable: true,
     render(row: any) {
       return [
-        row.cert_url == null
+        row.cert_url == ''
           ? h(
               NButton,
               {
@@ -185,7 +185,7 @@ const certColumns: any = [
                     duration: 0
                   })
                   // 没有设置 DNS 接口和网站则获取解析记录
-                  if (row.dns_id == null && row.website_id == null) {
+                  if (row.dns_id == 0 && row.website_id == 0) {
                     const { data } = await cert.manualDNS(row.id)
                     messageReactive.destroy()
                     window.$message.info('请先前往域名处设置 DNS 解析，再继续签发')
@@ -248,10 +248,10 @@ const certColumns: any = [
                 size: 'small',
                 type: 'info',
                 onClick: () => {
-                  if (row.website_id != null) {
+                  if (row.website_id != 0) {
                     deployCertModel.value.website_id = row.website_id
                   } else {
-                    deployCertModel.value.website_id = null
+                    deployCertModel.value.website_id = 0
                   }
                   deployCertModel.value.id = row.id
                   deployCertModal.value = true
@@ -392,10 +392,10 @@ const handleAddCert = async () => {
   addCertModal.value = false
   onCertPageChange(1)
   addCertModel.value.domains = []
-  addCertModel.value.dns_id = null
+  addCertModel.value.dns_id = 0
   addCertModel.value.type = 'P256'
-  addCertModel.value.user_id = null
-  addCertModel.value.website_id = null
+  addCertModel.value.user_id = 0
+  addCertModel.value.website_id = 0
   addCertModel.value.auto_renew = true
   await getAsyncData()
 }
@@ -406,10 +406,10 @@ const handleUpdateCert = async () => {
   updateCertModal.value = false
   onCertPageChange(1)
   updateCertModel.value.domains = []
-  updateCertModel.value.dns_id = null
+  updateCertModel.value.dns_id = 0
   updateCertModel.value.type = 'P256'
-  updateCertModel.value.user_id = null
-  updateCertModel.value.website_id = null
+  updateCertModel.value.user_id = 0
+  updateCertModel.value.website_id = 0
   updateCertModel.value.auto_renew = true
   await getAsyncData()
 }
@@ -418,8 +418,8 @@ const handleDeployCert = async () => {
   await cert.deploy(deployCertModel.value.id, deployCertModel.value.website_id)
   window.$message.success('部署成功，请前往网站管理启用 SSL')
   deployCertModal.value = false
-  deployCertModel.value.id = null
-  deployCertModel.value.website_id = null
+  deployCertModel.value.id = 0
+  deployCertModel.value.website_id = 0
   onCertPageChange(1)
 }
 
@@ -434,6 +434,10 @@ const getAsyncData = async () => {
 
   const { data: websiteData } = await website.list(1, 10000)
   websites.value = []
+  websites.value.push({
+    label: '无',
+    value: 0
+  })
   for (const item of websiteData.items) {
     websites.value.push({
       label: item.name,
@@ -443,6 +447,10 @@ const getAsyncData = async () => {
 
   const { data: dnsData } = await cert.dns(1, 10000)
   dns.value = []
+  dns.value.push({
+    label: '无',
+    value: 0
+  })
   for (const item of dnsData.items) {
     dns.value.push({
       label: item.name,
