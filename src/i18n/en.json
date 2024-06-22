@@ -217,7 +217,7 @@
   },
   "settingIndex": {
     "title": "Settings",
-    "info": "Update panel settings / SSL / entry, adjust browser address accordingly to access panel!",
+    "info": "Update panel settings / entry, adjust browser address accordingly to access panel!",
     "edit": {
       "toasts": {
         "success": "saved successfully"
@@ -251,8 +251,14 @@
           "label": "Security entrance (after saving, you need to restart the panel and modify the entrance in the browser address bar to a new entrance to access the panel)",
           "placeholder": "admin"
         },
-        "ssl": {
-          "label": "Panel SSL"
+        "https": {
+          "label": "Panel HTTPS"
+        },
+        "cert": {
+          "label": "Certificate"
+        },
+        "key": {
+          "label": "Key"
         },
         "path": {
           "label": "Default website directory",

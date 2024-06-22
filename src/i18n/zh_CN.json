@@ -217,7 +217,7 @@
   },
   "settingIndex": {
     "title": "面板设置",
-    "info": "修改面板端口 / SSL / 入口后，需要在浏览器地址栏做相应修改方可打开面板！",
+    "info": "修改面板端口 / 入口后，需要在浏览器地址栏做相应修改方可打开面板！",
     "edit": {
       "toasts": {
         "success": "保存成功"
@@ -251,8 +251,14 @@
           "label": "安全入口（保存后需要重启面板并修改浏览器地址栏的入口为新入口以访问面板)",
           "placeholder": "admin"
         },
-        "ssl": {
-          "label": "面板 SSL"
+        "https": {
+          "label": "面板 HTTPS"
+        },
+        "cert": {
+          "label": "证书"
+        },
+        "key": {
+          "label": "密钥"
         },
         "path": {
           "label": "默认建站目录",

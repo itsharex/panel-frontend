@@ -260,38 +260,67 @@ onMounted(() => {
         <n-skeleton v-else text :repeat="10" />
       </n-tab-pane>
       <n-tab-pane name="ssl" tab="SSL">
-        <n-form v-if="setting">
-          <n-form-item label="总开关">
-            <n-space vertical>
+        <n-flex vertical v-if="setting">
+          <n-card v-if="setting.ssl">
+            <n-descriptions title="证书信息" :column="2">
+              <n-descriptions-item>
+                <template #label>证书有效期</template>
+                <n-flex>
+                  <n-tag>{{ setting.ssl_not_before }}</n-tag>
+                  -
+                  <n-tag>{{ setting.ssl_not_after }}</n-tag>
+                </n-flex>
+              </n-descriptions-item>
+              <n-descriptions-item>
+                <template #label>颁发者</template>
+                <n-flex>
+                  <n-tag>{{ setting.ssl_issuer }}</n-tag>
+                </n-flex>
+              </n-descriptions-item>
+              <n-descriptions-item>
+                <template #label>域名</template>
+                <n-flex>
+                  <n-tag v-for="item in setting.ssl_dns_names" :key="item">{{ item }}</n-tag>
+                </n-flex>
+              </n-descriptions-item>
+              <n-descriptions-item>
+                <template #label>OCSP</template>
+                <n-flex>
+                  <n-tag v-for="item in setting.ssl_ocsp_server" :key="item">{{ item }}</n-tag>
+                </n-flex>
+              </n-descriptions-item>
+            </n-descriptions>
+          </n-card>
+          <n-form>
+            <n-form-item label="总开关（只有打开了总开关，下面的设置才会生效！）">
               <n-switch v-model:value="setting.ssl" />
-              <n-tag>只有打开了总开关，下面的设置才会生效！</n-tag>
-            </n-space>
-          </n-form-item>
-        </n-form>
-        <n-form v-if="setting" inline>
-          <n-form-item label="HTTP跳转">
-            <n-switch v-model:value="setting.http_redirect" />
-          </n-form-item>
-          <n-form-item label="HSTS">
-            <n-switch v-model:value="setting.hsts" />
-          </n-form-item>
-        </n-form>
-        <n-form v-if="setting">
-          <n-form-item label="证书">
-            <n-input
-              v-model:value="setting.ssl_certificate"
-              type="textarea"
-              placeholder="输入pem证书文件的内容"
-            />
-          </n-form-item>
-          <n-form-item label="私钥">
-            <n-input
-              v-model:value="setting.ssl_certificate_key"
-              type="textarea"
-              placeholder="输入key私钥文件的内容"
-            />
-          </n-form-item>
-        </n-form>
+            </n-form-item>
+          </n-form>
+          <n-form inline>
+            <n-form-item label="HTTP跳转">
+              <n-switch v-model:value="setting.http_redirect" />
+            </n-form-item>
+            <n-form-item label="HSTS">
+              <n-switch v-model:value="setting.hsts" />
+            </n-form-item>
+          </n-form>
+          <n-form>
+            <n-form-item label="证书">
+              <n-input
+                v-model:value="setting.ssl_certificate"
+                type="textarea"
+                placeholder="输入pem证书文件的内容"
+              />
+            </n-form-item>
+            <n-form-item label="私钥">
+              <n-input
+                v-model:value="setting.ssl_certificate_key"
+                type="textarea"
+                placeholder="输入key私钥文件的内容"
+              />
+            </n-form-item>
+          </n-form>
+        </n-flex>
         <n-skeleton v-else text :repeat="10" />
       </n-tab-pane>
       <n-tab-pane name="rewrite" tab="伪静态">
