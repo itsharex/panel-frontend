@@ -240,11 +240,9 @@ onMounted(() => {
     :segmented="false"
   >
     <n-space vertical>
-      <n-alert type="info">
-        除了 Let's Encrypt 和 Buypass 外，其他 CA 均需要先去官网申请账号获得 KID 和 HMAC 并填入
-      </n-alert>
+      <n-alert type="info"> Google 和 SSL.com 需要先去官网获得 KID 和 HMAC 并填入 </n-alert>
       <n-alert type="warning">
-        大陆机器无法使用 Google CA，其他 CA 视网络情况而定，建议使用 Let's Encrypt
+        境内无法使用 Google CA，其他 CA 视网络情况而定，建议使用 Let's Encrypt
       </n-alert>
       <n-form :model="addUserModel">
         <n-form-item path="ca" label="CA">
@@ -301,11 +299,9 @@ onMounted(() => {
     :segmented="false"
   >
     <n-space vertical>
-      <n-alert type="info">
-        除了 Let's Encrypt 和 Buypass 外，其他 CA 均需要先去官网申请账号获得 KID 和 HMAC 并填入
-      </n-alert>
+      <n-alert type="info"> Google 和 SSL.com 需要先去官网获得 KID 和 HMAC 并填入 </n-alert>
       <n-alert type="warning">
-        大陆机器无法使用 Google CA，其他 CA 视网络情况而定，建议使用 Let's Encrypt
+        境内无法使用 Google CA，其他 CA 视网络情况而定，建议使用 Let's Encrypt
       </n-alert>
       <n-form :model="updateUserModel">
         <n-form-item path="ca" label="CA">
