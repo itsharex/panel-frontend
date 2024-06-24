@@ -14,6 +14,7 @@ const { id } = route.params
 const setting = ref<WebsiteSetting>({
   name: '',
   ports: [],
+  tls_ports: [],
   domains: [],
   root: '',
   path: '',
@@ -74,11 +75,6 @@ const handleSave = async () => {
       window.$message.error('请填写私钥')
       return
     }
-    if (!setting.value.ports.includes(443)) {
-      setting.value.ports.push(443)
-    }
-  } else {
-    setting.value.ports = setting.value.ports.filter((item) => item != 443)
   }
   await website.saveConfig(Number(id), setting.value).then(() => {
     getWebsiteSetting()
@@ -259,7 +255,7 @@ onMounted(() => {
         </n-form>
         <n-skeleton v-else text :repeat="10" />
       </n-tab-pane>
-      <n-tab-pane name="ssl" tab="SSL">
+      <n-tab-pane name="https" tab="HTTPS">
         <n-flex vertical v-if="setting">
           <n-card v-if="setting.ssl">
             <n-descriptions title="证书信息" :column="2">
@@ -294,6 +290,16 @@ onMounted(() => {
           <n-form>
             <n-form-item label="总开关（只有打开了总开关，下面的设置才会生效！）">
               <n-switch v-model:value="setting.ssl" />
+            </n-form-item>
+            <n-form-item label="端口（为哪些端口开启HTTPS）">
+              <n-checkbox-group v-model:value="setting.tls_ports">
+                <n-checkbox
+                  v-for="item in setting.ports"
+                  :key="item"
+                  :value="item"
+                  :label="String(item)"
+                />
+              </n-checkbox-group>
             </n-form-item>
           </n-form>
           <n-form inline>

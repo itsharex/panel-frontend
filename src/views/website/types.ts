@@ -13,6 +13,7 @@ export interface Website {
 export interface WebsiteSetting {
   name: string
   ports: number[]
+  tls_ports: number[]
   domains: string[]
   root: string
   path: string
