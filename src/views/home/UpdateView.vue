@@ -27,16 +27,21 @@ const handleUpdate = () => {
       messageReactive = window.$message.loading(t('homeUpdate.confirm.update.loading'), {
         duration: 0
       })
-      info.update().then(() => {
-        messageReactive?.destroy()
-        window.$message.success(t('homeUpdate.alerts.success'))
-        setTimeout(() => {
+      info
+        .update()
+        .then(() => {
+          messageReactive?.destroy()
+          window.$message.success(t('homeUpdate.alerts.success'))
           setTimeout(() => {
-            window.location.reload()
-          }, 400)
-          router.push({ name: 'home-index' })
-        }, 2500)
-      })
+            setTimeout(() => {
+              window.location.reload()
+            }, 400)
+            router.push({ name: 'home-index' })
+          }, 2500)
+        })
+        .catch(() => {
+          messageReactive?.destroy()
+        })
     },
     onNegativeClick: () => {
       window.$message.info(t('homeUpdate.alerts.info'))
