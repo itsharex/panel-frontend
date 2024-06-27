@@ -8,7 +8,7 @@ export default {
   // 添加
   add: (data: any): Promise<AxiosResponse<any>> => request.post('/panel/websites', data),
   // 删除
-  delete: (id: number): Promise<AxiosResponse<any>> => request.delete('/panel/websites/' + id),
+  delete: (data: any): Promise<AxiosResponse<any>> => request.post('/panel/websites/delete', data),
   // 获取默认配置
   defaultConfig: (): Promise<AxiosResponse<any>> => request.get('/panel/website/defaultConfig'),
   // 保存默认配置

@@ -1,5 +1,14 @@
 <script lang="ts" setup>
-import { NButton, NDataTable, NSpace, NSwitch, NPopconfirm, NInput } from 'naive-ui'
+import {
+  NButton,
+  NDataTable,
+  NSpace,
+  NSwitch,
+  NPopconfirm,
+  NInput,
+  NFlex,
+  NCheckbox
+} from 'naive-ui'
 import website from '@/api/panel/website'
 import info from '@/api/panel/info'
 import { generateRandomString, isNullOrUndef, renderIcon } from '@/utils'
@@ -124,11 +133,38 @@ const columns: any = [
         h(
           NPopconfirm,
           {
+            showIcon: false,
             onPositiveClick: () => handleDelete(row.id)
           },
           {
             default: () => {
-              return '确定删除网站吗？'
+              return h(
+                NFlex,
+                {
+                  vertical: true
+                },
+                {
+                  default: () => [
+                    h('strong', {}, { default: () => `确定删除网站 ${row.name} 吗？` }),
+                    h(
+                      NCheckbox,
+                      {
+                        checked: deleteModel.value.path,
+                        onUpdateChecked: (v) => (deleteModel.value.path = v)
+                      },
+                      { default: () => '删除网站目录' }
+                    ),
+                    h(
+                      NCheckbox,
+                      {
+                        checked: deleteModel.value.db,
+                        onUpdateChecked: (v) => (deleteModel.value.db = v)
+                      },
+                      { default: () => '删除本地同名数据库' }
+                    )
+                  ]
+                }
+              )
             },
             trigger: () => {
               return h(
@@ -247,6 +283,11 @@ const addModel = ref({
   path: '',
   remark: ''
 })
+const deleteModel = ref({
+  id: 0,
+  path: true,
+  db: false
+})
 const editDefaultPageModel = ref({
   index: '',
   stop: ''
@@ -341,11 +382,14 @@ const handleEdit = (row: any) => {
   })
 }
 
-const handleDelete = (id: number) => {
-  website.delete(id).then(() => {
+const handleDelete = async (id: number) => {
+  deleteModel.value.id = id
+  await website.delete(deleteModel.value).then(() => {
     window.$message.success('删除成功')
     onPageChange(pagination.page)
   })
+  deleteModel.value.id = 0
+  deleteModel.value.path = true
 }
 
 const handleSaveDefaultPage = () => {
@@ -406,10 +450,14 @@ const batchDelete = async () => {
   }
 
   for (const id of selectedRowKeys.value) {
-    await website.delete(id).then(() => {
+    deleteModel.value.id = id
+    deleteModel.value.path = true
+    deleteModel.value.db = false
+    await website.delete(deleteModel.value).then(() => {
       let site = data.value.find((item) => item.id === id)
       window.$message.success('网站 ' + site?.name + ' 删除成功')
     })
+    deleteModel.value.id = 0
   }
 
   onPageChange(pagination.page)
@@ -490,7 +538,7 @@ onMounted(() => {
             <template #trigger>
               <n-button type="error"> 批量删除 </n-button>
             </template>
-            高危操作！确定删除选中的网站吗？
+            这会删除网站目录但不会删除同名数据库，确定删除选中的网站吗？
           </n-popconfirm>
           <n-button type="warning" @click="editDefaultPageModal = true">
             {{ $t('websiteIndex.edit.trigger') }}
