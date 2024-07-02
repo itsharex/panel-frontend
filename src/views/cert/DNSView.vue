@@ -51,6 +51,8 @@ const dnsColumns: any = [
             switch (row.type) {
               case 'dnspod':
                 return 'DnsPod'
+              case 'tencent':
+                return '腾讯云'
               case 'aliyun':
                 return '阿里云'
               case 'cloudflare':
@@ -256,6 +258,22 @@ onMounted(async () => {
             type="text"
             @keydown.enter.prevent
             placeholder="输入 DnsPod Token"
+          />
+        </n-form-item>
+        <n-form-item v-if="addDNSModel.type == 'tencent'" path="access_key" label="SecretId">
+          <n-input
+            v-model:value="addDNSModel.data.access_key"
+            type="text"
+            @keydown.enter.prevent
+            placeholder="输入腾讯云 SecretId"
+          />
+        </n-form-item>
+        <n-form-item v-if="addDNSModel.type == 'tencent'" path="secret_key" label="SecretKey">
+          <n-input
+            v-model:value="addDNSModel.data.secret_key"
+            type="text"
+            @keydown.enter.prevent
+            placeholder="输入腾讯云 SecretKey"
           />
         </n-form-item>
         <n-form-item v-if="addDNSModel.type == 'aliyun'" path="access_key" label="Access Key">
