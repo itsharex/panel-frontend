@@ -4,16 +4,7 @@ import { NButton, NInput, NPopconfirm, NPopselect, NSpace } from 'naive-ui'
 import type { RowData } from 'naive-ui/es/data-table/src/interface'
 import file from '@/api/panel/file'
 import TheIcon from '@/components/custom/TheIcon.vue'
-import {
-  checkName,
-  checkPath,
-  formatBytes,
-  formatPercent,
-  getExt,
-  getFilename,
-  getIconByExt,
-  isArchive
-} from '@/utils/file'
+import { checkName, checkPath, getExt, getFilename, getIconByExt, isArchive } from '@/utils/file'
 import EditModal from '@/views/file/EditModal.vue'
 import EventBus from '@/utils/event'
 import type { Marked } from '@/views/file/types'
@@ -38,8 +29,6 @@ const unArchiveModel = ref({
   file: ''
 })
 
-const messages = ref<any>({})
-
 const columns: DataTableColumns<RowData> = [
   {
     type: 'selection',
@@ -48,6 +37,7 @@ const columns: DataTableColumns<RowData> = [
   {
     title: '名称',
     key: 'name',
+    width: '180',
     ellipsis: {
       tooltip: true
     },
@@ -87,11 +77,11 @@ const columns: DataTableColumns<RowData> = [
       )
     }
   },
-  { title: '权限', key: 'mode', width: '100' },
-  { title: '所有者', key: 'owner', width: '100' },
-  { title: '组', key: 'group', width: '100' },
-  { title: '大小', key: 'size', width: '100' },
-  { title: '修改时间', key: 'modify', width: '200' },
+  { title: '权限', key: 'mode', width: '80' },
+  { title: '所有者', key: 'owner', width: '80' },
+  { title: '组', key: 'group', width: '80' },
+  { title: '大小', key: 'size', width: '80' },
+  { title: '修改时间', key: 'modify', width: '150' },
   {
     title: '操作',
     key: 'action',
@@ -136,26 +126,7 @@ const columns: DataTableColumns<RowData> = [
                     selected.value = [row.full]
                     archive.value = true
                   } else {
-                    const timestamp = new Date().getTime()
-                    messages.value[timestamp] = window.$message.loading('开始下载...', {
-                      duration: 0
-                    })
-
-                    file.download(row.full, timestamp).then((res: any) => {
-                      const blob = new Blob([res], { type: 'application/octet-stream' })
-                      const downloadUrl = window.URL.createObjectURL(blob)
-                      const a = document.createElement('a')
-                      a.href = downloadUrl
-                      a.download = row.name
-                      document.body.appendChild(a)
-                      a.click()
-
-                      // 清理
-                      a.remove()
-                      messages.value[timestamp]?.destroy()
-                      window.URL.revokeObjectURL(downloadUrl)
-                      window.$message.success('下载成功')
-                    })
+                    window.open('api/panel/file/download?path=' + encodeURIComponent(row.full))
                   }
                 }
               },
@@ -374,10 +345,6 @@ onMounted(() => {
     { immediate: true }
   )
   EventBus.on('file:refresh', handleRefresh)
-  EventBus.on('file:download-progress', (data: any) => {
-    messages.value[data['timestamp']].content =
-      `${formatPercent(data['progress'].progress * 100)}% | 总共 ${formatBytes(data['progress'].total)} | 已下载 ${formatBytes(data['progress'].loaded)} | 速度 ${formatBytes(data['progress'].rate)}`
-  })
 })
 
 onUnmounted(() => {

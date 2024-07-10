@@ -1,20 +1,9 @@
 import type { AxiosError, AxiosResponse } from 'axios'
 import { AxiosRejectError, resolveResError } from './helpers'
-import { getToken, setToken } from '~/src/utils/auth/token'
 import type { RequestConfig } from '~/types/axios'
 
 /** 请求拦截 */
 export function reqResolve(config: RequestConfig) {
-  // 不需要 Token 的请求
-  if (config.noNeedToken) return config
-
-  const token = getToken()
-  if (!token)
-    return Promise.reject(new AxiosRejectError({ code: 401, message: '登录已过期，请重新登录！' }))
-
-  // 设置请求头
-  config.headers['Authorization'] = config.headers?.Authorization || `Bearer ${token}`
-
   return config
 }
 
@@ -45,13 +34,6 @@ export function resResolve(response: AxiosResponse) {
     }
 
     return Promise.reject(new AxiosRejectError({ code, message, data: data || response }))
-  }
-
-  // Token 更新
-  const token = response.headers?.authorization
-  if (token && token.startsWith('Bearer ') && token !== getToken()) {
-    const newToken = token.slice(7)
-    setToken(newToken)
   }
 
   return Promise.resolve(data)

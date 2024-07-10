@@ -2,7 +2,6 @@
 import '@xterm/xterm/css/xterm.css'
 import { Terminal } from '@xterm/xterm'
 import { FitAddon } from '@xterm/addon-fit'
-import { getToken } from '@/utils'
 import CryptoJS from 'crypto-js'
 import ssh from '@/api/panel/ssh'
 import { useI18n } from 'vue-i18n'
@@ -50,9 +49,8 @@ const openSession = () => {
   const fitAddon = new FitAddon()
   term.loadAddon(fitAddon)
 
-  const token = String(getToken())
   const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws'
-  const ws = new WebSocket(`${protocol}://${window.location.host}/api/panel/ssh/session`, [token])
+  const ws = new WebSocket(`${protocol}://${window.location.host}/api/panel/ssh/session`)
   ws.binaryType = 'arraybuffer'
 
   const enc = new TextDecoder('utf-8')

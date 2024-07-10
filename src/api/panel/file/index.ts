@@ -1,6 +1,5 @@
 import { request } from '@/utils'
 import type { AxiosResponse } from 'axios'
-import EventBus from '@/utils/event'
 
 export default {
   // 创建文件/文件夹
@@ -31,18 +30,6 @@ export default {
   // 复制文件
   copy: (source: string, target: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/copy', { source, target }),
-  // 下载文件
-  download: (path: string, timestamp: number): Promise<AxiosResponse<any>> =>
-    request.get('/panel/file/download', {
-      params: { path },
-      responseType: 'stream',
-      onDownloadProgress: (progressEvent: any) => {
-        EventBus.emit('file:download-progress', {
-          progress: progressEvent,
-          timestamp: timestamp
-        })
-      }
-    }),
   // 远程下载
   remoteDownload: (url: string, path: string): Promise<AxiosResponse<any>> =>
     request.post('/panel/file/remoteDownload', { url, path }),

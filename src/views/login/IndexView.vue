@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useStorage } from '@vueuse/core'
-import { getLocal, removeLocal, setLocal, setToken } from '@/utils'
+import { getLocal, removeLocal, setLocal } from '@/utils'
 import bgImg from '@/assets/images/login_bg.webp'
 import { addDynamicRoutes } from '@/router'
 import user from '@/api/panel/user'
@@ -36,10 +36,9 @@ async function handleLogin() {
     return
   }
   try {
-    user.login(username, password).then(async (res) => {
+    user.login(username, password).then(async () => {
       loging.value = true
       window.$notification?.success({ title: '登录成功！', duration: 2500 })
-      setToken(res.data.access_token)
       if (isRemember.value) {
         setLocal('loginInfo', { username, password })
       } else {

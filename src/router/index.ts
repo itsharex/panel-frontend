@@ -2,7 +2,6 @@ import type { App } from 'vue'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { setupRouterGuard } from './guard'
 import { basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE } from './routes'
-import { getToken, isNullOrWhitespace } from '@/utils'
 import { usePermissionStore, useUserStore } from '@/store'
 import type { RoutesType, RouteType } from '~/types/router'
 
@@ -22,15 +21,6 @@ export async function setupRouter(app: App) {
 }
 
 export async function addDynamicRoutes() {
-  const token = getToken()
-
-  // 没有token情况
-  if (isNullOrWhitespace(token)) {
-    router.addRoute(EMPTY_ROUTE)
-    return
-  }
-
-  // 有token的情况
   try {
     const userStore = useUserStore()
     const permissionStore = usePermissionStore()

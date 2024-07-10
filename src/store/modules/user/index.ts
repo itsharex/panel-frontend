@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { removeToken, toLogin } from '@/utils'
+import { toLogin } from '@/utils'
 import { usePermissionStore, useTabStore } from '@/store'
 import { resetRouter } from '@/router'
 import user from '@/api/panel/user'
@@ -39,14 +39,15 @@ export const useUserStore = defineStore('user', {
       }
     },
     async logout() {
-      const { resetTabs } = useTabStore()
-      const { resetPermission } = usePermissionStore()
-      removeToken()
-      resetPermission()
-      resetTabs()
-      resetRouter()
-      this.$reset()
-      toLogin()
+      user.logout().then(() => {
+        const { resetTabs } = useTabStore()
+        const { resetPermission } = usePermissionStore()
+        resetPermission()
+        resetTabs()
+        resetRouter()
+        this.$reset()
+        toLogin()
+      })
     },
     setUserInfo(userInfo = {}) {
       this.userInfo = { ...this.userInfo, ...userInfo }
