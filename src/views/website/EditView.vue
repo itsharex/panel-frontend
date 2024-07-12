@@ -257,6 +257,7 @@ onMounted(() => {
       </n-tab-pane>
       <n-tab-pane name="https" tab="HTTPS">
         <n-flex vertical v-if="setting">
+          <n-alert type="info">开启 HTTPS 前，请先在域名端口处添加 443 端口！</n-alert>
           <n-card v-if="setting.ssl">
             <n-descriptions title="证书信息" :column="2">
               <n-descriptions-item>
