@@ -126,7 +126,7 @@ const columns: DataTableColumns<RowData> = [
                     selected.value = [row.full]
                     archive.value = true
                   } else {
-                    window.open('api/panel/file/download?path=' + encodeURIComponent(row.full))
+                    window.open('/api/panel/file/download?path=' + encodeURIComponent(row.full))
                   }
                 }
               },

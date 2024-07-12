@@ -2,7 +2,7 @@ import type { App } from 'vue'
 import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router'
 import { setupRouterGuard } from './guard'
 import { basicRoutes, EMPTY_ROUTE, NOT_FOUND_ROUTE } from './routes'
-import { usePermissionStore, useUserStore } from '@/store'
+import { usePermissionStore } from '@/store'
 import type { RoutesType, RouteType } from '~/types/router'
 
 const isHash = import.meta.env.VITE_USE_HASH === 'true'
@@ -22,10 +22,8 @@ export async function setupRouter(app: App) {
 
 export async function addDynamicRoutes() {
   try {
-    const userStore = useUserStore()
     const permissionStore = usePermissionStore()
-    !userStore.userId && (await userStore.getUserInfo())
-    const accessRoutes = permissionStore.generateRoutes(userStore.role)
+    const accessRoutes = permissionStore.generateRoutes(['admin'])
     accessRoutes.forEach((route: RouteType) => {
       !router.hasRoute(route.name) && router.addRoute(route)
     })
