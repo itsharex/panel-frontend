@@ -187,7 +187,6 @@ onMounted(() => {
             />
           </n-form-item>
           <n-form-item label="端口">
-            <!-- TODO: 这里会报警告 Invalid prop: type check failed for prop "value". Expected String with value "80", got Number with value 80. 暂时不知道该怎么修 -->
             <n-dynamic-input
               v-model:value="setting.ports"
               placeholder="80"
@@ -222,7 +221,7 @@ onMounted(() => {
             >
             </n-select>
           </n-form-item>
-          <n-form-item label="防跨站攻击">
+          <n-form-item label="防跨站攻击（PHP）">
             <n-switch v-model:value="setting.open_basedir" />
           </n-form-item>
         </n-form>
@@ -294,7 +293,7 @@ onMounted(() => {
             <n-form-item label="总开关（只有打开了总开关，下面的设置才会生效！）">
               <n-switch v-model:value="setting.ssl" />
             </n-form-item>
-            <n-form-item label="HTTPS（SSL） 端口">
+            <n-form-item label="HTTPS（SSL）端口">
               <n-checkbox-group v-model:value="setting.ssl_ports">
                 <n-checkbox
                   v-for="item in setting.ports"
@@ -304,7 +303,7 @@ onMounted(() => {
                 />
               </n-checkbox-group>
             </n-form-item>
-            <n-form-item label="QUIC（HTTP3） 端口">
+            <n-form-item label="QUIC（HTTP3）端口">
               <n-checkbox-group v-model:value="setting.quic_ports">
                 <n-checkbox
                   v-for="item in setting.ports"

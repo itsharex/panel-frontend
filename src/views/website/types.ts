@@ -12,9 +12,9 @@ export interface Website {
 
 export interface WebsiteSetting {
   name: string
-  ports: number[]
-  ssl_ports: number[]
-  quic_ports: number[]
+  ports: string[]
+  ssl_ports: string[]
+  quic_ports: string[]
   domains: string[]
   root: string
   path: string
