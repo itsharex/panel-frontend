@@ -25,11 +25,13 @@ export function resResolve(response: AxiosResponse) {
       if (code == 422) {
         window.$message.error(message)
       } else {
-        window.$dialog.error({
-          title: '请求返回异常',
-          content: message,
-          maskClosable: false
-        })
+        if (code != 401) {
+          window.$dialog.error({
+            title: '请求返回异常',
+            content: message,
+            maskClosable: false
+          })
+        }
       }
     }
 

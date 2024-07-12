@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { useStorage } from '@vueuse/core'
+import { useUserStore } from '@/store'
 import { getLocal, removeLocal, setLocal } from '@/utils'
 import bgImg from '@/assets/images/login_bg.webp'
 import { addDynamicRoutes } from '@/router'
@@ -28,6 +29,7 @@ if (localLoginInfo) {
 
 const loging = ref<boolean>(false)
 const isRemember = useStorage('isRemember', false)
+const userStore = useUserStore()
 
 async function handleLogin() {
   const { username, password } = loginInfo.value
@@ -46,12 +48,13 @@ async function handleLogin() {
       }
 
       await addDynamicRoutes()
+      await userStore.getUserInfo()
       if (query.redirect) {
         const path = query.redirect as string
         Reflect.deleteProperty(query, 'redirect')
-        router.push({ path, query })
+        await router.push({ path, query })
       } else {
-        router.push('/')
+        await router.push('/')
       }
     })
   } catch (error) {
@@ -59,6 +62,23 @@ async function handleLogin() {
   }
   loging.value = false
 }
+
+onMounted(async () => {
+  // 已登录自动跳转
+  await user.isLogin().then(async (res) => {
+    if (res) {
+      await addDynamicRoutes()
+      await userStore.getUserInfo()
+      if (query.redirect) {
+        const path = query.redirect as string
+        Reflect.deleteProperty(query, 'redirect')
+        await router.push({ path, query })
+      } else {
+        await router.push('/')
+      }
+    }
+  })
+})
 </script>
 
 <template>

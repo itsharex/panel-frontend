@@ -10,6 +10,8 @@ export default {
     }),
   // 登出
   logout: (): Promise<AxiosResponse<any>> => request.post('/panel/user/logout'),
+  // 是否登录
+  isLogin: (): Promise<AxiosResponse<any>> => request.get('/panel/user/isLogin'),
   // 获取用户信息
   info: (): Promise<AxiosResponse<any>> => request.get('/panel/user/info')
 }
