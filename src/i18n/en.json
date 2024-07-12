@@ -248,7 +248,7 @@
           "placeholder": "8888"
         },
         "entrance": {
-          "label": "Security entrance (after saving, you need to restart the panel and modify the entrance in the browser address bar to a new entrance to access the panel)",
+          "label": "Security entrance (After saving, restart the panel and clear the browser Cookies to take effect)",
           "placeholder": "admin"
         },
         "https": {

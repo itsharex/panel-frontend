@@ -244,11 +244,11 @@
           "placeholder": "admin{'@'}example.com"
         },
         "port": {
-          "label": "端口（保存后需要重启面板并修改浏览器地址栏的端口为新端口以访问面板)",
+          "label": "端口（保存后需重启面板并修改浏览器地址栏的端口为新端口以访问面板）",
           "placeholder": "8888"
         },
         "entrance": {
-          "label": "安全入口（保存后需要重启面板并修改浏览器地址栏的入口为新入口以访问面板)",
+          "label": "安全入口（保存后需重启面板并清除浏览器 Cookies 方可生效）",
           "placeholder": "admin"
         },
         "https": {
