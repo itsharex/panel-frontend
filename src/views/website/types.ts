@@ -13,7 +13,8 @@ export interface Website {
 export interface WebsiteSetting {
   name: string
   ports: number[]
-  tls_ports: number[]
+  ssl_ports: number[]
+  quic_ports: number[]
   domains: string[]
   root: string
   path: string
@@ -30,6 +31,7 @@ export interface WebsiteSetting {
   ssl_ocsp_server: string[]
   http_redirect: boolean
   hsts: boolean
+  ocsp: boolean
   waf: boolean
   waf_mode: string
   waf_cc_deny: string

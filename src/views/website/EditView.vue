@@ -14,7 +14,8 @@ const { id } = route.params
 const setting = ref<WebsiteSetting>({
   name: '',
   ports: [],
-  tls_ports: [],
+  ssl_ports: [],
+  quic_ports: [],
   domains: [],
   root: '',
   path: '',
@@ -31,6 +32,7 @@ const setting = ref<WebsiteSetting>({
   ssl_ocsp_server: [],
   http_redirect: false,
   hsts: false,
+  ocsp: false,
   waf: false,
   waf_mode: '',
   waf_cc_deny: '',
@@ -292,8 +294,18 @@ onMounted(() => {
             <n-form-item label="总开关（只有打开了总开关，下面的设置才会生效！）">
               <n-switch v-model:value="setting.ssl" />
             </n-form-item>
-            <n-form-item label="端口（为哪些端口开启HTTPS）">
-              <n-checkbox-group v-model:value="setting.tls_ports">
+            <n-form-item label="HTTPS（SSL） 端口">
+              <n-checkbox-group v-model:value="setting.ssl_ports">
+                <n-checkbox
+                  v-for="item in setting.ports"
+                  :key="item"
+                  :value="item"
+                  :label="String(item)"
+                />
+              </n-checkbox-group>
+            </n-form-item>
+            <n-form-item label="QUIC（HTTP3） 端口">
+              <n-checkbox-group v-model:value="setting.quic_ports">
                 <n-checkbox
                   v-for="item in setting.ports"
                   :key="item"
@@ -304,11 +316,14 @@ onMounted(() => {
             </n-form-item>
           </n-form>
           <n-form inline>
-            <n-form-item label="HTTP跳转">
-              <n-switch v-model:value="setting.http_redirect" />
-            </n-form-item>
             <n-form-item label="HSTS">
               <n-switch v-model:value="setting.hsts" />
+            </n-form-item>
+            <n-form-item label="HTTP 跳转">
+              <n-switch v-model:value="setting.http_redirect" />
+            </n-form-item>
+            <n-form-item label="OCSP 装订">
+              <n-switch v-model:value="setting.ocsp" />
             </n-form-item>
           </n-form>
           <n-form>
