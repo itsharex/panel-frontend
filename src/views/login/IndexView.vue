@@ -66,7 +66,7 @@ async function handleLogin() {
 onMounted(async () => {
   // 已登录自动跳转
   await user.isLogin().then(async (res) => {
-    if (res) {
+    if (res.data) {
       await addDynamicRoutes()
       await userStore.getUserInfo()
       if (query.redirect) {
