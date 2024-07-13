@@ -14,7 +14,6 @@ export function reqReject(error: AxiosError) {
 
 /** 响应拦截 */
 export function resResolve(response: AxiosResponse) {
-  // TODO: 处理不同的 response.headers
   const { data, status, config, statusText } = response
   if (status !== 200) {
     const code = data?.code ?? status
@@ -66,11 +65,13 @@ export function resReject(error: AxiosError) {
     if (code == 422) {
       window.$message.error(message)
     } else {
-      window.$dialog.error({
-        title: '请求返回异常',
-        content: message,
-        maskClosable: false
-      })
+      if (code != 401) {
+        window.$dialog.error({
+          title: '请求返回异常',
+          content: message,
+          maskClosable: false
+        })
+      }
     }
   }
 
