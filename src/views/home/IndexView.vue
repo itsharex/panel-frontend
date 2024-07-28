@@ -127,7 +127,7 @@ const toSponsor = () => {
   if (locale.value === 'en') {
     window.open('https://opencollective.com/tnb')
   } else {
-    window.open('https://afdian.net/a/TheTNB')
+    window.open('https://afdian.com/a/TheTNB')
   }
 }
 
